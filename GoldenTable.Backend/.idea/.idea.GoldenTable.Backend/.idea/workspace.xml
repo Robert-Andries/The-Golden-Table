@@ -6,11 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/GoldenTable.Common.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/GoldenTable.Common.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/InfrastructureConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/InfrastructureConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +141,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="9901000" />
+      <workItem from="1770826790235" duration="10259000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -226,7 +223,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770839567679</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updated caching">
+      <option name="closed" value="true" />
+      <created>1770840415388</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1770840415388</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +262,8 @@
     <MESSAGE value="Added dependency injection as a cross cutting concern" />
     <MESSAGE value="Added exception handling" />
     <MESSAGE value="Added validator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added validator" />
+    <MESSAGE value="Updated caching" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated caching" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

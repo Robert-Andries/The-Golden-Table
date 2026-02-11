@@ -24,7 +24,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
 
 builder.Services.AddHealthChecks()
-    .AddNpgSql(databaseConnectionString);
+    .AddNpgSql(databaseConnectionString)
+    .AddRedis(cacheConnectionString);
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
