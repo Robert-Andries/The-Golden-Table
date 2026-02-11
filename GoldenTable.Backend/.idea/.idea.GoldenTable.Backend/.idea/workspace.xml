@@ -9,7 +9,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.sln" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +122,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="3240000" />
+      <workItem from="1770826790235" duration="3928000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -155,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770830325463</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixed swaagger">
+      <option name="closed" value="true" />
+      <created>1770830843056</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1770830843056</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +189,8 @@
     <MESSAGE value="Added api template, enrich it with serilog and added migration functionality" />
     <MESSAGE value="Added global exception handler" />
     <MESSAGE value="Added log tracing with details" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added log tracing with details" />
+    <MESSAGE value="Fixed swaagger" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed swaagger" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
