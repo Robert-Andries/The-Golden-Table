@@ -6,8 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Exceptions/ExceptionHandlingPipelineBehavior.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Exceptions/GoldenTableException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Behaviors/ValidationPipelineBehavior.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" afterDir="false" />
     </list>
@@ -56,6 +55,7 @@
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/LogContextTraceLoggingMiddleware.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/MiddlewareExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Behaviors/ValidationPipelineBehavior.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Caching/ICacheService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Clock/IDateTimeProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Data/IDbConnectionFactory.cs" root0="FORCE_HIGHLIGHTING" />
@@ -140,7 +140,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="8531000" />
+      <workItem from="1770826790235" duration="9288000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -206,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770837990766</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added exception handling">
+      <option name="closed" value="true" />
+      <created>1770839072616</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1770839072616</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +243,8 @@
     <MESSAGE value="Added database health check" />
     <MESSAGE value="Added domain" />
     <MESSAGE value="Added dependency injection as a cross cutting concern" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added dependency injection as a cross cutting concern" />
+    <MESSAGE value="Added exception handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added exception handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
