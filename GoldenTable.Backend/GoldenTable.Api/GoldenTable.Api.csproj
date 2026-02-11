@@ -9,4 +9,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
+    <ProjectReference Include="..\GoldenTable.Common.Infrastructure\GoldenTable.Common.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

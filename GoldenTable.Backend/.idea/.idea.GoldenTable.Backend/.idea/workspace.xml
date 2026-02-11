@@ -6,13 +6,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Domain/DomainEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Domain/Error.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Domain/ErrorType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Domain/IDomainEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Domain/Result.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Caching/ICacheService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Clock/IDateTimeProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Data/IDbConnectionFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/DomainEventHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/ICommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/ICommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/IDomainEventHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/IQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/IQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Clock/DateTimeProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.sln" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,13 +65,22 @@
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/GlobalExceptionHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/LogContextTraceLoggingMiddleware.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/MiddlewareExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Class1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Caching/ICacheService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Clock/IDateTimeProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Data/IDbConnectionFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/DomainEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/ICommand.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/ICommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/IDomainEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/IQuery.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Application/Messaging/IQueryHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/DomainEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/Error.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/ErrorType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/IDomainEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/Result.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Class1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/ValidationError.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Class1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5af9fc9e4e9656f37613efe36625f832168e8333f86d484aaca47099ae6238/Debugger.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -132,7 +148,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="4960000" />
+      <workItem from="1770826790235" duration="7546000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -182,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770831585496</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added domain">
+      <option name="closed" value="true" />
+      <created>1770832515988</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1770832515988</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +233,8 @@
     <MESSAGE value="Added log tracing with details" />
     <MESSAGE value="Fixed swaagger" />
     <MESSAGE value="Added database health check" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added database health check" />
+    <MESSAGE value="Added domain" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added domain" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

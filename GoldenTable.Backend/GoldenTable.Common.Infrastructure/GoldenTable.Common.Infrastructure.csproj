@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
+    <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="10.0.0" />
+  </ItemGroup>
+</Project>

@@ -1,5 +1,7 @@
 using GoldenTable.Api.Extensions;
 using GoldenTable.Api.Middleware;
+using GoldenTable.Common.Application;
+using GoldenTable.Common.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
@@ -13,6 +15,12 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// TODO
+// To be added when adding module
+// builder.Services.AddApplication([]);
+
+builder.Services.AddInfrastructure(databaseConnectionString);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString);
