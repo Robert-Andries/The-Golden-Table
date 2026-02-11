@@ -5,13 +5,7 @@
     <projectFile profileName="https">GoldenTable.Api/GoldenTable.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Api/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.sln" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.sln" afterDir="false" />
-    </list>
+    <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,12 +22,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Robert-Andries&quot;
-  }
-}</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {}
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Robert-Andries/The-Golden-Table.git&quot;,
@@ -102,7 +93,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "feat/add-docker",
+    "git-widget-placeholder": "#5 on feat/add-docker",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -283,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770840589517</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added docker files and orchestration">
+      <option name="closed" value="true" />
+      <created>1770842292072</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1770842292072</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,7 +315,8 @@
     <MESSAGE value="Added validator" />
     <MESSAGE value="Updated caching" />
     <MESSAGE value="Updated health checks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated health checks" />
+    <MESSAGE value="Added docker files and orchestration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added docker files and orchestration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
