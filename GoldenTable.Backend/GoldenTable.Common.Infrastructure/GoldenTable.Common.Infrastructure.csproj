@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
+    <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="11.0.0-preview.1.26104.118" />
+    <PackageReference Include="Npgsql" Version="10.0.0" />
+  </ItemGroup>
+</Project>
