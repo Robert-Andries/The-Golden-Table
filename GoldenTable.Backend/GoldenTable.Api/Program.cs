@@ -43,6 +43,9 @@ app.MapHealthChecks("health", new HealthCheckOptions
 
 app.UseLogContextTraceLogging();
 app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.Run();

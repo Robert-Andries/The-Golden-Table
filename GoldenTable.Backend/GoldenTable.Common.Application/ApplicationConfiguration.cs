@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using FluentValidation;
+using GoldenTable.Common.Application.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GoldenTable.Common.Application;
@@ -11,6 +12,7 @@ public static class ApplicationConfiguration
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblies(moduleAssemblies);
+            config.AddOpenBehavior(typeof(ExceptionHandlingPipelineBehavior<,>));
         });
         services.AddValidatorsFromAssemblies(moduleAssemblies, includeInternalTypes:true);
         return services;
