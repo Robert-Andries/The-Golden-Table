@@ -20,6 +20,8 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
+app.UseLogContextTraceLogging();
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.Run();
