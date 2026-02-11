@@ -1,0 +1,29 @@
+﻿services:
+  goldentable.api:
+    image: goldentable.api
+    container_name: GoldenTable.Api
+    build:
+      context: .
+      dockerfile: GoldenTable.Api/Dockerfile
+    ports:
+      - 5000:8080
+      - 5001:8081
+    
+  goldentable.database:
+    image: postgres:latest
+    container_name: GoldenTable.Database
+    environment:
+      - POSTGRES_DB=goldentable
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
+    
+  evently.redis:
+    image: redis:latest
+    container_name: GoldenTable.Redis
+    restart: always
+    ports:
+      - 6379:6379
