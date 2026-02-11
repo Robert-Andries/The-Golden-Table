@@ -6,14 +6,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Api/Middleware/LogContextTraceLoggingMiddleware.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Api/Middleware/MiddlewareExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.sln" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -51,6 +55,7 @@
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/GlobalExceptionHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/LogContextTraceLoggingMiddleware.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Api/Middleware/MiddlewareExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5af9fc9e4e9656f37613efe36625f832168e8333f86d484aaca47099ae6238/Debugger.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
@@ -67,6 +72,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Launch Settings Profile.GoldenTable.Api: https.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -74,7 +80,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.GoldenTable.Api: http">
+  <component name="RunManager" selected=".NET Launch Settings Profile.GoldenTable.Api: https">
     <configuration name="GoldenTable.Api: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net10.0" />
@@ -115,7 +121,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="2780000" />
+      <workItem from="1770826790235" duration="3240000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -141,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770829923058</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added log tracing with details">
+      <option name="closed" value="true" />
+      <created>1770830325463</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1770830325463</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +179,8 @@
     <MESSAGE value="Renamed solution not to include &quot;backend&quot;" />
     <MESSAGE value="Added api template, enrich it with serilog and added migration functionality" />
     <MESSAGE value="Added global exception handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added global exception handler" />
+    <MESSAGE value="Added log tracing with details" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added log tracing with details" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
