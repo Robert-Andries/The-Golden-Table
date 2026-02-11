@@ -1,6 +1,6 @@
 using GoldenTable.Api.Extensions;
 using GoldenTable.Api.Middleware;
-using GoldenTable.Common.Application;
+using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -49,5 +49,7 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
+
+app.MapEndpoints();
 
 app.Run();

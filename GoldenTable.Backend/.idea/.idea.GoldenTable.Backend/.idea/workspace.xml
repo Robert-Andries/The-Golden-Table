@@ -6,8 +6,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/GoldenTable.Api.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Presentation/Endpoints/EndpointExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Presentation/Endpoints/IEndpoint.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Presentation/Results/ApiResults.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Presentation/Results/ResultExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Presentation/Class1.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Presentation/GoldenTable.Common.Presentation.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Presentation/GoldenTable.Common.Presentation.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +80,10 @@
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Data/DbConnectionFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Class1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Endpoints/EndpointExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Endpoints/IEndpoint.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Results/ApiResults.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Results/ResultExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5af9fc9e4e9656f37613efe36625f832168e8333f86d484aaca47099ae6238/Debugger.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -141,7 +150,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="10259000" />
+      <workItem from="1770826790235" duration="11553000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -231,7 +240,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770840415388</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated health checks">
+      <option name="closed" value="true" />
+      <created>1770840589517</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1770840589517</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,7 +280,8 @@
     <MESSAGE value="Added exception handling" />
     <MESSAGE value="Added validator" />
     <MESSAGE value="Updated caching" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated caching" />
+    <MESSAGE value="Updated health checks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated health checks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

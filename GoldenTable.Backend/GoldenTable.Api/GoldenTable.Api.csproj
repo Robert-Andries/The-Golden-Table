@@ -13,5 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
     <ProjectReference Include="..\GoldenTable.Common.Infrastructure\GoldenTable.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\GoldenTable.Common.Presentation\GoldenTable.Common.Presentation.csproj" />
   </ItemGroup>
 </Project>
