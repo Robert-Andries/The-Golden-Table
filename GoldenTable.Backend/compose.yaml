@@ -6,8 +6,8 @@
       context: .
       dockerfile: GoldenTable.Api/Dockerfile
     ports:
-      - 5000:8080
-      - 5001:8081
+      - "5000:8080"
+      - "5001:8081"
     
   goldentable.database:
     image: postgres:latest
@@ -19,11 +19,11 @@
     volumes:
       - ./.containers/db:/var/lib/postgresql/data
     ports:
-        - 5432:5432
+        - "5432:5432"
     
   evently.redis:
     image: redis:latest
     container_name: GoldenTable.Redis
     restart: always
     ports:
-      - 6379:6379
+      - "6379:6379"
