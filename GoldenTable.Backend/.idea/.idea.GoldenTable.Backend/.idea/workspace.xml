@@ -6,9 +6,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8b775cf-cb96-4add-b3f7-220a027bf6ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/Behaviors/ValidationPipelineBehavior.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldenTable.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Application/ApplicationConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/GoldenTable.Common.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/GoldenTable.Common.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/InfrastructureConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoldenTable.Common.Infrastructure/InfrastructureConfiguration.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +74,8 @@
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/IDomainEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/Result.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Domain/ValidationError.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheOptions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Caching/CacheService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Infrastructure/Data/DbConnectionFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GoldenTable.Common.Presentation/Class1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5af9fc9e4e9656f37613efe36625f832168e8333f86d484aaca47099ae6238/Debugger.cs" root0="FORCE_HIGHLIGHTING" />
@@ -140,7 +144,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1770826788908</updated>
-      <workItem from="1770826790235" duration="9288000" />
+      <workItem from="1770826790235" duration="9901000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed solution not to include &quot;backend&quot;">
       <option name="closed" value="true" />
@@ -214,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770839072616</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added validator">
+      <option name="closed" value="true" />
+      <created>1770839567679</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1770839567679</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,7 +256,8 @@
     <MESSAGE value="Added domain" />
     <MESSAGE value="Added dependency injection as a cross cutting concern" />
     <MESSAGE value="Added exception handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added exception handling" />
+    <MESSAGE value="Added validator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added validator" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
