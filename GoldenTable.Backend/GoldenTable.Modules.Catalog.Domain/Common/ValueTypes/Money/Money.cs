@@ -25,4 +25,24 @@ public sealed record Money
         
         return money;
     }
+
+    public Result Add(Money other)
+    {
+        if (Currency != other.Currency)
+        {
+            return MoneyErrors.CurrencyDiffer;
+        }
+        Amount += other.Amount;
+        return Result.Success();
+    }
+    
+    public Result Subtract(Money other)
+    {
+        if (Currency != other.Currency)
+        {
+            return MoneyErrors.CurrencyDiffer;
+        }
+        Amount -= other.Amount;
+        return Result.Success();
+    }
 }
