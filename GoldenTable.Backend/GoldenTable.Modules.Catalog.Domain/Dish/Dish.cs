@@ -1,10 +1,10 @@
-﻿using System.Drawing;
-using GoldenTable.Common.Domain;
+﻿using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dish.Enums;
 using GoldenTable.Modules.Catalog.Domain.Dish.Events;
 using GoldenTable.Modules.Catalog.Domain.Dish.ValueObject;
+using GoldenTable.Modules.Catalog.Domain.Dish.ValueObject.NutritionalValues;
 
 namespace GoldenTable.Modules.Catalog.Domain.Dish;
 
@@ -17,13 +17,13 @@ public sealed class Dish : Entity
     public DateTime CreatedOnUtc { get; private set; }
     public DateTime ModifiedOnUtc { get; private set; }
     public Money BasePrice { get; private set; }
-    public List<Size> Sizes { get; private init; }
+    public List<DishSize> Sizes { get; private init; }
     public NutritionalValues NutritionalInformation { get; private set; }
     public List<Guid> ImagesIds { get; private init; }
     public DishCategory Category { get; private set; }
     public List<DishTag> Tags { get; private init; }
     
-    public static Result<Dish> Create(string name, string description, Money basePrice, List<Size> sizes,
+    public static Result<Dish> Create(string name, string description, Money basePrice, List<DishSize> sizes,
         NutritionalValues nutritionalInformation, List<Guid> imagesIds, DishCategory category, List<DishTag> tags,
         DateTime nowUtc)
 
@@ -96,7 +96,7 @@ public sealed class Dish : Entity
         return Result.Success();
     }
 
-    public Result AddSize(Size size, DateTime nowUtc)
+    public Result AddSize(DishSize size, DateTime nowUtc)
     {
         if (Sizes.Contains(size))
         {
@@ -109,7 +109,7 @@ public sealed class Dish : Entity
         return Result.Success();
     }
     
-    public Result RemoveSize(Size size, DateTime nowUtc)
+    public Result RemoveSize(DishSize size, DateTime nowUtc)
     {
         if (!Sizes.Contains(size))
         {

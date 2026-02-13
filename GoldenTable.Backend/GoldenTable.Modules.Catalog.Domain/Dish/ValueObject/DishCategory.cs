@@ -1,6 +1,3 @@
 ﻿namespace GoldenTable.Modules.Catalog.Domain.Dish.ValueObject;
 
-public class NutritionalValues
-{
-    
-}
+public sealed record DishCategory(string name);
