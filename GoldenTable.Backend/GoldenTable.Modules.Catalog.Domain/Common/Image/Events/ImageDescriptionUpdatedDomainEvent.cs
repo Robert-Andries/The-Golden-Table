@@ -1,5 +1,5 @@
 ﻿using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.Image.ValueTypes;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Domain.Common.Image.Events;
 

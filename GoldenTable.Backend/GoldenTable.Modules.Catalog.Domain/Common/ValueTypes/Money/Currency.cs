@@ -1,4 +1,4 @@
-﻿namespace GoldenTable.Modules.Catalog.Domain.Common.Money;
+﻿namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 
 public record Currency
 {

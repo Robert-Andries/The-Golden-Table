@@ -1,6 +1,6 @@
 ﻿using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Events;
-using GoldenTable.Modules.Catalog.Domain.Common.Image.ValueTypes;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Domain.Common.Image;
 
@@ -9,8 +9,6 @@ public sealed class Image : Entity
     private Image()
     {
     }
-
-    public Guid Id { get; private set; }
     public Uri Uri { get; private set; }
     public Name Name { get; private set; }
     public Description Description { get; private set; }
