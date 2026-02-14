@@ -6,4 +6,17 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
+      <ProjectReference Include="..\GoldenTable.Modules.Catalog.Domain\GoldenTable.Modules.Catalog.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
+    </ItemGroup>
+
 </Project>

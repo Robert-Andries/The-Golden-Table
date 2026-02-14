@@ -22,6 +22,11 @@ public record Error
 
     public ErrorType Type { get; }
 
+    public override string ToString()
+    {
+        return $"{Code}: {Description}; Type: {Type}";
+    }
+
     public static Error Failure(string code, string description) =>
         new(code, description, ErrorType.Failure);
 
