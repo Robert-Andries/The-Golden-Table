@@ -43,7 +43,7 @@ public sealed class RemoveImageCommandHandler(
         
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        await cacheService.UpdateAsync(dish, cancellationToken);
+        await cacheService.CreateOrUpdateAsync(dish, cancellationToken);
 
         return Result.Success();
     }

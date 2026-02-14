@@ -24,7 +24,7 @@ public sealed class AddImageCommandHandler(
     {
         cancellationToken.ThrowIfCancellationRequested();
         
-        bool existImage =  await imageCacheService.ExistsImageAsync(request.ImageId) || 
+        bool existImage =  await imageCacheService.ExistsAsync(request.ImageId, cancellationToken) || 
                            await imageRepository.GetAsync(request.ImageId, cancellationToken) != null;
         if (!existImage)
         {
@@ -44,7 +44,7 @@ public sealed class AddImageCommandHandler(
         
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await dishCacheService.UpdateAsync(dish, cancellationToken);
+        await dishCacheService.CreateOrUpdateAsync(dish, cancellationToken);
         
         return Result.Success();
     }

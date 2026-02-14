@@ -3,6 +3,7 @@
 public interface IDishCacheService
 {
     Task<Dish?> GetAsync(Guid dishId, CancellationToken cancellationToken = default);
-    Task UpdateAsync(Dish dish, CancellationToken cancellationToken = default);
+    Task CrateAsync(Dish dish, CancellationToken cancellationToken = default);
+    Task CreateOrUpdateAsync(Dish dish, CancellationToken cancellationToken = default);
     Task<List<Dish>?> GetAllAsync(CancellationToken cancellationToken = default);
 }

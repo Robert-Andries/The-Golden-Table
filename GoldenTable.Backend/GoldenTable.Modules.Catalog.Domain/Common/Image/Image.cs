@@ -11,11 +11,11 @@ public sealed class Image : Entity
     }
     public Uri Uri { get; private set; }
     public Name Name { get; private set; }
-    public Description Description { get; private set; }
+    public Description? Description { get; private set; }
 
-    public static Result<Image> Create(DateTime createdOnUtc, Uri uri, string name, string? description = null)
+    public static Result<Image> Create(DateTime createdOnUtc, Uri uri, Name name, Description? description = null)
     {
-        if (string.IsNullOrEmpty(name))
+        if (!name.IsValid())
         {
             return Result.Failure<Image>(ImageErrors.InvalidName);
         }
@@ -29,8 +29,8 @@ public sealed class Image : Entity
         {
             Id = Guid.NewGuid(),
             Uri = uri,
-            Name = new(name),
-            Description = new(description)
+            Name = name,
+            Description = description
         };
 
         image.Raise(new ImageCreatedDomainEvent(Guid.NewGuid(), image.Id, createdOnUtc));
@@ -38,21 +38,21 @@ public sealed class Image : Entity
         return image;
     }
 
-    public Result Rename(string name, DateTime nowUtc)
+    public Result Rename(Name name, DateTime nowUtc)
     {
-        if (string.IsNullOrEmpty(name))
+        if (!name.IsValid())
         {
             return ImageErrors.InvalidName;
         }
 
-        Name = new(name);
+        Name = name;
         Raise(new ImageRenamedDomainEvent(Guid.NewGuid(), Id, Name, nowUtc));
         return Result.Success();
     }
 
-    public Result UpdateDescription(string? description, DateTime nowUtc)
+    public Result UpdateDescription(Description description, DateTime nowUtc)
     {
-        Description = new(description);
+        Description = description;
         Raise(new ImageDescriptionUpdatedDomainEvent(Guid.NewGuid(), Id, Description, nowUtc));
         return Result.Success();
     }

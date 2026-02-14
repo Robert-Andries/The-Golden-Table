@@ -39,7 +39,7 @@ public sealed class AddTagsCommandHandler(
         
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await dishCacheService.UpdateAsync(dish, cancellationToken);
+        await dishCacheService.CreateOrUpdateAsync(dish, cancellationToken);
 
         return Result.Success();
     }

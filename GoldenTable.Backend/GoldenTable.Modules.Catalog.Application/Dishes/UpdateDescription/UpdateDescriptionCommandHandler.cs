@@ -39,7 +39,7 @@ public sealed class UpdateDescriptionCommandHandler(
 
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await cacheService.UpdateAsync(dish, cancellationToken);
+        await cacheService.CreateOrUpdateAsync(dish, cancellationToken);
         
         return Result.Success();
     }

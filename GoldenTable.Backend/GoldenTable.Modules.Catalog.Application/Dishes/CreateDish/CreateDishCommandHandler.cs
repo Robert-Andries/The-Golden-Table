@@ -40,7 +40,7 @@ public sealed class CreateDishCommandHandler(
         
         await dishRepository.AddAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await dishCacheService.UpdateAsync(dish, cancellationToken);
+        await dishCacheService.CrateAsync(dish, cancellationToken);
         
         logger.LogInformation("Dish created successfully");
         return Result.Success(dish);
