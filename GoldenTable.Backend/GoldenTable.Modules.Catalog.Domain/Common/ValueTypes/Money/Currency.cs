@@ -1,4 +1,7 @@
-﻿namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+﻿using System.IO.Pipes;
+using GoldenTable.Common.Domain;
+
+namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 
 public record Currency
 {
@@ -12,9 +15,19 @@ public record Currency
         }
     }
 
+    public static Result<Currency> FromCode(string code)
+    {
+        return code switch
+        {
+            "EUR" => (Result<Currency>)EUR,
+            "RON" => (Result<Currency>)RON,
+            "USD" => (Result<Currency>)USD,
+            _ => Result.Failure<Currency>(MoneyErrors.InvalidCurrency),
+        };
+    }
+
     public string Code { get; private set; }
     public string Name { get; set; }
-
     public string Symbol { get; }
 
     public static Currency EUR { get; } = new("EUR", "EURO", "€");

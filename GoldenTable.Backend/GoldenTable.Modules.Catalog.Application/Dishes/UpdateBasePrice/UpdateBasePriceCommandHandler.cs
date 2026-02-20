@@ -4,6 +4,7 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Dishes.RemoveSize;
 using GoldenTable.Modules.Catalog.Application.Dishes.Rename;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,14 @@ public sealed class UpdateBasePriceCommandHandler(
             return DishErrors.NotFound;
         }
 
-        Result result = dish.UpdateBasePrice(request.NewBasePrice, dateTimeProvider.UtcNow);
+        Result<Money> moneyResult = Money.Create(request.NewBasePrice, dish.BasePrice.Currency);
+        if (moneyResult.IsFailure)
+        {
+            logger.LogInformation("There was an error trying to create money object: {Error}", moneyResult.Error);
+        }
+        Money money = moneyResult.Value;
+        
+        Result result = dish.UpdateBasePrice(money, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             logger.LogInformation("Cannot update base price for dish with id: {DishId}. Error: {Error}",

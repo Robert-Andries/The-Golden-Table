@@ -10,7 +10,7 @@ public sealed record Money
     public decimal Amount { get; private set; }
     public Currency Currency { get; private set; }
 
-    public Result<Money> Create(decimal amount, Currency currency)
+    public static Result<Money> Create(decimal amount, Currency currency)
     {
         if (amount < 0)
         {
@@ -24,6 +24,16 @@ public sealed record Money
         };
         
         return money;
+    }
+    
+    public static Result<Money> Create(decimal amount, string currency)
+    {
+        Result<Currency> currencyResult = Currency.FromCode(currency);
+        if (currencyResult.IsFailure)
+        {
+            return Result.Failure<Money>(currencyResult.Error);
+        }
+        return Create(amount, currencyResult.Value);
     }
 
     public Result Add(Money other)

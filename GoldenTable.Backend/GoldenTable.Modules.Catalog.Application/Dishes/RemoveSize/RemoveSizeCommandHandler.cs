@@ -29,11 +29,11 @@ public sealed class RemoveSizeCommandHandler(
             return DishErrors.NotFound;
         }
 
-        Result result = dish.RemoveSize(request.Size, dateTimeProvider.UtcNow);
+        Result result = dish.RemoveSize(request.SizeName, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             logger.LogInformation("Cannot remove Size: {Size} from dish with id: {DishId}. Error: {Error}",
-                request.Size, request.DishId, result.Error);
+                request.SizeName, request.DishId, result.Error);
             return result.Error;
         }
 

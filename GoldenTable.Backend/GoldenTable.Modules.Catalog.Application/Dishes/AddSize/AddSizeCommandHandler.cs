@@ -4,6 +4,7 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
+using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.AddSize;
@@ -28,7 +29,9 @@ public sealed class AddSizeCommandHandler(
             return DishErrors.NotFound;
         }
         
-        Result result = dish.AddSize(request.dishSize, dateTimeProvider.UtcNow);
+        DishSize size = new(request.SizeName, request.SizePriceAdded, request.SizeWeight);
+        
+        Result result = dish.AddSize(size, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             logger.LogInformation("Could not add size to dish with id: {DishId}. Error: {Error}", request.DishId, result.Error);

@@ -23,17 +23,17 @@ public sealed class Dish : Entity
     public DishCategory Category { get; private set; }
     public List<DishTag> Tags { get; private init; }
     
-    public static Result<Dish> Create(string name, string description, Money basePrice, List<DishSize> sizes,
+    public static Result<Dish> Create(Name name, Description description, Money basePrice, List<DishSize> sizes,
         NutritionalValues nutritionalInformation, List<Guid> imagesIds, DishCategory category, List<DishTag> tags,
         DateTime nowUtc)
 
     {
-        if (string.IsNullOrEmpty(name))
+        if (!name.IsValid())
         {
             return Result.Failure<Dish>(DishErrors.InvalidName);
         }
 
-        if (string.IsNullOrEmpty(description))
+        if (string.IsNullOrEmpty(description.Value))
         {
             return Result.Failure<Dish>(DishErrors.InvalidDescription);
         }
@@ -41,8 +41,8 @@ public sealed class Dish : Entity
         var dish = new Dish
         {
             Id = Guid.NewGuid(), 
-            Name = new(name),
-            Description = new(description),
+            Name = name,
+            Description = description,
             CreatedOnUtc = nowUtc,
             ModifiedOnUtc = nowUtc,
             BasePrice = basePrice,
@@ -109,13 +109,13 @@ public sealed class Dish : Entity
         return Result.Success();
     }
     
-    public Result RemoveSize(DishSize size, DateTime nowUtc)
+    public Result RemoveSize(string sizeName, DateTime nowUtc)
     {
-        if (!Sizes.Contains(size))
+        if (Sizes.Any(d => d.Name == sizeName))
         {
             return DishErrors.SizeDoesNotExist;
         }
-
+        DishSize size = Sizes.Find(d => d.Name == sizeName)!;
         Sizes.Remove(size);
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedSizeDomainEvent(Id, nowUtc));
