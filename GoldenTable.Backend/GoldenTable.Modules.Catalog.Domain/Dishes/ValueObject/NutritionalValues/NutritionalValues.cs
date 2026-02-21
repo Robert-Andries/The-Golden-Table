@@ -2,13 +2,17 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
-public sealed record NutritionalValues(
-    Energy Energy,
-    float GramsOfFat,
-    Carbohydrates GramsOfCarbohydrates,
-    float GramsOfProtein,
-    float GramsOfSalt)
+public sealed record NutritionalValues
 {
+    private NutritionalValues()
+    { } 
+
+    public Energy Energy { get; init; }
+    public float GramsOfFat { get; init; }
+    public Carbohydrates GramsOfCarbohydrates { get; init; }
+    public float GramsOfProtein { get; init; }
+    public float GramsOfSalt { get; init; }
+    
     public static Result<NutritionalValues> Create(
         float kcal,
         float gramsOfFat,
@@ -26,12 +30,14 @@ public sealed record NutritionalValues(
             return Result.Failure<NutritionalValues>(carbohydratesResult.Error);
         }
         Carbohydrates carbohydrates = carbohydratesResult.Value;
-        
-        return new NutritionalValues(
-            energy,
-            gramsOfFat,
-            carbohydrates,
-            gramsOfProtein,
-            gramsOfSalt);
+
+        return new NutritionalValues
+        {
+            Energy = energy,
+            GramsOfFat = gramsOfFat,
+            GramsOfCarbohydrates = carbohydrates,
+            GramsOfProtein = gramsOfProtein,
+            GramsOfSalt = gramsOfSalt
+        };
     }
 }

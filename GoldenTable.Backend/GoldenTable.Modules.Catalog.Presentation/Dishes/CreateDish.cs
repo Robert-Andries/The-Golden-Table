@@ -30,7 +30,6 @@ internal sealed class CreateDish : IEndpoint
                     request.NutritionalInformation.GramsOfSugar,
                     request.NutritionalInformation.GramsOfProtein,
                     request.NutritionalInformation.GramsOfSalt,
-                    request.ImageIds,
                     request.DishCategory,
                     request.DishTags));
 

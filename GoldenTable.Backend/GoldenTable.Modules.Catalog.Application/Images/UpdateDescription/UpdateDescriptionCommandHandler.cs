@@ -37,7 +37,7 @@ public sealed partial class UpdateDescriptionCommandHandler(
         
         await imageRepository.UpdateAsync(image, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await imageCacheService.CreateOrUpdate(image, cancellationToken);
+        await imageCacheService.UpdateAsync(image, cancellationToken);
 
         return Result.Success();
     }

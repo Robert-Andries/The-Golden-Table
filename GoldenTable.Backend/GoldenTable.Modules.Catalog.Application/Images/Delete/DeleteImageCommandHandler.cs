@@ -18,14 +18,14 @@ public sealed partial class DeleteImageCommandHandler(
     {
         cancellationToken.ThrowIfCancellationRequested();
         
-        bool existImage = await imageRepository.GetAsync(request.ImageId, cancellationToken) is not null;
-        if (!existImage)
+        Image? image = await imageRepository.GetAsync(request.ImageId, cancellationToken);
+        if (image is null)
         {
             ImagesLogs.ImageNotFound(logger, request.ImageId);
             return ImageErrors.NotFound;
         }
 
-        await imageRepository.DeleteAsync(request.ImageId, cancellationToken);
+        imageRepository.Remove(image, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await imageCacheService.DeleteAsync(request.ImageId, cancellationToken);
 

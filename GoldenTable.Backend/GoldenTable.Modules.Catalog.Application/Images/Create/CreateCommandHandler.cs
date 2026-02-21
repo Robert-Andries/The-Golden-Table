@@ -33,7 +33,7 @@ public sealed partial class CreateCommandHandler(
 
         await imageRepository.AddAsync(imageResult.Value, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await imageCacheService.CreateAsync(imageResult.Value, cancellationToken);
+        await imageCacheService.UpdateAsync(imageResult.Value, cancellationToken);
 
         return Result.Success();
     }

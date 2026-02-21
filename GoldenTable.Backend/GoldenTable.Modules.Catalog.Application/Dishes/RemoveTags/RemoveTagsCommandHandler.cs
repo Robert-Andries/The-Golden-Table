@@ -38,7 +38,7 @@ public sealed partial class RemoveTagsCommandHandler(
 
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await cacheService.CreateOrUpdateAsync(dish, cancellationToken);
+        await cacheService.UpdateAsync(dish, cancellationToken);
         
         return Result.Success();
     }

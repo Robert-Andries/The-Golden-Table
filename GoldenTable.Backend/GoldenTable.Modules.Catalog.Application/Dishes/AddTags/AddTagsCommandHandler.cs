@@ -38,7 +38,7 @@ public sealed partial class AddTagsCommandHandler(
         
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await dishCacheService.CreateOrUpdateAsync(dish, cancellationToken);
+        await dishCacheService.UpdateAsync(dish, cancellationToken);
 
         return Result.Success();
     }

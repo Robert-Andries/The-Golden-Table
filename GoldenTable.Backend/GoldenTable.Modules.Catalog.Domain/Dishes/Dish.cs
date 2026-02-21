@@ -1,4 +1,5 @@
 ﻿using GoldenTable.Common.Domain;
+using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Enums;
@@ -19,12 +20,12 @@ public sealed class Dish : Entity
     public Money BasePrice { get; private set; }
     public List<DishSize> Sizes { get; private init; }
     public NutritionalValues NutritionalInformation { get; private set; }
-    public List<Guid> ImagesIds { get; private init; }
+    public List<Image> Images { get; private init; }
     public DishCategory Category { get; private set; }
     public List<DishTag> Tags { get; private init; }
     
     public static Result<Dish> Create(Name name, Description description, Money basePrice, List<DishSize> sizes,
-        NutritionalValues nutritionalInformation, List<Guid> imagesIds, DishCategory category, List<DishTag> tags,
+        NutritionalValues nutritionalInformation, DishCategory category, List<DishTag> tags,
         DateTime nowUtc)
 
     {
@@ -48,7 +49,6 @@ public sealed class Dish : Entity
             BasePrice = basePrice,
             Sizes = sizes,
             NutritionalInformation = nutritionalInformation,
-            ImagesIds = imagesIds,
             Category = category,
             Tags = tags
         };
@@ -135,24 +135,24 @@ public sealed class Dish : Entity
         return Result.Success();
     }
 
-    public Result AddImage(Guid imageId, DateTime nowUtc)
+    public Result AddImage(Image image, DateTime nowUtc)
     {
-        if (ImagesIds.Contains(imageId))
+        if (Images.Any(i => i.Id == image.Id))
         {
             return DishErrors.ImageAlreadyPresent;
         }
-        ImagesIds.Add(imageId);
+        Images.Add(image);
         Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     public Result RemoveImage(Guid imageId, DateTime nowUtc)
     {
-        if (!ImagesIds.Contains(imageId))
+        if (Images.TrueForAll(i => i.Id != imageId))
         {
             return DishErrors.ImageNotPresent;
         }
-        ImagesIds.Remove(imageId);
+        Images.RemoveAll( i => i.Id == imageId);
         Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
         return Result.Success();
     }

@@ -1,7 +1,10 @@
+using System.Data.Common;
 using GoldenTable.Api.Extensions;
 using GoldenTable.Api.Middleware;
+using GoldenTable.Common.Application;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Infrastructure;
+using GoldenTable.Modules.Catalog.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
@@ -17,9 +20,8 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// TODO
-// To be added when adding module
-// builder.Services.AddApplication([]);
+builder.Services.AddApplication([GoldenTable.Modules.Catalog.Application.AssemblyReference.Assembly]);
+builder.Services.AddCatalogModule(builder.Configuration);
 
 builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
 

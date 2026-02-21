@@ -40,7 +40,7 @@ public sealed partial class AddSizeCommandHandler(
         
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await dishCacheService.CreateOrUpdateAsync(dish, cancellationToken);
+        await dishCacheService.UpdateAsync(dish, cancellationToken);
 
         return Result.Success();
     }

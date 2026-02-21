@@ -52,7 +52,6 @@ public sealed partial class CreateDishCommandHandler(
             basePrice,
             request.Sizes,
             nutritionalInformation,
-            request.ImageIds,
             dishCategory,
             request.Tags,
             dateTimeProvider.UtcNow);
@@ -67,7 +66,7 @@ public sealed partial class CreateDishCommandHandler(
         
         await dishRepository.AddAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        await dishCacheService.CrateAsync(dish, cancellationToken);
+        await dishCacheService.UpdateAsync(dish, cancellationToken);
         
         DishLogs.DishCreatedSuccessfully(logger, dish.Id);
         return Result.Success(dish);

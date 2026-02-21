@@ -40,4 +40,7 @@ public static class DishErrors
 
     public static Error NotFound { get; } = new("DishErrors.NotFound",
         "The dish with the provided id not found.", ErrorType.NotFound);
+
+    public static Error InvalidValueForTag { get; } = new("DishErrors.InvalidValueForTag",
+        "The provided value for tag is invalid.", ErrorType.Validation);
 }
