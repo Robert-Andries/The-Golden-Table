@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.GetImageById;
 
-public sealed class GetImageByIdQueryHandler(
+public sealed partial class GetImageByIdQueryHandler(
     IImageRepository imageRepository,
     IImageCacheService imageCacheService,
     ILogger<GetImageByIdQueryHandler> logger) 
@@ -20,10 +20,12 @@ public sealed class GetImageByIdQueryHandler(
                        await imageRepository.GetAsync(request.ImageId, cancellationToken);
         if (image is null)
         {
-            logger.LogInformation("Image with id: {ImageId} not found", request.ImageId);
+            ImagesLogs.ImageNotFound(logger, request.ImageId);
             return Result.Failure<Image>(ImageErrors.NotFound);
         }
         
         return Result.Success(image);
     }
+
+
 }

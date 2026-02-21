@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.UpdateDescription;
 
-public sealed class UpdateDescriptionCommandHandler(
+public sealed partial class UpdateDescriptionCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
@@ -24,15 +24,14 @@ public sealed class UpdateDescriptionCommandHandler(
                        await imageRepository.GetAsync(request.ImageId, cancellationToken);
         if (image is null)
         {
-            logger.LogInformation("Can't find image {ImageId}", request.ImageId);
+            ImagesLogs.ImageNotFound(logger, request.ImageId);
             return ImageErrors.NotFound;
         }
         
         Result result = image.UpdateDescription(request.Description, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Can't update description of image with id: {ImageId}. Error: {Error}",
-                image.Id, result.Error);
+            ImagesLogs.UpdateDescriptionError(logger, image.Id, result.Error);
             return result.Error;
         }
         
@@ -42,4 +41,6 @@ public sealed class UpdateDescriptionCommandHandler(
 
         return Result.Success();
     }
+
+    
 }

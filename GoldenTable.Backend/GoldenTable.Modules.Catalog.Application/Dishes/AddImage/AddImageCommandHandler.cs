@@ -28,7 +28,7 @@ public sealed class AddImageCommandHandler(
                            await imageRepository.GetAsync(request.ImageId, cancellationToken) != null;
         if (!existImage)
         {
-            logger.LogInformation("Image {ImageId} not found", request.ImageId);
+            DishLogs.ImageIdNotFound(logger, request.ImageId);
             return ImageErrors.NotFound;
         }
 
@@ -36,7 +36,7 @@ public sealed class AddImageCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
@@ -48,4 +48,6 @@ public sealed class AddImageCommandHandler(
         
         return Result.Success();
     }
+
+   
 }

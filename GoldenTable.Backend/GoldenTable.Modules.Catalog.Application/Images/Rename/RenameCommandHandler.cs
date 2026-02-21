@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Rename;
 
-public sealed class RenameCommandHandler(
+public sealed partial class RenameCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
@@ -24,14 +24,14 @@ public sealed class RenameCommandHandler(
                        await imageRepository.GetAsync(request.ImageId, cancellationToken);
         if (image is null)
         {
-            logger.LogInformation("Can't find image {ImageId}", request.ImageId);
+            ImagesLogs.ImageNotFound(logger, request.ImageId);
             return ImageErrors.NotFound;
         }
         
         Result result = image.Rename(request.NewName, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Can't rename image {ImageId}. Error: {Error}", request.ImageId, result.Error);
+            ImagesLogs.RenameImageError(logger, request.ImageId, result.Error);
             return Result.Failure(result.Error);
         }
         
@@ -41,4 +41,6 @@ public sealed class RenameCommandHandler(
 
         return Result.Success();
     }
+
+    
 }

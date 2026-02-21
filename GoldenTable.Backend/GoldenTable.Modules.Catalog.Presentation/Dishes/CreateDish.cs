@@ -52,9 +52,3 @@ internal sealed class CreateDish : IEndpoint
         public List<DishTag> DishTags { get; set; }
     }
 }
-
-//TODO Add this so that enum is passed correctly
-// builder.Services.ConfigureHttpJsonOptions(options =>
-// {
-//     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-// });

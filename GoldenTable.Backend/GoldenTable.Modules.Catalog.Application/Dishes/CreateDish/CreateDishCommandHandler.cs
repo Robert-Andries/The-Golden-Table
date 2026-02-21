@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 
-public sealed class CreateDishCommandHandler(
+public sealed partial class CreateDishCommandHandler(
     IUnitOfWork unitOfWork,
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
@@ -56,9 +56,10 @@ public sealed class CreateDishCommandHandler(
             dishCategory,
             request.Tags,
             dateTimeProvider.UtcNow);
+        
         if (result.IsFailure)
         {
-            logger.LogInformation("Attempted to create a dish but failed. Error: {Error}", result.Error);
+            DishLogs.CreateError(logger, result.Error);
             return Result.Failure<Dish>(result.Error);
         }
 
@@ -68,7 +69,9 @@ public sealed class CreateDishCommandHandler(
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await dishCacheService.CrateAsync(dish, cancellationToken);
         
-        logger.LogInformation("Dish created successfully");
+        DishLogs.DishCreatedSuccessfully(logger, dish.Id);
         return Result.Success(dish);
     }
+
+    
 }

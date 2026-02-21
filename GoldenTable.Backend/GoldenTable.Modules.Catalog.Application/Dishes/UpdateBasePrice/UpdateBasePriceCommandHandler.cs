@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateBasePrice;
 
-public sealed class UpdateBasePriceCommandHandler(
+public sealed partial class UpdateBasePriceCommandHandler(
     ILogger<UpdateBasePriceCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -27,22 +27,21 @@ public sealed class UpdateBasePriceCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result<Money> moneyResult = Money.Create(request.NewBasePrice, dish.BasePrice.Currency);
         if (moneyResult.IsFailure)
         {
-            logger.LogInformation("There was an error trying to create money object: {Error}", moneyResult.Error);
+            DishLogs.CreateMoneyObjectError(logger, moneyResult.Error);
         }
         Money money = moneyResult.Value;
         
         Result result = dish.UpdateBasePrice(money, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot update base price for dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.UpdateBasePriceError(logger, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -52,4 +51,6 @@ public sealed class UpdateBasePriceCommandHandler(
         
         return Result.Success();
     }
+
+    
 }

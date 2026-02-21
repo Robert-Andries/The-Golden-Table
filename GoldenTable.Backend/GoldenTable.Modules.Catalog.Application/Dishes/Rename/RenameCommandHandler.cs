@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.Rename;
 
-public sealed class RenameCommandHandler(
+public sealed partial class RenameCommandHandler(
     ILogger<RenameCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -25,15 +25,14 @@ public sealed class RenameCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result result = dish.Rename(request.Name, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot rename dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.RenameError(logger, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -43,4 +42,6 @@ public sealed class RenameCommandHandler(
         
         return Result.Success();
     }
+
+    
 }

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateDescription;
 
-public sealed class UpdateDescriptionCommandHandler(
+public sealed partial class UpdateDescriptionCommandHandler(
     ILogger<UpdateDescriptionCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -25,15 +25,14 @@ public sealed class UpdateDescriptionCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result result = dish.UpdateDescription(request.Description, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot update description for dish dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.UpdateDescriptionError(logger, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -43,4 +42,6 @@ public sealed class UpdateDescriptionCommandHandler(
         
         return Result.Success();
     }
+
+    
 }

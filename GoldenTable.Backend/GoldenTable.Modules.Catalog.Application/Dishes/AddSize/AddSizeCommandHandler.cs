@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.AddSize;
 
-public sealed class AddSizeCommandHandler(
+public sealed partial class AddSizeCommandHandler(
     IUnitOfWork unitOfWork,
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
@@ -25,7 +25,7 @@ public sealed class AddSizeCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
         
@@ -34,7 +34,7 @@ public sealed class AddSizeCommandHandler(
         Result result = dish.AddSize(size, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Could not add size to dish with id: {DishId}. Error: {Error}", request.DishId, result.Error);
+            DishLogs.AddSizeError(logger, request.DishId, result.Error);
             return Result.Failure(result.Error);
         }
         
@@ -44,4 +44,6 @@ public sealed class AddSizeCommandHandler(
 
         return Result.Success();
     }
+
+    
 }

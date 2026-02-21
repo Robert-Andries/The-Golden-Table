@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateDishCategory;
 
-public sealed class UpdateDishCategoryCommandHandler(
+public sealed partial class UpdateDishCategoryCommandHandler(
     ILogger<UpdateDishCategoryCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -24,15 +24,14 @@ public sealed class UpdateDishCategoryCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result result = dish.UpdateDishCategory(request.Category, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot update category for dish dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.UpdateCategoryError(logger, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -42,4 +41,6 @@ public sealed class UpdateDishCategoryCommandHandler(
         
         return Result.Success();
     }
+
+    
 }

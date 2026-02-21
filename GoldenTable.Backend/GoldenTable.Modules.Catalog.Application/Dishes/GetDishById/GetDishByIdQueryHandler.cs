@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishById;
 
-public sealed class GetDishByIdQueryHandler(
+public sealed partial class GetDishByIdQueryHandler(
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
     ILogger<GetDishByIdQueryHandler> logger)
@@ -20,10 +20,12 @@ public sealed class GetDishByIdQueryHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id {Id} was not found",  request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return Result.Failure<Dish>(DishErrors.NotFound);
         }
 
         return dish;
     }
+
+    
 }

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateNutritionalInformation;
 
-public sealed class UpdateNutritionalInformationCommandHandler(
+public sealed partial class UpdateNutritionalInformationCommandHandler(
     ILogger<UpdateNutritionalInformationCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -25,15 +25,14 @@ public sealed class UpdateNutritionalInformationCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result result = dish.UpdateNutritionalInformation(request.NutritionalInformation, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot update nutritional information for dish dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.UpdateNutritionalInformationError(logger, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -43,4 +42,6 @@ public sealed class UpdateNutritionalInformationCommandHandler(
         
         return Result.Success();
     }
+
+    
 }

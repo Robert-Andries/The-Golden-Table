@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.RemoveImage;
 
-public sealed class RemoveImageCommandHandler(
+public sealed partial class RemoveImageCommandHandler(
     ILogger<RemoveImageCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -27,15 +27,14 @@ public sealed class RemoveImageCommandHandler(
 
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
         
         Result result = dish.RemoveImage(request.ImageId, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("There was a problem removing an image with id: {ImageId} for a dish with id: {DishId}" +
-                                  "Error: {Error}",request.ImageId, request.DishId, result.Error);
+            DishLogs.RemoveImageError(logger, request.ImageId, request.DishId, result.Error);
             return result.Error;
         }
         
@@ -47,4 +46,6 @@ public sealed class RemoveImageCommandHandler(
 
         return Result.Success();
     }
+
+    
 }

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.RemoveSize;
 
-public sealed class RemoveSizeCommandHandler(
+public sealed partial class RemoveSizeCommandHandler(
     ILogger<RemoveSizeCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -25,15 +25,14 @@ public sealed class RemoveSizeCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result result = dish.RemoveSize(request.SizeName, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot remove Size: {Size} from dish with id: {DishId}. Error: {Error}",
-                request.SizeName, request.DishId, result.Error);
+            DishLogs.RemoveSizeError(logger, request.SizeName, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -43,4 +42,6 @@ public sealed class RemoveSizeCommandHandler(
         
         return Result.Success();
     }
+
+    
 }

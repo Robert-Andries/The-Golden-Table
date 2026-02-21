@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.AddTags;
 
-public sealed class AddTagsCommandHandler(
+public sealed partial class AddTagsCommandHandler(
     IUnitOfWork unitOfWork,
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
@@ -25,15 +25,14 @@ public sealed class AddTagsCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
         
         Result result = dish.AddTags(request.Tags, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Could not add tags to dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.AddTagsError(logger, request.DishId, result.Error);
             return Result.Failure(result.Error);
         }
         
@@ -43,4 +42,6 @@ public sealed class AddTagsCommandHandler(
 
         return Result.Success();
     }
+
+    
 }

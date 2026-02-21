@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Delete;
 
-public sealed class DeleteImageCommandHandler(
+public sealed partial class DeleteImageCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
@@ -21,7 +21,7 @@ public sealed class DeleteImageCommandHandler(
         bool existImage = await imageRepository.GetAsync(request.ImageId, cancellationToken) is not null;
         if (!existImage)
         {
-            logger.LogInformation("Couldn't find image with id: {ImageId}", request.ImageId);
+            ImagesLogs.ImageNotFound(logger, request.ImageId);
             return ImageErrors.NotFound;
         }
 
@@ -31,4 +31,6 @@ public sealed class DeleteImageCommandHandler(
 
         return Result.Success();
     }
+
+
 }

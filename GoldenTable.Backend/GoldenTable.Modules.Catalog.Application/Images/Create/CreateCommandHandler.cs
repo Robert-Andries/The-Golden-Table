@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Create;
 
-public sealed class CreateCommandHandler(
+public sealed partial class CreateCommandHandler(
     IImageRepository  imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
@@ -27,7 +27,7 @@ public sealed class CreateCommandHandler(
             request.Description);
         if (imageResult.IsFailure)
         {
-            logger.LogError("Error when creating image: {Error}", imageResult.Error);
+            ImagesLogs.CreateImageError(logger, imageResult.Error);
             return imageResult.Error;
         }
 
@@ -37,4 +37,6 @@ public sealed class CreateCommandHandler(
 
         return Result.Success();
     }
+
+
 }

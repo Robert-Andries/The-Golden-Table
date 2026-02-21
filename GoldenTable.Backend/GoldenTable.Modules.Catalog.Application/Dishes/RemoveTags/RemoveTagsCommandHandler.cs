@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.RemoveTags;
 
-public sealed class RemoveTagsCommandHandler(
+public sealed partial class RemoveTagsCommandHandler(
     ILogger<RemoveTagsCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -25,15 +25,14 @@ public sealed class RemoveTagsCommandHandler(
                      await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
-            logger.LogInformation("Dish with id: {DishId} not found", request.DishId);
+            DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
 
         Result result = dish.RemoveTags(request.Tags, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            logger.LogInformation("Cannot remove tags from dish with id: {DishId}. Error: {Error}",
-                request.DishId, result.Error);
+            DishLogs.RemoveTagsError(logger, request.DishId, result.Error);
             return result.Error;
         }
 
@@ -43,4 +42,6 @@ public sealed class RemoveTagsCommandHandler(
         
         return Result.Success();
     }
+
+    
 }
