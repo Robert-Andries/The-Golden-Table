@@ -1,9 +1,12 @@
-﻿namespace GoldenTable.Common.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace GoldenTable.Common.Domain;
 
 public abstract class Entity
 {
     public Guid Id { get; init; }
     
+    [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
     private readonly List<IDomainEvent> _domainEvents = [];
 
     protected Entity()

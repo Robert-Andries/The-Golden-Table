@@ -44,7 +44,13 @@ public sealed partial class CreateDishCommandHandler(
             return Result.Failure<Dish>(nutritionalInformationResult.Error);
         }
         NutritionalValues nutritionalInformation = nutritionalInformationResult.Value;
-        DishCategory dishCategory = new(request.DishCategory);
+        Result<DishCategory> dishCategoryResult = DishCategory.Create(request.DishCategory);
+        if (dishCategoryResult.IsFailure)
+        {
+            DishLogs.CreateCategoryError(logger, dishCategoryResult.Error);
+            return Result.Failure<Dish>(dishCategoryResult.Error);
+        }
+        DishCategory dishCategory = dishCategoryResult.Value;
         
         Result<Dish> result = Dish.Create(
             name,

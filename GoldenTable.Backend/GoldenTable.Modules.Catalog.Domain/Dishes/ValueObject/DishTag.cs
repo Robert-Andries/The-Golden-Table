@@ -1,6 +1,6 @@
 ﻿using GoldenTable.Common.Domain;
 
-namespace GoldenTable.Modules.Catalog.Domain.Dishes.Enums;
+namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 public sealed class DishTag : Entity
 {

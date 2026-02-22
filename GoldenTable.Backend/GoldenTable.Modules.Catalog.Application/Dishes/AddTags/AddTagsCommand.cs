@@ -1,5 +1,5 @@
 ﻿using GoldenTable.Common.Application.Messaging;
-using GoldenTable.Modules.Catalog.Domain.Dishes.Enums;
+using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.AddTags;
 

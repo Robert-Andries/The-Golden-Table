@@ -43,4 +43,16 @@ public static class DishErrors
 
     public static Error InvalidValueForTag { get; } = new("DishErrors.InvalidValueForTag",
         "The provided value for tag is invalid.", ErrorType.Validation);
+
+    public static Error InvalidSize { get; } = new("DishErrors.InvalidSize",
+        "The provided size is invalid.", ErrorType.Validation);
+
+    public static Error SameCategory { get; } = new("DishErrors.SameCategory",
+        "The provided category is same as the old one.", ErrorType.Validation);
+
+    public static Error InvalidCategoryName { get; } = new("DishErrors.InvalidCategoryName",
+        "The provided category name is invalid.", ErrorType.Validation);
+
+    public static Error TagsAlreadyPresent { get; } = new("DishErrors.TagsAlreadyPresent",
+        "The provided tags are already present.", ErrorType.Validation);
 }

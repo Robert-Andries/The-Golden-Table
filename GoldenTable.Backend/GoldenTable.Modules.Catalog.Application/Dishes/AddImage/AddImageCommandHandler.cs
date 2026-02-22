@@ -40,7 +40,11 @@ public sealed class AddImageCommandHandler(
             return DishErrors.NotFound;
         }
 
-        dish.AddImage(image, dateTimeProvider.UtcNow);
+        Result result = dish.AddImage(image, dateTimeProvider.UtcNow);
+        if (result.IsFailure)
+        {
+            return result.Error;
+        }
         
         await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);

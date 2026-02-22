@@ -3,4 +3,4 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateDishCategory;
 
-public sealed record UpdateDishCategoryCommand(Guid DishId, DishCategory Category) : ICommand;
+public sealed record UpdateDishCategoryCommand(Guid DishId, string Category) : ICommand;

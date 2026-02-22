@@ -26,9 +26,9 @@ public sealed record Money
         return money;
     }
     
-    public static Result<Money> Create(decimal amount, string currency)
+    public static Result<Money> Create(decimal amount, string currencyCode)
     {
-        Result<Currency> currencyResult = Currency.FromCode(currency);
+        Result<Currency> currencyResult = Currency.FromCode(currencyCode);
         if (currencyResult.IsFailure)
         {
             return Result.Failure<Money>(currencyResult.Error);

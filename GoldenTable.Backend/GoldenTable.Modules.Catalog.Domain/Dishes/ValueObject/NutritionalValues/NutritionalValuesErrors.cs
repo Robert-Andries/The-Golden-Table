@@ -7,4 +7,7 @@ public static class NutritionalValuesErrors
     public static Error GramsOfSugarShouldNotExceedGramsOfCarbohydrates { get; }
         = new("NutritionalValuesErrors.GramsOfSugarShouldNotExceedGramsOfCarbohydrates", 
             "The provided grams of Sugar is greater total grams of carbohydrates.", ErrorType.Validation);
+
+    public static Error InvalidKcal { get; } = new("NutritionalValuesErrors.InvalidKcal",
+        "The provided kcal cannot be less then 0.", ErrorType.Validation);
 }

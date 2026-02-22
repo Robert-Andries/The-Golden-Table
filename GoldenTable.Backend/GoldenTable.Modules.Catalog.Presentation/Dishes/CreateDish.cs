@@ -2,7 +2,6 @@
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
-using GoldenTable.Modules.Catalog.Domain.Dishes.Enums;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Presentation.Dishes.Common.NutritionalInformation;
 using MediatR;

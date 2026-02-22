@@ -4,6 +4,7 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
+using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateDishCategory;
@@ -28,7 +29,15 @@ public sealed partial class UpdateDishCategoryCommandHandler(
             return DishErrors.NotFound;
         }
 
-        Result result = dish.UpdateDishCategory(request.Category, dateTimeProvider.UtcNow);
+        Result<DishCategory> dishCategoryResult = DishCategory.Create(request.Category);
+        if (dishCategoryResult.IsFailure)
+        {
+            DishLogs.CreateCategoryError(logger, dishCategoryResult.Error);
+            return dishCategoryResult.Error;
+        }
+        DishCategory category = dishCategoryResult.Value;
+        
+        Result result = dish.UpdateDishCategory(category, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             DishLogs.UpdateCategoryError(logger, request.DishId, result.Error);
@@ -41,6 +50,4 @@ public sealed partial class UpdateDishCategoryCommandHandler(
         
         return Result.Success();
     }
-
-    
 }

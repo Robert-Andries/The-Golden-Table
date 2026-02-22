@@ -19,9 +19,9 @@ public record Currency
     {
         return code switch
         {
-            "EUR" => (Result<Currency>)EUR,
-            "RON" => (Result<Currency>)RON,
-            "USD" => (Result<Currency>)USD,
+            "EUR" => EUR,
+            "RON" => RON,
+            "USD" => USD,
             _ => Result.Failure<Currency>(MoneyErrors.InvalidCurrency),
         };
     }

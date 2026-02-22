@@ -3,7 +3,7 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
-using GoldenTable.Modules.Catalog.Domain.Dishes.Enums;
+using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

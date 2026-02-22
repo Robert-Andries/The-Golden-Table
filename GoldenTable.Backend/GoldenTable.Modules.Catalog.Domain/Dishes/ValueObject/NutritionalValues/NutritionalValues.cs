@@ -21,7 +21,13 @@ public sealed record NutritionalValues
         float gramsOfProtein,
         float gramsOfSalt)
     {
-        Energy energy = new(kcal);
+        Result<Energy> energyResult = Energy.Create(kcal);
+        if (energyResult.IsFailure)
+        {
+            return Result.Failure<NutritionalValues>(energyResult.Error);
+        }
+        Energy energy = energyResult.Value;
+        
         
         Result<Carbohydrates> carbohydratesResult =
             Carbohydrates.Create(gramsOfCarbohydrates, gramsOfSugar);

@@ -2,7 +2,6 @@
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
-using GoldenTable.Modules.Catalog.Domain.Dishes.Enums;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
@@ -18,11 +17,11 @@ public sealed class Dish : Entity
     public DateTime CreatedOnUtc { get; private set; }
     public DateTime ModifiedOnUtc { get; private set; }
     public Money BasePrice { get; private set; }
-    public List<DishSize> Sizes { get; private init; }
+    public IReadOnlyList<DishSize> Sizes { get; private set; }
     public NutritionalValues NutritionalInformation { get; private set; }
-    public List<Image> Images { get; private init; }
+    public IReadOnlyList<Image> Images { get; private set; } = new List<Image>();
     public DishCategory Category { get; private set; }
-    public List<DishTag> Tags { get; private init; }
+    public IReadOnlyList<DishTag> Tags { get; private set; }
     
     public static Result<Dish> Create(Name name, Description description, Money basePrice, List<DishSize> sizes,
         NutritionalValues nutritionalInformation, DishCategory category, List<DishTag> tags,
@@ -34,7 +33,7 @@ public sealed class Dish : Entity
             return Result.Failure<Dish>(DishErrors.InvalidName);
         }
 
-        if (string.IsNullOrEmpty(description.Value))
+        if (!description.IsValid())
         {
             return Result.Failure<Dish>(DishErrors.InvalidDescription);
         }
@@ -52,7 +51,6 @@ public sealed class Dish : Entity
             Category = category,
             Tags = tags
         };
-
         dish.Raise(new DishCreatedDomainEvent(dish.Id, nowUtc));
         return dish;
     }
@@ -64,6 +62,10 @@ public sealed class Dish : Entity
             return DishErrors.SameName;
         }
 
+        if (!name.IsValid())
+        {
+            return DishErrors.InvalidName;
+        }
         Name = name;
         ModifiedOnUtc = nowUtc;
         Raise(new DishRenamedDomainEvent(Id, Name, nowUtc));
@@ -92,18 +94,22 @@ public sealed class Dish : Entity
 
         BasePrice = newPrice;
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedPriceDomainEvent(Id, BasePrice, nowUtc));
+        Raise(new DishUpdatedBasePriceDomainEvent(Id, BasePrice, nowUtc));
         return Result.Success();
     }
 
     public Result AddSize(DishSize size, DateTime nowUtc)
     {
-        if (Sizes.Contains(size))
+        if (string.IsNullOrEmpty(size.Name) || size.Weight <= 0)
+        {
+            return DishErrors.InvalidSize;
+        }
+        if (Sizes.Any(d => d.Name == size.Name))
         {
             return DishErrors.SizeAlreadyPresent;
         }
 
-        Sizes.Add(size);
+        Sizes = [.. Sizes, size];
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedSizeDomainEvent( Id, nowUtc));
         return Result.Success();
@@ -111,12 +117,12 @@ public sealed class Dish : Entity
     
     public Result RemoveSize(string sizeName, DateTime nowUtc)
     {
-        if (Sizes.Any(d => d.Name == sizeName))
+        if (Sizes.All(d => d.Name != sizeName))
         {
             return DishErrors.SizeDoesNotExist;
         }
-        DishSize size = Sizes.Find(d => d.Name == sizeName)!;
-        Sizes.Remove(size);
+        DishSize size = Sizes.First(d => d.Name == sizeName);
+        Sizes = [.. Sizes.Where(s => s != size)];
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedSizeDomainEvent(Id, nowUtc));
         return Result.Success();
@@ -141,25 +147,32 @@ public sealed class Dish : Entity
         {
             return DishErrors.ImageAlreadyPresent;
         }
-        Images.Add(image);
+        Images = [.. Images.ToList(), image];
+        ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     public Result RemoveImage(Guid imageId, DateTime nowUtc)
     {
-        if (Images.TrueForAll(i => i.Id != imageId))
+        if (Images.All(i => i.Id != imageId))
         {
             return DishErrors.ImageNotPresent;
         }
-        Images.RemoveAll( i => i.Id == imageId);
+        Images = [.. Images.Where(i => i.Id != imageId)];
+        ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     public Result UpdateDishCategory(DishCategory category, DateTime nowUtc)
     {
+        if (Category == category)
+        {
+            return DishErrors.SameCategory;
+        }
         Category = category;
+        ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedCategoryDomainEvent(Id, nowUtc));
         return Result.Success();
     }
@@ -172,10 +185,15 @@ public sealed class Dish : Entity
         }
 
         var uniqueTags = tags.Where(t => !Tags.Contains(t)).ToList();
+        if (uniqueTags.Count == 0)
+        {
+            return DishErrors.TagsAlreadyPresent;
+        }
         foreach (DishTag uniqueTag in uniqueTags)
         {
-            Tags.Add(uniqueTag);
+            Tags = [.. Tags, uniqueTag];
         }
+        ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedTagsDomainEvent(Id, nowUtc));
         return Result.Success();
     }
@@ -187,11 +205,19 @@ public sealed class Dish : Entity
             return DishErrors.InvalidTags;
         }
 
-        var uniqueTags = tags.Where(t => !Tags.Contains(t)).ToList();
-        foreach (DishTag uniqueTag in uniqueTags)
+        var usefulTags = Tags.IntersectBy(tags.Select(t => t.Id), t => t.Id).ToList();
+        if (usefulTags.Count == 0)
         {
-            Tags.Remove(uniqueTag);
+            return Result.Success();
         }
+
+        var newTags = Tags.ToList();
+        foreach (DishTag uniqueTag in usefulTags)
+        {
+            newTags.Remove(uniqueTag);
+        }
+        Tags = newTags;
+        ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedTagsDomainEvent(Id, nowUtc));
         return Result.Success();
     }

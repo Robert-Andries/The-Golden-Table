@@ -2,7 +2,6 @@
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.UpdateDishCategory;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -16,8 +15,7 @@ public class UpdateDishCategory : IEndpoint
     {
         app.MapGet("dishes/update-description/", async (Request request, ISender sender) =>
         {
-            DishCategory category = new(request.DishCategory);
-            Result result = await sender.Send(new UpdateDishCategoryCommand(request.DishId, category));
+            Result result = await sender.Send(new UpdateDishCategoryCommand(request.DishId, request.DishCategory));
 
             return result.Match(Results.NoContent, ApiResults.Problem);
         });

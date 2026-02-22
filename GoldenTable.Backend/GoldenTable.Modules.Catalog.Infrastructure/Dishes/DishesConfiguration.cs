@@ -25,7 +25,7 @@ internal sealed class DishesConfiguration : IEntityTypeConfiguration<Dish>
 
         builder.Property(d => d.Category)
             .IsRequired()
-            .HasConversion(c => c.name, n => new DishCategory(n));
+            .HasConversion(dc => dc.Name, dishCategoryString => DishCategory.Create(dishCategoryString).Value);
 
         builder.ComplexProperty(d => d.BasePrice, basePriceBuilder => 
         {
