@@ -4,4 +4,4 @@ using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 namespace GoldenTable.Modules.Catalog.Domain.Common.Image.Events;
 
 public record ImageDescriptionUpdatedDomainEvent
-    (Guid Id, Guid ImageId, Description NewDescription, DateTime OccurredOnUtc) : IDomainEvent;
+    (Guid Id, Guid ImageId, Description? NewDescription, DateTime OccurredOnUtc) : IDomainEvent;

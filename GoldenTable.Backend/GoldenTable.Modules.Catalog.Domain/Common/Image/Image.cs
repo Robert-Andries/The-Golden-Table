@@ -45,13 +45,21 @@ public sealed class Image : Entity
             return ImageErrors.InvalidName;
         }
 
+        if (name == Name)
+        {
+            return Result.Success();
+        }
         Name = name;
         Raise(new ImageRenamedDomainEvent(Guid.NewGuid(), Id, Name, nowUtc));
         return Result.Success();
     }
 
-    public Result UpdateDescription(Description description, DateTime nowUtc)
+    public Result UpdateDescription(Description? description, DateTime nowUtc)
     {
+        if (Description == description)
+        {
+            return Result.Success();
+        }
         Description = description;
         Raise(new ImageDescriptionUpdatedDomainEvent(Guid.NewGuid(), Id, Description, nowUtc));
         return Result.Success();

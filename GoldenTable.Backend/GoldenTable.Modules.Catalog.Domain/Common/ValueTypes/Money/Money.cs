@@ -38,6 +38,10 @@ public sealed record Money
 
     public Result Add(Money other)
     {
+        if (ReferenceEquals(this, other))
+        {
+            return MoneyErrors.SameInstance;
+        }
         if (Currency != other.Currency)
         {
             return MoneyErrors.CurrencyDiffer;
@@ -48,9 +52,17 @@ public sealed record Money
     
     public Result Subtract(Money other)
     {
+        if (ReferenceEquals(this, other))
+        {
+            return MoneyErrors.SameInstance;
+        }
         if (Currency != other.Currency)
         {
             return MoneyErrors.CurrencyDiffer;
+        }
+        if (other.Amount > Amount)
+        {
+            return MoneyErrors.NotEnoughMoneyToSubtract;
         }
         Amount -= other.Amount;
         return Result.Success();

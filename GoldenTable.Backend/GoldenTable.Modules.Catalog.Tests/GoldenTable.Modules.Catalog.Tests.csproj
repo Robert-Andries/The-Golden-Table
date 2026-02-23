@@ -22,10 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Image\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj"/>
         <ProjectReference Include="..\GoldenTable.Modules.Catalog.Domain\GoldenTable.Modules.Catalog.Domain.csproj"/>
     </ItemGroup>
