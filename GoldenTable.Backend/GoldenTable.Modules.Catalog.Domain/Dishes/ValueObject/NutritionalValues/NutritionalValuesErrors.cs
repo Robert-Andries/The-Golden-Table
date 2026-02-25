@@ -2,6 +2,9 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
+/// <summary>
+/// Singleton holding all the possible errors that the NutritionalValues can potentionally have
+/// </summary>
 public static class NutritionalValuesErrors
 {
     public static Error GramsOfSugarShouldNotExceedGramsOfCarbohydrates { get; }

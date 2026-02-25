@@ -10,8 +10,4 @@
       <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Dishes\Enums\" />
-    </ItemGroup>
-
 </Project>

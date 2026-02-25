@@ -25,7 +25,7 @@ public sealed partial class DeleteImageCommandHandler(
             return ImageErrors.NotFound;
         }
 
-        imageRepository.Remove(image, cancellationToken);
+        imageRepository.Remove(image);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await imageCacheService.DeleteAsync(request.ImageId, cancellationToken);
 

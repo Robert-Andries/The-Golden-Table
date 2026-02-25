@@ -2,17 +2,39 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
+/// <summary>
+/// Value object holding the legal data needed to display for a dish
+/// </summary>
 public sealed record NutritionalValues
 {
     private NutritionalValues()
     { } 
 
+    /// <summary>
+    /// The amount of energy the dish has
+    /// </summary>
     public Energy Energy { get; init; }
+    /// <summary>
+    /// The grams of fat that the dish has
+    /// </summary>
     public float GramsOfFat { get; init; }
+    /// <summary>
+    /// Grams of carbohydrates that the dish has
+    /// </summary>
     public Carbohydrates GramsOfCarbohydrates { get; init; }
+    /// <summary>
+    /// Grams of protein that the dish has
+    /// </summary>
     public float GramsOfProtein { get; init; }
+    /// <summary>
+    /// Grams of salt that the dish has
+    /// </summary>
     public float GramsOfSalt { get; init; }
     
+    /// <summary>
+    /// Factory method used to create an NutritionalValues object
+    /// </summary>
+    /// <returns>Result indicating success, the error that occured and the newly created object</returns>
     public static Result<NutritionalValues> Create(
         float kcal,
         float gramsOfFat,

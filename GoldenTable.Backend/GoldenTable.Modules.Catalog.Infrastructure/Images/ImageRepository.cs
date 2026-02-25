@@ -17,17 +17,25 @@ internal sealed class ImageRepository(CatalogDbContext context) : IImageReposito
 
     public Task UpdateAsync(Image image, CancellationToken cancellationToken = default)
     {
+        if (!context.Images.Any(i => i.Id == image.Id))
+        {
+            return Task.CompletedTask;
+        }
         context.Images.Update(image);
         return Task.CompletedTask;
     }
 
-    public async Task AddAsync(Image image, CancellationToken cancellationToken)
+    public async Task AddAsync(Image image, CancellationToken cancellationToken = default)
     {
         await context.Images.AddAsync(image, cancellationToken);
     }
 
-    public void Remove(Image image, CancellationToken cancellationToken)
+    public void Remove(Image image)
     {
+        if (!context.Images.Any(i => i.Id == image.Id))
+        {
+            return;
+        }
         context.Images.Remove(image);
     }
 }
