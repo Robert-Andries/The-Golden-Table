@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Rename;
 
-public sealed partial class RenameCommandHandler(
+public sealed class RenameCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,

@@ -7,13 +7,14 @@ namespace GoldenTable.Modules.Catalog.Application.Dishes.GetAllDishes;
 
 public sealed class GetAllDishesQueryHandler(
     IDishRepository dishRepository)
-    : IQueryHandler<GetAllDishesQuery, List<Dish>>
+    : IQueryHandler<GetAllDishesQuery, List<DishResponse>>
 {
-    public async Task<Result<List<Dish>>> Handle(GetAllDishesQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<DishResponse>>> Handle(GetAllDishesQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
         List<Dish> dishes = await dishRepository.GetAllAsync(cancellationToken);
-        return dishes;
+        var output = dishes.Select(x => new DishResponse(x)).ToList();
+        return output;
     }
 }

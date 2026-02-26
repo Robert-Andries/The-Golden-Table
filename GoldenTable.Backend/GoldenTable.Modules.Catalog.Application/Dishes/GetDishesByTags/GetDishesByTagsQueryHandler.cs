@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
 
 public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets) 
-    : IQueryHandler<GetDishesByTagsQuery, List<Dish>>
+    : IQueryHandler<GetDishesByTagsQuery, List<DishResponse>>
 {
-    public async Task<Result<List<Dish>>> Handle(GetDishesByTagsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<DishResponse>>> Handle(GetDishesByTagsQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
@@ -19,9 +19,11 @@ public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets)
             .ToListAsync(cancellationToken);
         if (dishes.Count == 0)
         {
-            return Result.Failure<List<Dish>>(DishErrors.NotFound);
+            return Result.Failure<List<DishResponse>>(DishErrors.NotFound);
         }
 
-        return Result.Success(dishes);
+        var output = dishes.Select(d => new DishResponse(d)).ToList();
+
+        return Result.Success(output);
     }
 }

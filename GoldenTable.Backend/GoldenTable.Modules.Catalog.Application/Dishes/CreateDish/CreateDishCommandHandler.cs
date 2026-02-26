@@ -18,9 +18,9 @@ public sealed partial class CreateDishCommandHandler(
     IDishCacheService dishCacheService,
     ILogger<CreateDishCommandHandler> logger,
     IDateTimeProvider dateTimeProvider)
-    : ICommandHandler<CreateDishCommand, Dish>
+    : ICommandHandler<CreateDishCommand, Guid>
 {
-    public async Task<Result<Dish>> Handle(CreateDishCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateDishCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
@@ -29,7 +29,7 @@ public sealed partial class CreateDishCommandHandler(
         Result<Money> basePriceResult = Money.Create(request.BasePriceAmount, request.BasePriceCurrency);
         if (basePriceResult.IsFailure)
         {
-            return Result.Failure<Dish>(basePriceResult.Error);
+            return Result.Failure<Guid>(basePriceResult.Error);
         }
         Money basePrice = basePriceResult.Value;
         Result<NutritionalValues> nutritionalInformationResult = NutritionalValues.Create(
@@ -41,14 +41,14 @@ public sealed partial class CreateDishCommandHandler(
             request.GramsOfSalt);
         if (nutritionalInformationResult.IsFailure)
         {
-            return Result.Failure<Dish>(nutritionalInformationResult.Error);
+            return Result.Failure<Guid>(nutritionalInformationResult.Error);
         }
         NutritionalValues nutritionalInformation = nutritionalInformationResult.Value;
         Result<DishCategory> dishCategoryResult = DishCategory.Create(request.DishCategory);
         if (dishCategoryResult.IsFailure)
         {
             DishLogs.CreateCategoryError(logger, dishCategoryResult.Error);
-            return Result.Failure<Dish>(dishCategoryResult.Error);
+            return Result.Failure<Guid>(dishCategoryResult.Error);
         }
         DishCategory dishCategory = dishCategoryResult.Value;
         
@@ -65,7 +65,7 @@ public sealed partial class CreateDishCommandHandler(
         if (result.IsFailure)
         {
             DishLogs.CreateError(logger, result.Error);
-            return Result.Failure<Dish>(result.Error);
+            return Result.Failure<Guid>(result.Error);
         }
 
         Dish dish = result.Value;
@@ -75,7 +75,7 @@ public sealed partial class CreateDishCommandHandler(
         await dishCacheService.UpdateAsync(dish, cancellationToken);
         
         DishLogs.DishCreatedSuccessfully(logger, dish.Id);
-        return Result.Success(dish);
+        return Result.Success(dish.Id);
     }
 
     

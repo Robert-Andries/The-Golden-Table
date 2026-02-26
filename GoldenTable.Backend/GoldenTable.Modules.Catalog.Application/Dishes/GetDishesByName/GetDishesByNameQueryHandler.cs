@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByName;
 
 public sealed class GetDishesByNameQueryHandler(IDishDbSets dishDbSets)
-    : IQueryHandler<GetDishesByNameQuery, List<Dish>>
+    : IQueryHandler<GetDishesByNameQuery, List<DishResponse>>
 {
-    public async Task<Result<List<Dish>>> Handle(GetDishesByNameQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<DishResponse>>> Handle(GetDishesByNameQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
@@ -19,9 +19,10 @@ public sealed class GetDishesByNameQueryHandler(IDishDbSets dishDbSets)
             .ToListAsync(cancellationToken);
         if (dishes.Count == 0)
         {
-            return Result.Failure<List<Dish>>(DishErrors.NotFound);
+            return Result.Failure<List<DishResponse>>(DishErrors.NotFound);
         }
+        var output = dishes.Select(d => new DishResponse(d)).ToList();
 
-        return Result.Success(dishes);
+        return Result.Success(output);
     }
 }

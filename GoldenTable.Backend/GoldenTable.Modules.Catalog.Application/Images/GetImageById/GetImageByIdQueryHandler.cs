@@ -6,13 +6,13 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.GetImageById;
 
-public sealed partial class GetImageByIdQueryHandler(
+public sealed class GetImageByIdQueryHandler(
     IImageRepository imageRepository,
     IImageCacheService imageCacheService,
     ILogger<GetImageByIdQueryHandler> logger) 
-    : IQueryHandler<GetImageByIdQuery, Image>
+    : IQueryHandler<GetImageByIdQuery, ImageResponse>
 {
-    public async Task<Result<Image>> Handle(GetImageByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<ImageResponse>> Handle(GetImageByIdQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
@@ -21,10 +21,11 @@ public sealed partial class GetImageByIdQueryHandler(
         if (image is null)
         {
             ImagesLogs.ImageNotFound(logger, request.ImageId);
-            return Result.Failure<Image>(ImageErrors.NotFound);
+            return Result.Failure<ImageResponse>(ImageErrors.NotFound);
         }
+        ImageResponse output = new(image);
         
-        return Result.Success(image);
+        return Result.Success(output);
     }
 
 

@@ -17,4 +17,4 @@ public sealed record CreateDishCommand(
     float GramsOfProtein,
     float GramsOfSalt,
     string DishCategory,
-    List<DishTag> Tags) : ICommand<Dish>;
+    List<DishTag> Tags) : ICommand<Guid>;

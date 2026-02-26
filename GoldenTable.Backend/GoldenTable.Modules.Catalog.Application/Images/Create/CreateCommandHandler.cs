@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Create;
 
-public sealed partial class CreateCommandHandler(
+public sealed class CreateCommandHandler(
     IImageRepository  imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,

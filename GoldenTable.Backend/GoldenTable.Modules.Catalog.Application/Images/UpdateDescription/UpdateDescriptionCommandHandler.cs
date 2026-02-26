@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.UpdateDescription;
 
-public sealed partial class UpdateDescriptionCommandHandler(
+public sealed class UpdateDescriptionCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,

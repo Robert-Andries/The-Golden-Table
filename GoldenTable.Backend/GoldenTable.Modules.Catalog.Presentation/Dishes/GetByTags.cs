@@ -1,8 +1,8 @@
 ﻿using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
+using GoldenTable.Modules.Catalog.Application.Dishes;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
-using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +17,7 @@ public class GetByTags : IEndpoint
     {
         app.MapGet("dishes/get-dish-by-tags/", async (Request request, ISender sender) =>
         {
-            Result<List<Dish>> result = await sender.Send(new GetDishesByTagsQuery(request.Tags));
+            Result<List<DishResponse>> result = await sender.Send(new GetDishesByTagsQuery(request.Tags));
 
             return result.Match(Results.Ok, ApiResults.Problem);
         });

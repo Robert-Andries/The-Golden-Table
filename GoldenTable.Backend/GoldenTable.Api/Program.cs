@@ -1,4 +1,3 @@
-using System.Data.Common;
 using GoldenTable.Api.Extensions;
 using GoldenTable.Api.Middleware;
 using GoldenTable.Common.Application;
@@ -55,3 +54,4 @@ app.UseExceptionHandler();
 app.MapEndpoints();
 
 app.Run();
+

@@ -40,7 +40,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.Presentation", "GoldenTable.Modules.Catalog.Presentation\GoldenTable.Modules.Catalog.Presentation.csproj", "{7523F947-2AAA-4466-8F63-A3FBDA590EA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.Tests", "GoldenTable.Modules.Catalog.Tests\GoldenTable.Modules.Catalog.Tests.csproj", "{60E4E7DD-42FF-4BE6-A69A-4E4901142342}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.Tests.UnitTests", "GoldenTable.Modules.Catalog.Tests.UnitTests\GoldenTable.Modules.Catalog.Tests.UnitTests.csproj", "{60E4E7DD-42FF-4BE6-A69A-4E4901142342}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8FA6AB96-F861-4044-B0FF-98CA9DB979F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.Tests.IntegrationTests", "GoldenTable.Modules.Catalog.Tests.IntegrationTests\GoldenTable.Modules.Catalog.Tests.IntegrationTests.csproj", "{B5B985C1-E0AE-4B15-871F-86C47513354E}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
@@ -63,7 +67,9 @@ Global
 		{E933880C-7E27-437D-88FD-88D54C7515C9} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
 		{1A88A535-05C6-4989-A6A5-373408BFCDA8} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
 		{7523F947-2AAA-4466-8F63-A3FBDA590EA9} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
-		{60E4E7DD-42FF-4BE6-A69A-4E4901142342} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
+		{8FA6AB96-F861-4044-B0FF-98CA9DB979F3} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
+		{60E4E7DD-42FF-4BE6-A69A-4E4901142342} = {8FA6AB96-F861-4044-B0FF-98CA9DB979F3}
+		{B5B985C1-E0AE-4B15-871F-86C47513354E} = {8FA6AB96-F861-4044-B0FF-98CA9DB979F3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0FA6DA9A-ACB1-426F-A676-7B1C01FCEF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -106,6 +112,10 @@ Global
 		{60E4E7DD-42FF-4BE6-A69A-4E4901142342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E4E7DD-42FF-4BE6-A69A-4E4901142342}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60E4E7DD-42FF-4BE6-A69A-4E4901142342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

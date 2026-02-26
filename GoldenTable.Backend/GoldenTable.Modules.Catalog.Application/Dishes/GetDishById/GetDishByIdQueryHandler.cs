@@ -6,13 +6,13 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishById;
 
-public sealed partial class GetDishByIdQueryHandler(
+public sealed class GetDishByIdQueryHandler(
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
     ILogger<GetDishByIdQueryHandler> logger)
-    : IQueryHandler<GetDishByIdQuery, Dish>
+    : IQueryHandler<GetDishByIdQuery, DishResponse>
 {
-    public async Task<Result<Dish>> Handle(GetDishByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<DishResponse>> Handle(GetDishByIdQuery request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
@@ -21,11 +21,9 @@ public sealed partial class GetDishByIdQueryHandler(
         if (dish is null)
         {
             DishLogs.DishNotFound(logger, request.DishId);
-            return Result.Failure<Dish>(DishErrors.NotFound);
+            return Result.Failure<DishResponse>(DishErrors.NotFound);
         }
 
-        return dish;
+        return new DishResponse(dish);
     }
-
-    
 }

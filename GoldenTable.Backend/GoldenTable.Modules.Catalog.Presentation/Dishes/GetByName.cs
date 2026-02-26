@@ -1,9 +1,9 @@
 ﻿using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
+using GoldenTable.Modules.Catalog.Application.Dishes;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByName;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Dishes;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +19,7 @@ public class GetByName : IEndpoint
         {
             Name finalName = new(name);
 
-            Result<List<Dish>> result = await sender.Send(new GetDishesByNameQuery(finalName));
+            Result<List<DishResponse>> result = await sender.Send(new GetDishesByNameQuery(finalName));
 
             return result.Match(Results.Ok, ApiResults.Problem);
         });
