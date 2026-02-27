@@ -1,7 +1,7 @@
 ﻿namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 /// <summary>
-/// Value obect used to hold the data necesarry for a name
+///     Value obect used to hold the data necesarry for a name
 /// </summary>
 public sealed record Name(string Value)
 {
@@ -10,6 +10,4 @@ public sealed record Name(string Value)
     {
         return !string.IsNullOrWhiteSpace(Value);
     }
-};
-
-
+}

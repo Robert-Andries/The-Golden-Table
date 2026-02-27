@@ -10,10 +10,7 @@ using Name = GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Name;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes;
 
-// CA1515 = Because an application's API isn't typically referenced from outside the assembly, types can be made internal
-#pragma warning disable CA1515
 public abstract class DishBaseTest : BaseTest
-#pragma warning restore CA1515
 {
     protected readonly Faker<Dish> DishFaker;
 
@@ -45,7 +42,7 @@ public abstract class DishBaseTest : BaseTest
                     throw new Exception(result.Error.ToString());
                 }
             }
-            
+
             dish.ClearDomainEvents();
 
             return dish;

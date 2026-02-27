@@ -9,9 +9,7 @@ internal sealed class ImageRepository(CatalogDbContext context) : IImageReposito
 {
     public async Task<Image?> GetAsync(Guid ImageId, CancellationToken cancellationToken = default)
     {
-        Image? image = await context.Images
-            .AsNoTracking()
-            .FirstOrDefaultAsync(i => i.Id == ImageId, cancellationToken);
+        Image? image = await context.Images.FirstOrDefaultAsync(i => i.Id == ImageId, cancellationToken);
         return image;
     }
 
@@ -21,6 +19,7 @@ internal sealed class ImageRepository(CatalogDbContext context) : IImageReposito
         {
             return Task.CompletedTask;
         }
+
         context.Images.Update(image);
         return Task.CompletedTask;
     }
@@ -36,6 +35,7 @@ internal sealed class ImageRepository(CatalogDbContext context) : IImageReposito
         {
             return;
         }
+
         context.Images.Remove(image);
     }
 }

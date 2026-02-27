@@ -6,6 +6,8 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Dishes;
 
 internal sealed class DishCacheService(ICacheService cacheService) : IDishCacheService
 {
+    private static readonly TimeSpan ExpirationTime = TimeSpan.FromMinutes(30);
+
     public Task<Dish?> GetAsync(Guid dishId, CancellationToken cancellationToken = default)
     {
         string cacheKey = GetCacheKey(dishId);
@@ -18,7 +20,6 @@ internal sealed class DishCacheService(ICacheService cacheService) : IDishCacheS
         return cacheService.SetAsync(cacheKey, dish, ExpirationTime, cancellationToken);
     }
 
-    private static readonly TimeSpan ExpirationTime = TimeSpan.FromMinutes(30); 
     private static string GetCacheKey(Guid dishId)
     {
         return $"Dish-{dishId}";

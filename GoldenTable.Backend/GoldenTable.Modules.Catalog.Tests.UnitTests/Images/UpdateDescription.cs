@@ -15,7 +15,7 @@ public sealed class UpdateDescription : ImageBaseTest
         // Arrange
         Image original = ImageFaker.Generate();
         Image sut = original.DeepClone();
-        Description description = new(Faker.Name.JobDescriptor());
+        Description description = new(Faker.Name.JobType());
 
         // Act
         Result result = sut.UpdateDescription(description, SometimeUtc);
@@ -30,7 +30,7 @@ public sealed class UpdateDescription : ImageBaseTest
         sut.Description.Should().Be(description);
         AssertDomainEventWasPublished<ImageDescriptionUpdatedDomainEvent>(sut);
     }
-    
+
     [Fact]
     public void Should_UpdateDescription_Successfully_SameName()
     {

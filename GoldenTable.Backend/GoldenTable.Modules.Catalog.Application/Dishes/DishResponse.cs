@@ -18,7 +18,7 @@ public sealed class DishResponse
         ImagesUris = dish.Images.Select(i => i.Uri.AbsoluteUri).ToList();
         Sizes = dish.Sizes.ToList();
     }
-    
+
     public string Name { get; set; }
     public string Description { get; set; }
     public decimal BasePriceAmount { get; set; }
@@ -28,5 +28,4 @@ public sealed class DishResponse
     public NutritionalValues NutritionalInformation { get; set; }
     public List<string> ImagesUris { get; set; }
     public List<DishSize> Sizes { get; set; }
-    
 }

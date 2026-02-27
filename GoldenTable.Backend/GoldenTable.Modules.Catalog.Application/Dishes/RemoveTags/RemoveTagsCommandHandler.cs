@@ -2,14 +2,13 @@
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
-using GoldenTable.Modules.Catalog.Application.Dishes.RemoveSize;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.RemoveTags;
 
-public sealed partial class RemoveTagsCommandHandler(
+public sealed class RemoveTagsCommandHandler(
     ILogger<RemoveTagsCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -20,9 +19,8 @@ public sealed partial class RemoveTagsCommandHandler(
     public async Task<Result> Handle(RemoveTagsCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
-        Dish? dish = await cacheService.GetAsync(request.DishId, cancellationToken) ??
-                     await dishRepository.GetAsync(request.DishId, cancellationToken);
+
+        Dish? dish = await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
             DishLogs.DishNotFound(logger, request.DishId);
@@ -36,12 +34,9 @@ public sealed partial class RemoveTagsCommandHandler(
             return result.Error;
         }
 
-        await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await cacheService.UpdateAsync(dish, cancellationToken);
-        
+
         return Result.Success();
     }
-
-    
 }

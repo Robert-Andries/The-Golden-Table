@@ -1,6 +1,5 @@
 ﻿using GoldenTable.Common.Application.Messaging;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.AddTags;
 
-public sealed record AddTagsCommand(Guid DishId, List<DishTag> Tags) : ICommand;
+public sealed record AddTagsCommand(Guid DishId, List<string> Tags) : ICommand;

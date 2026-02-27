@@ -9,10 +9,15 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 namespace GoldenTable.Modules.Catalog.Domain.Dishes;
 
 /// <summary>
-/// An entity representing a dish
+///     An entity representing a dish
 /// </summary>
 public sealed class Dish : Entity
 {
+    private readonly List<Image> _images = new();
+    private List<DishSize> _sizes = new();
+
+    private List<DishTag> _tags = new();
+
     private Dish()
     {
     }
@@ -33,22 +38,22 @@ public sealed class Dish : Entity
     public Money BasePrice { get; private set; }
 
     /// <summary>The sizes of a dish (e.g. small, medium, large)</summary>
-    public IReadOnlyList<DishSize> Sizes { get; private set; }
+    public IReadOnlyList<DishSize> Sizes => _sizes.AsReadOnly();
 
     /// <summary>The nutritional values that are needed legally</summary>
     public NutritionalValues NutritionalInformation { get; private set; }
 
     /// <summary>Images of the dish</summary>
-    public IReadOnlyList<Image> Images { get; private set; } = new List<Image>();
+    public IReadOnlyList<Image> Images => _images.AsReadOnly();
 
     /// <summary>Category of the dish</summary>
     public DishCategory Category { get; private set; }
 
     /// <summary>Tags of the dish</summary>
-    public IReadOnlyList<DishTag> Tags { get; private set; }
+    public IReadOnlyList<DishTag> Tags => _tags.AsReadOnly();
 
     /// <summary>
-    /// Factory method used to create a Dish object
+    ///     Factory method used to create a Dish object
     /// </summary>
     /// <returns>Result indicating success, the error that occured and the newly created object</returns>
     public static Result<Dish> Create(Name name, Description description, Money basePrice, List<DishSize> sizes,
@@ -74,17 +79,17 @@ public sealed class Dish : Entity
             CreatedOnUtc = nowUtc,
             ModifiedOnUtc = nowUtc,
             BasePrice = basePrice,
-            Sizes = sizes,
+            _sizes = sizes,
             NutritionalInformation = nutritionalInformation,
             Category = category,
-            Tags = tags
+            _tags = tags
         };
         dish.Raise(new DishCreatedDomainEvent(dish.Id, nowUtc));
         return dish;
     }
 
     /// <summary>
-    /// Method used to update the Name property
+    ///     Method used to update the Name property
     /// </summary>
     /// <param name="name">The new name</param>
     /// <param name="nowUtc">When the update occures</param>
@@ -108,7 +113,7 @@ public sealed class Dish : Entity
     }
 
     /// <summary>
-    /// Method used to update the Description property
+    ///     Method used to update the Description property
     /// </summary>
     /// <param name="description">The new description</param>
     /// <param name="nowUtc">When update occured</param>
@@ -127,7 +132,7 @@ public sealed class Dish : Entity
     }
 
     /// <summary>
-    /// Method used to update the BasePrice property
+    ///     Method used to update the BasePrice property
     /// </summary>
     /// <param name="newPrice">The new price</param>
     /// <param name="nowUtc">When update occured</param>
@@ -146,7 +151,7 @@ public sealed class Dish : Entity
     }
 
     /// <summary>
-    /// Method to add a size to the dish
+    ///     Method to add a size to the dish
     /// </summary>
     /// <param name="size">Size to add</param>
     /// <param name="nowUtc">When add operation occured</param>
@@ -163,14 +168,14 @@ public sealed class Dish : Entity
             return DishErrors.SizeAlreadyPresent;
         }
 
-        Sizes = [.. Sizes, size];
+        _sizes.Add(size);
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedSizeDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     /// <summary>
-    /// Remove a size by its name
+    ///     Remove a size by its name
     /// </summary>
     /// <param name="sizeName">The name of the size you want to remove</param>
     /// <param name="nowUtc">When remove operation occured</param>
@@ -183,14 +188,14 @@ public sealed class Dish : Entity
         }
 
         DishSize size = Sizes.First(d => d.Name == sizeName);
-        Sizes = [.. Sizes.Where(s => s != size)];
+        _sizes.Remove(size);
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedSizeDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     /// <summary>
-    /// Updates the nutritional information of the dish
+    ///     Updates the nutritional information of the dish
     /// </summary>
     /// <param name="nutritionalInformation">The new nutritional information</param>
     /// <param name="nowUtc">When the update occured</param>
@@ -209,7 +214,7 @@ public sealed class Dish : Entity
     }
 
     /// <summary>
-    /// Adds an image to the dish
+    ///     Adds an image to the dish
     /// </summary>
     /// <param name="image">The image to add</param>
     /// <param name="nowUtc">When the operation occured</param>
@@ -221,14 +226,14 @@ public sealed class Dish : Entity
             return DishErrors.ImageAlreadyPresent;
         }
 
-        Images = [.. Images.ToList(), image];
+        _images.Add(image);
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     /// <summary>
-    /// Removes an image to the dish by its id
+    ///     Removes an image to the dish by its id
     /// </summary>
     /// <param name="imageId">The id of the image to remove</param>
     /// <param name="nowUtc">When the operation occured</param>
@@ -240,14 +245,14 @@ public sealed class Dish : Entity
             return DishErrors.ImageNotPresent;
         }
 
-        Images = [.. Images.Where(i => i.Id != imageId)];
+        _images.Remove(Images.First(i => i.Id == imageId));
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
         return Result.Success();
     }
 
     /// <summary>
-    /// Updates the dish category
+    ///     Updates the dish category
     /// </summary>
     /// <param name="category">The new category</param>
     /// <param name="nowUtc">When the operation occured</param>
@@ -266,7 +271,7 @@ public sealed class Dish : Entity
     }
 
     /// <summary>
-    /// Adds tags to the tag list
+    ///     Adds tags to the tag list
     /// </summary>
     /// <param name="tags">Tags to add</param>
     /// <param name="nowUtc">When the operation occured</param>
@@ -278,7 +283,7 @@ public sealed class Dish : Entity
             return DishErrors.InvalidTags;
         }
 
-        var uniqueTags = tags.Where(t => !Tags.Contains(t)).ToList();
+        var uniqueTags = tags.Where(t => Tags.All(dt => dt.Value != t.Value)).ToList();
         if (uniqueTags.Count == 0)
         {
             return DishErrors.TagsAlreadyPresent;
@@ -286,16 +291,16 @@ public sealed class Dish : Entity
 
         foreach (DishTag uniqueTag in uniqueTags)
         {
-            Tags = [.. Tags, uniqueTag];
+            _tags.Add(uniqueTag);
         }
 
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedTagsDomainEvent(Id, nowUtc));
         return Result.Success();
     }
-    
+
     /// <summary>
-    /// Removes tags to the tag list
+    ///     Removes tags to the tag list
     /// </summary>
     /// <param name="tags">Tags to remove</param>
     /// <param name="nowUtc">When the operation occured</param>
@@ -307,19 +312,17 @@ public sealed class Dish : Entity
             return DishErrors.InvalidTags;
         }
 
-        var usefulTags = Tags.IntersectBy(tags.Select(t => t.Id), t => t.Id).ToList();
+        var usefulTags = Tags.IntersectBy(tags.Select(t => t.Value), t => t.Value).ToList();
         if (usefulTags.Count == 0)
         {
             return Result.Success();
         }
 
-        var newTags = Tags.ToList();
         foreach (DishTag uniqueTag in usefulTags)
         {
-            newTags.Remove(uniqueTag);
+            _tags.Remove(uniqueTag);
         }
 
-        Tags = newTags;
         ModifiedOnUtc = nowUtc;
         Raise(new DishUpdatedTagsDomainEvent(Id, nowUtc));
         return Result.Success();

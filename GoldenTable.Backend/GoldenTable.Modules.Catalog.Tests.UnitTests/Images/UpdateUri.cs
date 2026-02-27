@@ -29,7 +29,7 @@ public sealed class UpdateUri : ImageBaseTest
         sut.Uri.Should().Be(uri);
         AssertDomainEventWasPublished<ImageUriUpdatedDomainEvent>(sut);
     }
-    
+
     [Fact]
     public void Should_NotUpdateUri_InvalidUri()
     {

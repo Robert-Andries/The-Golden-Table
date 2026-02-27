@@ -22,7 +22,7 @@ public sealed class Add : MoneyBaseTest
         sut.Should().BeEquivalentTo(original, options => options.Excluding(m => m.Amount));
         sut.Amount.Should().Be(original.Amount * 2);
     }
-    
+
     [Fact]
     public void Should_NotAddMoney_SameInstance()
     {
@@ -38,7 +38,7 @@ public sealed class Add : MoneyBaseTest
         result.Error.Should().Be(MoneyErrors.SameInstance);
         sut.Should().BeEquivalentTo(original);
     }
-    
+
     [Fact]
     public void Should_NotAddMoney_DiffrentCurrency()
     {
@@ -51,8 +51,10 @@ public sealed class Add : MoneyBaseTest
             {
                 throw new Exception("Cannot make 2 different currencies");
             }
+
             sut = MoneyFaker.Generate();
         }
+
         Money copy = sut.DeepClone();
 
         // Act

@@ -12,7 +12,7 @@ internal sealed class DishesConfiguration : IEntityTypeConfiguration<Dish>
     public void Configure(EntityTypeBuilder<Dish> builder)
     {
         builder.HasKey(d => d.Id);
-        
+
         builder.Property(d => d.Name)
             .IsRequired()
             .HasConversion(n => n.Value, v => new Name(v));
@@ -27,7 +27,7 @@ internal sealed class DishesConfiguration : IEntityTypeConfiguration<Dish>
             .IsRequired()
             .HasConversion(dc => dc.Name, dishCategoryString => DishCategory.Create(dishCategoryString).Value);
 
-        builder.ComplexProperty(d => d.BasePrice, basePriceBuilder => 
+        builder.ComplexProperty(d => d.BasePrice, basePriceBuilder =>
         {
             basePriceBuilder.Property(m => m.Amount).IsRequired();
             basePriceBuilder.Property(m => m.Currency)
@@ -35,15 +35,23 @@ internal sealed class DishesConfiguration : IEntityTypeConfiguration<Dish>
                 .IsRequired()
                 .HasMaxLength(3);
         });
-        
-        builder.ComplexProperty(d => d.NutritionalInformation, niBuilder => 
+
+        builder.ComplexProperty(d => d.NutritionalInformation, niBuilder =>
         {
             niBuilder.IsRequired();
             niBuilder.ToJson();
         });
 
         builder.OwnsMany(d => d.Sizes);
+
         builder.HasMany(d => d.Tags).WithMany();
+        builder.Navigation(d => d.Tags)
+            .HasField("_tags")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+
         builder.HasMany(d => d.Images).WithOne();
+        builder.Navigation(d => d.Images)
+            .HasField("_images")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

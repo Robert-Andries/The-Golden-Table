@@ -30,7 +30,7 @@ public sealed class Rename : ImageBaseTest
         sut.Name.Should().Be(name);
         AssertDomainEventWasPublished<ImageRenamedDomainEvent>(sut);
     }
-    
+
     [Fact]
     public void Should_NotRenameImage_InvalidName()
     {
@@ -47,7 +47,7 @@ public sealed class Rename : ImageBaseTest
         result.Error.Should().Be(ImageErrors.InvalidName);
         sut.Should().BeEquivalentTo(original);
     }
-    
+
     [Fact]
     public void Should_RenameImage_SameName()
     {

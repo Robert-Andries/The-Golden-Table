@@ -1,5 +1,4 @@
 ﻿using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Application.Dishes.UpdateDishCategory;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes;
@@ -8,7 +7,7 @@ internal static partial class DishLogs
 {
     [LoggerMessage(LogLevel.Information, "Dish with id: '{dishId}' not found")]
     internal static partial void DishNotFound(ILogger logger, Guid dishId);
-    
+
     [LoggerMessage(LogLevel.Information, "Image {imageId} not found")]
     internal static partial void ImageIdNotFound(ILogger logger, Guid imageId);
 
@@ -53,7 +52,7 @@ internal static partial class DishLogs
     [LoggerMessage(LogLevel.Information,
         "Cannot update nutritional information for dish dish with id: {dishId}. Error: {error}")]
     internal static partial void UpdateNutritionalInformationError(ILogger logger, Guid dishId, Error error);
-    
+
     [LoggerMessage(LogLevel.Information,
         "Unable to create dish category. Error: {error}")]
     internal static partial void CreateCategoryError(ILogger logger, Error error);

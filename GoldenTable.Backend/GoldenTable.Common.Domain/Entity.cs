@@ -4,14 +4,10 @@ namespace GoldenTable.Common.Domain;
 
 public abstract class Entity
 {
-    public Guid Id { get; init; }
-    
     [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
     private readonly List<IDomainEvent> _domainEvents = [];
 
-    protected Entity()
-    {
-    }
+    public Guid Id { get; init; }
 
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.ToList();
 
@@ -25,4 +21,3 @@ public abstract class Entity
         _domainEvents.Add(domainEvent);
     }
 }
-

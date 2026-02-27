@@ -2,7 +2,6 @@
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.AddTags;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +25,6 @@ internal sealed class AddTags : IEndpoint
     internal sealed class Request
     {
         public Guid DishId { get; set; }
-        public List<DishTag> Tags { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

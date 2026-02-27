@@ -1,22 +1,23 @@
 ﻿using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 /// <summary>
-/// Value object holding the data necesarry for a dish category
+///     Value object holding the data necesarry for a dish category
 /// </summary>
-public sealed record DishCategory
+public record DishCategory
 {
     private DishCategory()
-    { }
+    {
+    }
+
     /// <summary>
-    /// The category name
+    ///     The category name
     /// </summary>
     public string Name { get; private init; }
 
     /// <summary>
-    /// Factory method used to create a DishCategory object
+    ///     Factory method used to create a DishCategory object
     /// </summary>
     /// <param name="name">The category name</param>
     /// <returns>Result indicating success, the error that occured and the newly created object</returns>
@@ -32,4 +33,4 @@ public sealed record DishCategory
             Name = name
         };
     }
-};
+}

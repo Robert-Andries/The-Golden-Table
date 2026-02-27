@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.AddSize;
 
-public sealed partial class AddSizeCommandHandler(
+public sealed class AddSizeCommandHandler(
     IUnitOfWork unitOfWork,
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
@@ -20,30 +20,26 @@ public sealed partial class AddSizeCommandHandler(
     public async Task<Result> Handle(AddSizeCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
-        Dish? dish = await dishCacheService.GetAsync(request.DishId, cancellationToken) ?? 
-                     await dishRepository.GetAsync(request.DishId, cancellationToken);
+
+        Dish? dish = await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
             DishLogs.DishNotFound(logger, request.DishId);
             return DishErrors.NotFound;
         }
-        
+
         DishSize size = new(request.SizeName, request.SizePriceAdded, request.SizeWeight);
-        
+
         Result result = dish.AddSize(size, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             DishLogs.AddSizeError(logger, request.DishId, result.Error);
             return Result.Failure(result.Error);
         }
-        
-        await dishRepository.UpdateAsync(dish, cancellationToken);
+
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await dishCacheService.UpdateAsync(dish, cancellationToken);
 
         return Result.Success();
     }
-
-    
 }

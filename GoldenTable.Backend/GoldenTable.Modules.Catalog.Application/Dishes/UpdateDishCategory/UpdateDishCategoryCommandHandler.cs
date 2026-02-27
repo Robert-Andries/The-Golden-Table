@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateDishCategory;
 
-public sealed partial class UpdateDishCategoryCommandHandler(
+public sealed class UpdateDishCategoryCommandHandler(
     ILogger<UpdateDishCategoryCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,
@@ -20,9 +20,8 @@ public sealed partial class UpdateDishCategoryCommandHandler(
     public async Task<Result> Handle(UpdateDishCategoryCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
-        Dish? dish = await cacheService.GetAsync(request.DishId, cancellationToken) ??
-                     await dishRepository.GetAsync(request.DishId, cancellationToken);
+
+        Dish? dish = await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
             DishLogs.DishNotFound(logger, request.DishId);
@@ -35,8 +34,9 @@ public sealed partial class UpdateDishCategoryCommandHandler(
             DishLogs.CreateCategoryError(logger, dishCategoryResult.Error);
             return dishCategoryResult.Error;
         }
+
         DishCategory category = dishCategoryResult.Value;
-        
+
         Result result = dish.UpdateDishCategory(category, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
@@ -44,10 +44,9 @@ public sealed partial class UpdateDishCategoryCommandHandler(
             return result.Error;
         }
 
-        await dishRepository.UpdateAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await cacheService.UpdateAsync(dish, cancellationToken);
-        
+
         return Result.Success();
     }
 }

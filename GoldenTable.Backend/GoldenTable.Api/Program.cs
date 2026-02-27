@@ -1,8 +1,9 @@
 using GoldenTable.Api.Extensions;
 using GoldenTable.Api.Middleware;
 using GoldenTable.Common.Application;
-using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Infrastructure;
+using GoldenTable.Common.Presentation.Endpoints;
+using GoldenTable.Modules.Catalog.Application;
 using GoldenTable.Modules.Catalog.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -19,7 +20,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplication([GoldenTable.Modules.Catalog.Application.AssemblyReference.Assembly]);
+builder.Services.AddApplication([AssemblyReference.Assembly]);
 builder.Services.AddCatalogModule(builder.Configuration);
 
 builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
@@ -29,6 +30,8 @@ builder.Services.AddHealthChecks()
     .AddRedis(cacheConnectionString);
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddCatalogModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
@@ -54,4 +57,3 @@ app.UseExceptionHandler();
 app.MapEndpoints();
 
 app.Run();
-

@@ -8,18 +8,18 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Create;
 
-public sealed class CreateCommandHandler(
-    IImageRepository  imageRepository,
+public sealed class CreateImageCommandHandler(
+    IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
-    ILogger<CreateCommandHandler> logger,
+    ILogger<CreateImageCommandHandler> logger,
     IDateTimeProvider dateTimeProvider)
-    : ICommandHandler<CreateCommand>
+    : ICommandHandler<CreateImageCommand, Guid>
 {
-    public async Task<Result> Handle(CreateCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateImageCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         Result<Image> imageResult = Image.Create(
             dateTimeProvider.UtcNow,
             request.Uri,
@@ -28,15 +28,13 @@ public sealed class CreateCommandHandler(
         if (imageResult.IsFailure)
         {
             ImagesLogs.CreateImageError(logger, imageResult.Error);
-            return imageResult.Error;
+            return Result.Failure<Guid>(imageResult.Error);
         }
 
         await imageRepository.AddAsync(imageResult.Value, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await imageCacheService.UpdateAsync(imageResult.Value, cancellationToken);
 
-        return Result.Success();
+        return Result.Success(imageResult.Value.Id);
     }
-
-
 }

@@ -8,16 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoldenTable.Modules.Catalog.Infrastructure.Database;
 
-internal sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options) : DbContext(options), IUnitOfWork, IDishDbSets
+public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
+    : DbContext(options), IUnitOfWork, IDishDbSets
 {
-    public DbSet<Dish> Dishes { get; set; }
     public DbSet<Image> Images { get; set; }
-    
+    public DbSet<Dish> Dishes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schemas.Catalog);
-
         modelBuilder.ApplyConfiguration(new DishesConfiguration());
         modelBuilder.ApplyConfiguration(new ImagesConfiguration());
+        modelBuilder.Entity<Dish>().Ignore(d => d.DomainEvents);
+        modelBuilder.Entity<Image>().Ignore(i => i.DomainEvents);
     }
 }

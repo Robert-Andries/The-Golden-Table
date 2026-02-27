@@ -6,6 +6,8 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Images;
 
 public class ImageCacheService(ICacheService cacheService) : IImageCacheService
 {
+    private static readonly TimeSpan ExpirationTime = TimeSpan.FromMinutes(5);
+
     public Task<Image?> GetAsync(Guid imageId, CancellationToken cancellationToken)
     {
         string cacheKey = GetCacheKey(imageId);
@@ -24,7 +26,6 @@ public class ImageCacheService(ICacheService cacheService) : IImageCacheService
         return cacheService.RemoveAsync(cacheKey, cancellationToken);
     }
 
-    private static readonly TimeSpan ExpirationTime = TimeSpan.FromMinutes(5);
     private static string GetCacheKey(Guid imageId)
     {
         return $"Image-{imageId}";

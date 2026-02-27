@@ -36,6 +36,7 @@ public class RemoveImage : DishBaseTest
             {
                 continue;
             }
+
             sut.Images.Any(i => i.Id == originalImage.Id).Should().BeTrue();
         }
 
@@ -49,10 +50,7 @@ public class RemoveImage : DishBaseTest
         // Arrange
         Dish original = DishFaker.Generate();
         Image randomImage = Faker.PickRandom(original.Images, 1).First();
-        foreach (Image originalImage in original.Images)
-        {
-            original.RemoveImage(originalImage.Id, SometimeUtc);
-        }
+        original.RemoveImage(randomImage.Id, SometimeUtc);
 
         Dish sut = original.DeepClone();
 

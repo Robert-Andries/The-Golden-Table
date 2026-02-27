@@ -1,12 +1,19 @@
-﻿using System.Buffers;
-using System.Text.Json;
+﻿using System.Text;
 using GoldenTable.Common.Application.Caching;
 using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace GoldenTable.Common.Infrastructure.Caching;
 
 internal sealed class CacheService(IDistributedCache cache) : ICacheService
 {
+    private static readonly JsonSerializerSettings Settings = new()
+    {
+        ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+        TypeNameHandling = TypeNameHandling.All
+    };
+
+
     public async Task<T?> GetAsync<T>(string key, CancellationToken cancellationToken = default)
     {
         byte[]? bytes = await cache.GetAsync(key, cancellationToken);
@@ -25,19 +32,20 @@ internal sealed class CacheService(IDistributedCache cache) : ICacheService
         return cache.SetAsync(key, bytes, CacheOptions.Create(expiration), cancellationToken);
     }
 
-    public Task RemoveAsync(string key, CancellationToken cancellationToken = default) =>
-        cache.RemoveAsync(key, cancellationToken);
+    public Task RemoveAsync(string key, CancellationToken cancellationToken = default)
+    {
+        return cache.RemoveAsync(key, cancellationToken);
+    }
 
     private static T Deserialize<T>(byte[] bytes)
     {
-        return JsonSerializer.Deserialize<T>(bytes)!;
+        string json = Encoding.UTF8.GetString(bytes);
+        return JsonConvert.DeserializeObject<T>(json, Settings);
     }
 
     private static byte[] Serialize<T>(T value)
     {
-        var buffer = new ArrayBufferWriter<byte>();
-        using var writer = new Utf8JsonWriter(buffer);
-        JsonSerializer.Serialize(writer, value);
-        return buffer.WrittenSpan.ToArray();
+        string json = JsonConvert.SerializeObject(value, Settings);
+        return Encoding.UTF8.GetBytes(json);
     }
 }

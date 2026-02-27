@@ -1,7 +1,7 @@
 ﻿namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 /// <summary>
-/// Value object holding the necesarry data for a description
+///     Value object holding the necesarry data for a description
 /// </summary>
 /// <param name="Value">The description text</param>
 public record Description(string Value)
@@ -11,4 +11,4 @@ public record Description(string Value)
     {
         return !string.IsNullOrEmpty(Value);
     }
-};
+}

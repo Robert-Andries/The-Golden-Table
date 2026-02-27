@@ -3,23 +3,26 @@
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
 /// <summary>
-/// Value object holding the data needed for nutritional carbohydrates
+///     Value object holding the data needed for nutritional carbohydrates
 /// </summary>
 public sealed record Carbohydrates
 {
     private Carbohydrates()
-    { }
+    {
+    }
+
     /// <summary>
-    /// Total grams of carbohydrates
+    ///     Total grams of carbohydrates
     /// </summary>
     public float Total { get; init; }
+
     /// <summary>
-    /// The grams of sugar from the total amount
+    ///     The grams of sugar from the total amount
     /// </summary>
     public float OfWhichSugar { get; init; }
 
     /// <summary>
-    /// Factory method to create a Carbohydrates object
+    ///     Factory method to create a Carbohydrates object
     /// </summary>
     /// <param name="total">Total grams</param>
     /// <param name="ofWhichSugar">Sugar grams</param>
@@ -28,8 +31,10 @@ public sealed record Carbohydrates
     {
         if (total < ofWhichSugar)
         {
-            return Result.Failure<Carbohydrates>(NutritionalValuesErrors.GramsOfSugarShouldNotExceedGramsOfCarbohydrates);
+            return Result.Failure<Carbohydrates>(
+                NutritionalValuesErrors.GramsOfSugarShouldNotExceedGramsOfCarbohydrates);
         }
+
         var carbohydrates = new Carbohydrates
         {
             Total = total,

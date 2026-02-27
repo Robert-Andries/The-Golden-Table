@@ -18,40 +18,36 @@ public sealed class AddImageCommandHandler(
     IDishCacheService dishCacheService,
     ILogger<AddImageCommandHandler> logger,
     IDateTimeProvider dateTimeProvider)
-    : ICommandHandler<AddImageCommand>
+    : ICommandHandler<AddImageCommand, Guid>
 {
-    public async Task<Result> Handle(AddImageCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(AddImageCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
-        Image image =  await imageCacheService.GetAsync(request.ImageId, cancellationToken) ??
-                           await imageRepository.GetAsync(request.ImageId, cancellationToken);
+
+        Image image = await imageCacheService.GetAsync(request.ImageId, cancellationToken) ??
+                      await imageRepository.GetAsync(request.ImageId, cancellationToken);
         if (image is null)
         {
             DishLogs.ImageIdNotFound(logger, request.ImageId);
-            return ImageErrors.NotFound;
+            return Result.Failure<Guid>(ImageErrors.NotFound);
         }
 
-        Dish? dish = await dishCacheService.GetAsync(request.DishId, cancellationToken) ?? 
-                     await dishRepository.GetAsync(request.DishId, cancellationToken);
+        Dish? dish = await dishRepository.GetAsync(request.DishId, cancellationToken);
         if (dish is null)
         {
             DishLogs.DishNotFound(logger, request.DishId);
-            return DishErrors.NotFound;
+            return Result.Failure<Guid>(DishErrors.NotFound);
         }
 
         Result result = dish.AddImage(image, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
-            return result.Error;
+            return Result.Failure<Guid>(result.Error);
         }
-        
-        await dishRepository.UpdateAsync(dish, cancellationToken);
+
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await dishCacheService.UpdateAsync(dish, cancellationToken);
-        
-        return Result.Success();
-    }
 
-   
+        return image.Id;
+    }
 }

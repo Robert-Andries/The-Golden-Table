@@ -13,13 +13,13 @@ public sealed class RenameCommandHandler(
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
     IDateTimeProvider dateTimeProvider,
-    ILogger<RenameCommandHandler> logger) 
+    ILogger<RenameCommandHandler> logger)
     : ICommandHandler<RenameCommand>
 {
     public async Task<Result> Handle(RenameCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         Image? image = await imageCacheService.GetAsync(request.ImageId, cancellationToken) ??
                        await imageRepository.GetAsync(request.ImageId, cancellationToken);
         if (image is null)
@@ -27,20 +27,18 @@ public sealed class RenameCommandHandler(
             ImagesLogs.ImageNotFound(logger, request.ImageId);
             return ImageErrors.NotFound;
         }
-        
+
         Result result = image.Rename(request.NewName, dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             ImagesLogs.RenameImageError(logger, request.ImageId, result.Error);
             return Result.Failure(result.Error);
         }
-        
+
         await imageRepository.UpdateAsync(image, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await imageCacheService.UpdateAsync(image, cancellationToken);
 
         return Result.Success();
     }
-
-    
 }

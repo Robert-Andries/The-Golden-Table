@@ -15,7 +15,8 @@ internal sealed class DishRepository(CatalogDbContext context) : IDishRepository
     public async Task<Dish?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         Dish? dish = await context.Dishes
-            .AsNoTracking()
+            .Include(d => d.Tags)
+            .Include(d => d.Images)
             .FirstOrDefaultAsync(d => d.Id == id, cancellationToken);
         return dish;
     }
@@ -27,7 +28,7 @@ internal sealed class DishRepository(CatalogDbContext context) : IDishRepository
             .ToListAsync(cancellationToken);
         return dishes;
     }
-    
+
     public Task UpdateAsync(Dish dish, CancellationToken cancellationToken = default)
     {
         context.Dishes.Update(dish);

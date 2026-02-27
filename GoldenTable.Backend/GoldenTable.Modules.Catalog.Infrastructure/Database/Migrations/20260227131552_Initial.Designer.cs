@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20260222234421_Initial")]
+    [Migration("20260227131552_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

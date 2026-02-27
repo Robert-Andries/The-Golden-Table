@@ -1,0 +1,311 @@
+﻿  Determining projects to restore...
+  All projects are up-to-date for restore.
+  GoldenTable.Common.Domain -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Domain\bin\Debug\net10.0\GoldenTable.Common.Domain.dll
+  GoldenTable.Common.Application -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\bin\Debug\net10.0\GoldenTable.Common.Application.dll
+  GoldenTable.Modules.Catalog.Domain -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Domain\bin\Debug\net10.0\GoldenTable.Modules.Catalog.Domain.dll
+  GoldenTable.Common.Presentation -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Presentation\bin\Debug\net10.0\GoldenTable.Common.Presentation.dll
+  GoldenTable.Common.Infrastructure -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Infrastructure\bin\Debug\net10.0\GoldenTable.Common.Infrastructure.dll
+  GoldenTable.Modules.Catalog.Application -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Application\bin\Debug\net10.0\GoldenTable.Modules.Catalog.Application.dll
+  GoldenTable.Modules.Catalog.Presentation -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Presentation\bin\Debug\net10.0\GoldenTable.Modules.Catalog.Presentation.dll
+  GoldenTable.Modules.Catalog.Infrastructure -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Infrastructure\bin\Debug\net10.0\GoldenTable.Modules.Catalog.Infrastructure.dll
+  GoldenTable.Api -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Api\bin\Debug\net10.0\GoldenTable.Api.dll
+  GoldenTable.Modules.Catalog.Tests.IntegrationTests -> C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\bin\Debug\net10.0\GoldenTable.Modules.Catalog.Tests.IntegrationTests.dll
+Test run for C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\bin\Debug\net10.0\GoldenTable.Modules.Catalog.Tests.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+VSTest version 18.0.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateNutritionalInformation.Should_NotUpdateNutritionalInformation_SameNutritionalInformation [324 ms]
+  Error Message:
+   Expected result.Error to be GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.NotFound",
+    Description = "The dish with the provided id not found.",
+    Type = ErrorType.NotFound {value: 3}
+}, but found GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.NutritionalInformationIsTheSame",
+    Description = "The provided nutritional information is the same as the dish's one.",
+    Type = ErrorType.Validation {value: 1}
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateNutritionalInformation.Should_NotUpdateNutritionalInformation_SameNutritionalInformation() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateNutritionalInformation.cs:line 76
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDishCategory.Should_UpdatetDishCategory_Successfully [30 ms]
+  Error Message:
+   Expected dbDish.Name to be "Forward Identity Director", but found GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Name
+{
+    Value = "Heath Doyle"
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDishCategory.Should_UpdatetDishCategory_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateDishCategory.cs:line 30
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDishCategory.Should_NotUpdateDishCategory_SameAsBefore [28 ms]
+  Error Message:
+   Expected result.Error to be GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.InvalidCategoryName",
+    Description = "The provided category name is invalid.",
+    Type = ErrorType.Validation {value: 1}
+}, but found GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.SameCategory",
+    Description = "The provided category is same as the old one.",
+    Type = ErrorType.Validation {value: 1}
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDishCategory.Should_NotUpdateDishCategory_SameAsBefore() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateDishCategory.cs:line 80
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDescription.Should_NotUpdateDescription_InvalidDescription [41 ms]
+  Error Message:
+   Expected result.Error to be GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.InvalidDescription",
+    Description = "The provided description is invalid.",
+    Type = ErrorType.Validation {value: 1}
+}, but found GoldenTable.Common.Domain.Error
+{
+    Code = "",
+    Description = "",
+    Type = ErrorType.Failure {value: 0}
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDescription.Should_NotUpdateDescription_InvalidDescription() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateDescription.cs:line 48
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDescription.Should_UpdateDescription_Successfully [27 ms]
+  Error Message:
+   Expected dbDish.Description to be "Forward", but found GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Description
+{
+    Value = "Forward"
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDescription.Should_UpdateDescription_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateDescription.cs:line 31
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDescription.Should_UpdateDescription_SameDescription_Successfully [21 ms]
+  Error Message:
+   Expected result.IsSuccess to be True, but found False.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.BooleanAssertions`1.BeTrue(String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateDescription.Should_UpdateDescription_SameDescription_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateDescription.cs:line 66
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateBasePrice.Should_NotUpdateBasePrice_InvalidAmount [24 ms]
+  Error Message:
+   GoldenTable.Common.Application.Exceptions.GoldenTableException : Application exception
+---- System.InvalidOperationException : The value of a failure result can't be accessed.
+  Stack Trace:
+     at GoldenTable.Common.Application.Exceptions.ExceptionHandlingPipelineBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\Exceptions\ExceptionHandlingPipelineBehavior.cs:line 24
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.UpdateBasePrice.Should_NotUpdateBasePrice_InvalidAmount() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\UpdateBasePrice.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at GoldenTable.Common.Domain.Result`1.get_Value() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Domain\Result.cs:line 49
+   at GoldenTable.Modules.Catalog.Application.Dishes.UpdateBasePrice.UpdateBasePriceCommandHandler.Handle(UpdateBasePriceCommand request, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Application\Dishes\UpdateBasePrice\UpdateBasePriceCommandHandler.cs:line 39
+   at GoldenTable.Common.Application.Behaviors.ValidationPipelineBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\Behaviors\ValidationPipelineBehavior.cs:line 25
+   at GoldenTable.Common.Application.Exceptions.ExceptionHandlingPipelineBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\Exceptions\ExceptionHandlingPipelineBehavior.cs:line 18
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.Rename.Should_Rename_SameNameAsBefore [21 ms]
+  Error Message:
+   Expected result.IsSuccess to be True, but found False.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.BooleanAssertions`1.BeTrue(String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.Rename.Should_Rename_SameNameAsBefore() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\Rename.cs:line 67
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveTags.Should_NotRemoveTags_TagsDoesNotExistInDish [45 ms]
+  Error Message:
+   Expected result.Error to be GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.InvalidTags",
+    Description = "The provided tags are invalid.",
+    Type = ErrorType.Validation {value: 1}
+}, but found GoldenTable.Common.Domain.Error
+{
+    Code = "",
+    Description = "",
+    Type = ErrorType.Failure {value: 0}
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveTags.Should_NotRemoveTags_TagsDoesNotExistInDish() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\RemoveTags.cs:line 71
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveTags.Should_RemoveTags_Successfully [33 ms]
+  Error Message:
+   Expected dbDish.Tags.Count to be 6, but found 7.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Numeric.NumericAssertionsBase`3.Be(T expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveTags.Should_RemoveTags_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\RemoveTags.cs:line 32
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveSize.Should_RemoveSize_Successfully [19 ms]
+  Error Message:
+   GoldenTable.Common.Application.Exceptions.GoldenTableException : Application exception
+---- System.NotSupportedException : Specified method is not supported.
+  Stack Trace:
+     at GoldenTable.Common.Application.Exceptions.ExceptionHandlingPipelineBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\Exceptions\ExceptionHandlingPipelineBehavior.cs:line 24
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveSize.Should_RemoveSize_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\RemoveSize.cs:line 27
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at <>z__ReadOnlyList`1.System.Collections.Generic.ICollection<T>.Remove(T item)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.ClrCollectionAccessor`3.RemoveStandalone(Object collection, Object value)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.ClrCollectionAccessor`3.Remove(Object entity, Object value)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.RemoveFromCollection(INavigationBase navigationBase, Object value)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.RemoveFromCollection(InternalEntityEntry entry, INavigationBase navigation, InternalEntityEntry value)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.ResetReferenceOrRemoveCollection(InternalEntityEntry entry, INavigationBase navigation, InternalEntityEntry value, Boolean fromQuery)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.DeleteFixup(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.ConditionallyNullForeignKeyProperties(InternalEntityEntry dependentEntry, InternalEntityEntry principalEntry, IForeignKey foreignKey)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.NavigationCollectionChanged(InternalEntityEntry entry, INavigationBase navigationBase, IEnumerable`1 added, IEnumerable`1 removed)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntryNotifier.NavigationCollectionChanged(InternalEntityEntry entry, INavigationBase navigationBase, IEnumerable`1 added, IEnumerable`1 removed)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.DetectNavigationChange(InternalEntityEntry entry, INavigationBase navigationBase)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.LocalDetectChanges(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.DetectChanges(IStateManager stateManager)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.DetectChanges()
+   at Microsoft.EntityFrameworkCore.DbContext.TryDetectChanges()
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at GoldenTable.Modules.Catalog.Application.Dishes.RemoveSize.RemoveSizeCommandHandler.Handle(RemoveSizeCommand request, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Application\Dishes\RemoveSize\RemoveSizeCommandHandler.cs:line 39
+   at GoldenTable.Common.Application.Behaviors.ValidationPipelineBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\Behaviors\ValidationPipelineBehavior.cs:line 25
+   at GoldenTable.Common.Application.Exceptions.ExceptionHandlingPipelineBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Common.Application\Exceptions\ExceptionHandlingPipelineBehavior.cs:line 18
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveImage.Should_NotRemoveImage_ImageNotFound [22 ms]
+  Error Message:
+   Expected result.Error to be GoldenTable.Common.Domain.Error
+{
+    Code = "Image.NotFound",
+    Description = "The image with the provided ID was not found.",
+    Type = ErrorType.NotFound {value: 3}
+}, but found GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.ImageNotPresent",
+    Description = "The provided image is not present.",
+    Type = ErrorType.Validation {value: 1}
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveImage.Should_NotRemoveImage_ImageNotFound() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\RemoveImage.cs:line 73
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveImage.Should_RemoveImage_Successfully [68 ms]
+  Error Message:
+   Expected result.IsSuccess to be True, but found False.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.BooleanAssertions`1.BeTrue(String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.RemoveImage.Should_RemoveImage_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\RemoveImage.cs:line 34
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.GetAllDishes.Should_GetAllDishes_Successfully [13 ms]
+  Error Message:
+   System.InvalidOperationException : The property 'Dish.Description#Description.DishId' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.
+  Stack Trace:
+     at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntryBase.SetPropertyModified(IProperty property, Boolean changeState, Boolean isModified, Boolean isConceptualNull, Boolean acceptChanges)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.PropertyChanged(IInternalEntry entry, IPropertyBase propertyBase, Boolean setModified)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntryNotifier.PropertyChanged(IInternalEntry entry, IPropertyBase property, Boolean setModified)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntryBase.OnPropertyChanged(IPropertyBase propertyBase, Object value, Boolean setModified)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.OnPropertyChanged(IPropertyBase propertyBase, Object value, Boolean setModified)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntryBase.SetProperty(IPropertyBase propertyBase, Object value, Boolean isMaterialization, Boolean setModified, Boolean isCascadeDelete, CurrentValueType valueType)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntryBase.SetProperty(IPropertyBase propertyBase, Object value, Boolean isMaterialization, Boolean setModified, Boolean isCascadeDelete)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.PropagateValue(InternalEntityEntry principalEntry, IProperty principalProperty, IProperty dependentProperty, Boolean isMaterialization, Boolean setModified)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.SetForeignKeyProperties(InternalEntityEntry dependentEntry, InternalEntityEntry principalEntry, IForeignKey foreignKey, Boolean setModified, Boolean fromQuery)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.FixupToDependent(InternalEntityEntry principalEntry, InternalEntityEntry dependentEntry, IForeignKey foreignKey, Boolean setModified, Boolean fromQuery)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.InitialFixup(InternalEntityEntry entry, InternalEntityEntry duplicateEntry, Boolean fromQuery)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NavigationFixer.StateChanged(InternalEntityEntry entry, EntityState oldState, Boolean fromQuery)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntryNotifier.StateChanged(InternalEntityEntry entry, EntityState oldState, Boolean fromQuery)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.FireStateChanged(EntityState oldState)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.OnStateChanged(EntityState oldState)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntryBase.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintAction(EntityEntryGraphNode`1 node)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraph[TState](EntityEntryGraphNode`1 node, Func`2 handleNode)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraph(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.SetEntityState(InternalEntityEntry entry, EntityState entityState)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Add(TEntity entity)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.DishesBaseTest.PutDishInDb(Dish dish) in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\DishesBaseTest.cs:line 29
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.GetAllDishes.Should_GetAllDishes_Successfully() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\GetAllDishes.cs:line 25
+--- End of stack trace from previous location ---
+  Failed GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.AddImage.Should_NotAddImage_ImageAlreadyExistsInDish [32 ms]
+  Error Message:
+   Expected result.Error to be GoldenTable.Common.Domain.Error
+{
+    Code = "DishErrors.ImageAlreadyPresent",
+    Description = "The provided image is already present.",
+    Type = ErrorType.Validation {value: 1}
+}, but found GoldenTable.Common.Domain.Error
+{
+    Code = "",
+    Description = "",
+    Type = ErrorType.Failure {value: 0}
+}.
+  Stack Trace:
+     at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.AddPreFormattedFailure(String formattedFailureMessage)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(Func`1 getFailureReason)
+   at FluentAssertions.Execution.AssertionChain.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes.AddImage.Should_NotAddImage_ImageAlreadyExistsInDish() in C:\Proiecte\The-Golden-Table\GoldenTable.Backend\GoldenTable.Modules.Catalog.Tests.IntegrationTests\Dishes\AddImage.cs:line 85
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:    15, Passed:    20, Skipped:     0, Total:    35, Duration: 2 s - GoldenTable.Modules.Catalog.Tests.IntegrationTests.dll (net10.0)

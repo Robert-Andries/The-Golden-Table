@@ -7,6 +7,7 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
 using GoldenTable.Modules.Catalog.Infrastructure.Dishes;
 using GoldenTable.Modules.Catalog.Infrastructure.Images;
+using GoldenTable.Modules.Catalog.Presentation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -18,13 +19,13 @@ public static class CatalogModule
 {
     public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddEndpoints(Presentation.AssemblyReference.Assembly);
+        services.AddEndpoints(AssemblyReference.Assembly);
 
         services.AddInfrastructure(configuration);
 
         return services;
     }
-    
+
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         string databaseConnectionString = configuration.GetConnectionString("Database");
@@ -32,17 +33,17 @@ public static class CatalogModule
         {
             throw new Exception("Database connection string is empty");
         }
-        
+
         services.ConfigureHttpJsonOptions(options =>
         {
             options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
         services.AddDbContext<CatalogDbContext>((sp, options) =>
-            options.UseNpgsql(databaseConnectionString,npgsqlOptions => 
+            options.UseNpgsql(databaseConnectionString, npgsqlOptions =>
                 npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog)));
-        
+
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<CatalogDbContext>());
-        
+
         services.AddScoped<IDishRepository, DishRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
         services.AddSingleton<IDishCacheService, DishCacheService>();

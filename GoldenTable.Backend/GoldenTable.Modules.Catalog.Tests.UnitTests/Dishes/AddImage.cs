@@ -35,6 +35,7 @@ public sealed class AddImage : DishBaseTest
         {
             sut.Images.Any(i => i.Id == originalImage.Id).Should().BeTrue();
         }
+
         sut.Images.Count.Should().Be(original.Images.Count + 1);
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
         AssertDomainEventWasPublished<DishUpdatedImagesDomainEvent>(sut);

@@ -6,4 +6,3 @@ public interface IDomainEvent
 
     DateTime OccurredOnUtc { get; }
 }
-

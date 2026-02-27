@@ -65,7 +65,8 @@ public sealed class RemoveSize : DishBaseTest
     {
         // Arrange
         Dish original = DishFaker.Generate();
-        foreach (DishSize originalSize in original.Sizes)
+        var sizes = original.Sizes.ToList();
+        foreach (DishSize originalSize in sizes)
         {
             original.RemoveSize(originalSize.Name, SometimeUtc);
         }

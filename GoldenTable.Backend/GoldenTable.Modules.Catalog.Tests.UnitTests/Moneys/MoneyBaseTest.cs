@@ -7,6 +7,8 @@ namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Moneys;
 public abstract class MoneyBaseTest : BaseTest
 #pragma warning restore CA1515
 {
+    public Faker<Money> MoneyFaker;
+
     protected MoneyBaseTest()
     {
         MoneyFaker = new Faker<Money>().CustomInstantiator(f =>
@@ -18,6 +20,4 @@ public abstract class MoneyBaseTest : BaseTest
             return Money.Create(amount, currency).Value;
         });
     }
-    
-    public Faker<Money> MoneyFaker;
 }

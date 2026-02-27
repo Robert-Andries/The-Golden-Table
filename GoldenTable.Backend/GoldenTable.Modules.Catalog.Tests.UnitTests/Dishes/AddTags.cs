@@ -62,4 +62,21 @@ public sealed class AddTags : DishBaseTest
         result.Error.Should().Be(DishErrors.InvalidTags);
         sut.Should().BeEquivalentTo(original);
     }
+
+    [Fact]
+    public void Should_NotAddTags_ProvidedTagsSameAsDishTags()
+    {
+        // Arrange
+        Dish original = DishFaker.Generate();
+        Dish sut = original.DeepClone();
+        var tags = sut.Tags.ToList();
+
+        // Act
+        Result result = sut.AddTags(tags, SometimeUtc);
+
+        // Assert
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(DishErrors.TagsAlreadyPresent);
+        sut.Should().BeEquivalentTo(original);
+    }
 }

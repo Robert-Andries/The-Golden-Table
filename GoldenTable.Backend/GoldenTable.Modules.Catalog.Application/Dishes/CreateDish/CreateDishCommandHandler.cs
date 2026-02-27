@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 
-public sealed partial class CreateDishCommandHandler(
+public sealed class CreateDishCommandHandler(
     IUnitOfWork unitOfWork,
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
@@ -23,7 +23,7 @@ public sealed partial class CreateDishCommandHandler(
     public async Task<Result<Guid>> Handle(CreateDishCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         Name name = new(request.Name);
         Description description = new(request.Description);
         Result<Money> basePriceResult = Money.Create(request.BasePriceAmount, request.BasePriceCurrency);
@@ -31,6 +31,7 @@ public sealed partial class CreateDishCommandHandler(
         {
             return Result.Failure<Guid>(basePriceResult.Error);
         }
+
         Money basePrice = basePriceResult.Value;
         Result<NutritionalValues> nutritionalInformationResult = NutritionalValues.Create(
             request.Kcal,
@@ -43,6 +44,7 @@ public sealed partial class CreateDishCommandHandler(
         {
             return Result.Failure<Guid>(nutritionalInformationResult.Error);
         }
+
         NutritionalValues nutritionalInformation = nutritionalInformationResult.Value;
         Result<DishCategory> dishCategoryResult = DishCategory.Create(request.DishCategory);
         if (dishCategoryResult.IsFailure)
@@ -50,8 +52,9 @@ public sealed partial class CreateDishCommandHandler(
             DishLogs.CreateCategoryError(logger, dishCategoryResult.Error);
             return Result.Failure<Guid>(dishCategoryResult.Error);
         }
+
         DishCategory dishCategory = dishCategoryResult.Value;
-        
+
         Result<Dish> result = Dish.Create(
             name,
             description,
@@ -61,7 +64,7 @@ public sealed partial class CreateDishCommandHandler(
             dishCategory,
             request.Tags,
             dateTimeProvider.UtcNow);
-        
+
         if (result.IsFailure)
         {
             DishLogs.CreateError(logger, result.Error);
@@ -69,14 +72,12 @@ public sealed partial class CreateDishCommandHandler(
         }
 
         Dish dish = result.Value;
-        
+
         await dishRepository.AddAsync(dish, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await dishCacheService.UpdateAsync(dish, cancellationToken);
-        
+
         DishLogs.DishCreatedSuccessfully(logger, dish.Id);
         return Result.Success(dish.Id);
     }
-
-    
 }

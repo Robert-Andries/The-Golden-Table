@@ -6,16 +6,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
 
-public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets) 
+public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets)
     : IQueryHandler<GetDishesByTagsQuery, List<DishResponse>>
 {
-    public async Task<Result<List<DishResponse>>> Handle(GetDishesByTagsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<DishResponse>>> Handle(GetDishesByTagsQuery request,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         List<Dish> dishes = await dishDbSets.Dishes
             .AsNoTracking()
             .Where(d => request.Tags.TrueForAll(tag => d.Tags.Contains(tag)))
+            .Include(d => d.Images)
+            .Include(d => d.Tags)
             .ToListAsync(cancellationToken);
         if (dishes.Count == 0)
         {

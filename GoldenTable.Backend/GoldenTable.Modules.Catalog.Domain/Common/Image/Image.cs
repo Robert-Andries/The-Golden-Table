@@ -5,22 +5,24 @@ using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 namespace GoldenTable.Modules.Catalog.Domain.Common.Image;
 
 /// <summary>
-/// Entity holding the needed data for an image
+///     Entity holding the needed data for an image
 /// </summary>
 public sealed class Image : Entity
 {
     private Image()
     {
     }
+
     /// <summary>
-    /// Location of the image
+    ///     Location of the image
     /// </summary>
     public Uri Uri { get; private set; }
+
     public Name Name { get; private set; }
     public Description? Description { get; private set; }
 
     /// <summary>
-    /// Factory method used to create an image object
+    ///     Factory method used to create an image object
     /// </summary>
     /// <param name="createdOnUtc">The moment the image is created</param>
     /// <param name="uri">Uri for the location of the image</param>
@@ -53,7 +55,7 @@ public sealed class Image : Entity
     }
 
     /// <summary>
-    /// Method to update Name property
+    ///     Method to update Name property
     /// </summary>
     /// <param name="name">The new name</param>
     /// <param name="nowUtc">When operation occured</param>
@@ -69,6 +71,7 @@ public sealed class Image : Entity
         {
             return Result.Success();
         }
+
         Name = name;
         Raise(new ImageRenamedDomainEvent(Guid.NewGuid(), Id, Name, nowUtc));
         return Result.Success();
@@ -76,7 +79,7 @@ public sealed class Image : Entity
 
 
     /// <summary>
-    /// Method used to update Description property
+    ///     Method used to update Description property
     /// </summary>
     /// <param name="description">The new description</param>
     /// <param name="nowUtc">When operation occured</param>
@@ -87,13 +90,14 @@ public sealed class Image : Entity
         {
             return Result.Success();
         }
+
         Description = description;
         Raise(new ImageDescriptionUpdatedDomainEvent(Guid.NewGuid(), Id, Description, nowUtc));
         return Result.Success();
     }
 
     /// <summary>
-    /// Method used to update uri property
+    ///     Method used to update uri property
     /// </summary>
     /// <param name="uri">The new uri</param>
     /// <param name="nowUtc">When operation occured</param>

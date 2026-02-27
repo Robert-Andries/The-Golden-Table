@@ -11,13 +11,13 @@ public sealed class DeleteImageCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
-    ILogger<DeleteImageCommandHandler> logger) 
+    ILogger<DeleteImageCommandHandler> logger)
     : ICommandHandler<DeleteCommand>
 {
     public async Task<Result> Handle(DeleteCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         Image? image = await imageRepository.GetAsync(request.ImageId, cancellationToken);
         if (image is null)
         {
@@ -31,6 +31,4 @@ public sealed class DeleteImageCommandHandler(
 
         return Result.Success();
     }
-
-
 }

@@ -3,19 +3,21 @@
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 /// <summary>
-/// Entity holding the data for a dish tag
+///     Entity holding the data for a dish tag
 /// </summary>
 public sealed class DishTag : Entity
 {
-    private DishTag() 
-    { }
+    private DishTag()
+    {
+    }
+
     /// <summary>
-    /// The actual dish tag
+    ///     The actual dish tag
     /// </summary>
     public string Value { get; private set; }
 
     /// <summary>
-    /// Factory method to create a dish category
+    ///     Factory method to create a dish category
     /// </summary>
     /// <param name="value">The dish tag</param>
     /// <returns>Result indicating success, the error that occured and the newly created object</returns>
@@ -26,9 +28,9 @@ public sealed class DishTag : Entity
             return Result.Failure<DishTag>(DishErrors.InvalidValueForTag);
         }
 
-        return new DishTag()
+        return new DishTag
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Empty,
             Value = value
         };
     }
