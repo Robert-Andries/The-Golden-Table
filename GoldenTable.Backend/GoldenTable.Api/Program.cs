@@ -1,0 +1,59 @@
+using GoldenTable.Api.Extensions;
+using GoldenTable.Api.Middleware;
+using GoldenTable.Common.Application;
+using GoldenTable.Common.Infrastructure;
+using GoldenTable.Common.Presentation.Endpoints;
+using GoldenTable.Modules.Catalog.Application;
+using GoldenTable.Modules.Catalog.Infrastructure;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Serilog;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
+string cacheConnectionString = builder.Configuration.GetConnectionString("Cache")!;
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddApplication([AssemblyReference.Assembly]);
+builder.Services.AddCatalogModule(builder.Configuration);
+
+builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(databaseConnectionString)
+    .AddRedis(cacheConnectionString);
+
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddCatalogModule(builder.Configuration);
+
+WebApplication app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.ApplyMigrations();
+}
+
+app.MapHealthChecks("health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+app.UseLogContextTraceLogging();
+app.UseSerilogRequestLogging();
+
+app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
+
+app.MapEndpoints();
+
+app.Run();
