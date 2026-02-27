@@ -54,7 +54,6 @@ public sealed class GetDishesByName : DishesBaseTest
 
         // Assert
         result.IsSuccess.Should().BeTrue();
-        result.Value.Should().ContainSingle();
         result.Value.Should().BeEquivalentTo(expectedResponse);
     }
 

@@ -16,12 +16,14 @@ public sealed class GetDishesByNameQueryHandler(IDishDbSets dishDbSets)
 
         List<Dish> dishes = await dishDbSets.Dishes
             .AsNoTracking()
-            .Where(d => d.Name.Value.Contains(request.Name.Value))
-            .Include(d => d.Images)
             .Include(d => d.Tags)
+            .Include(d => d.Images)
+            .Where(d => d.Name.Value.Contains(request.Name.Value))
             .ToListAsync(cancellationToken);
+            
+           
 
-        var output = dishes.Select(d => new DishResponse(d)).ToList();
+            var output = dishes.Select(d => new DishResponse(d)).ToList();
 
         return Result.Success(output);
     }

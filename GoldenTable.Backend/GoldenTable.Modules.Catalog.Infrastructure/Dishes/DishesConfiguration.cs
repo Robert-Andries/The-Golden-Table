@@ -13,10 +13,10 @@ internal sealed class DishesConfiguration : IEntityTypeConfiguration<Dish>
     {
         builder.HasKey(d => d.Id);
 
-        builder.Property(d => d.Name)
-            .IsRequired()
-            .HasConversion(n => n.Value, v => new Name(v));
-        builder.HasIndex(d => d.Name).IsUnique();
+        builder.ComplexProperty(d => d.Name, nameBuilder =>
+        {
+            nameBuilder.Property(n => n.Value).IsRequired();
+        });
 
         builder.OwnsOne(d => d.Description, descriptionBuilder =>
         {

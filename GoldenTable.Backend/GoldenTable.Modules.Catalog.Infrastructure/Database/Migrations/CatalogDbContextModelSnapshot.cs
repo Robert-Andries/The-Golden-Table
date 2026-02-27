@@ -82,10 +82,6 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.Property<DateTime>("ModifiedOnUtc")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.ComplexProperty(typeof(Dictionary<string, object>), "BasePrice", "GoldenTable.Modules.Catalog.Domain.Dishes.Dish.BasePrice#Money", b1 =>
                         {
                             b1.IsRequired();
@@ -97,6 +93,15 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                                 .IsRequired()
                                 .HasMaxLength(3)
                                 .HasColumnType("character varying(3)");
+                        });
+
+                    b.ComplexProperty(typeof(Dictionary<string, object>), "Name", "GoldenTable.Modules.Catalog.Domain.Dishes.Dish.Name#Name", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text");
                         });
 
                     b.ComplexProperty(typeof(Dictionary<string, object>), "NutritionalInformation", "GoldenTable.Modules.Catalog.Domain.Dishes.Dish.NutritionalInformation#NutritionalValues", b1 =>
@@ -131,9 +136,6 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         });
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Dishes", "Catalog");
                 });

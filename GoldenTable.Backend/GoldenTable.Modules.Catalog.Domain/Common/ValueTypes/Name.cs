@@ -1,7 +1,7 @@
 ﻿namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 /// <summary>
-///     Value obect used to hold the data necesarry for a name
+///     Value object used to hold the data necessary for a name
 /// </summary>
 public sealed record Name(string Value)
 {
