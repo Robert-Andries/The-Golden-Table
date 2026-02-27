@@ -1,0 +1,57 @@
+﻿using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Modules.Catalog.Domain.Dishes;
+using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace GoldenTable.Modules.Catalog.Infrastructure.Dishes;
+
+internal sealed class DishesConfiguration : IEntityTypeConfiguration<Dish>
+{
+    public void Configure(EntityTypeBuilder<Dish> builder)
+    {
+        builder.HasKey(d => d.Id);
+
+        builder.ComplexProperty(d => d.Name, nameBuilder =>
+        {
+            nameBuilder.Property(n => n.Value).IsRequired();
+        });
+
+        builder.OwnsOne(d => d.Description, descriptionBuilder =>
+        {
+            descriptionBuilder.Property(d => d.Value).IsRequired();
+        });
+
+        builder.Property(d => d.Category)
+            .IsRequired()
+            .HasConversion(dc => dc.Name, dishCategoryString => DishCategory.Create(dishCategoryString).Value);
+
+        builder.ComplexProperty(d => d.BasePrice, basePriceBuilder =>
+        {
+            basePriceBuilder.Property(m => m.Amount).IsRequired();
+            basePriceBuilder.Property(m => m.Currency)
+                .HasConversion(c => c.Code, code => Currency.FromCode(code).Value)
+                .IsRequired()
+                .HasMaxLength(3);
+        });
+
+        builder.ComplexProperty(d => d.NutritionalInformation, niBuilder =>
+        {
+            niBuilder.IsRequired();
+            niBuilder.ToJson();
+        });
+
+        builder.OwnsMany(d => d.Sizes);
+
+        builder.HasMany(d => d.Tags).WithMany();
+        builder.Navigation(d => d.Tags)
+            .HasField("_tags")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.HasMany(d => d.Images).WithOne();
+        builder.Navigation(d => d.Images)
+            .HasField("_images")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
+    }
+}

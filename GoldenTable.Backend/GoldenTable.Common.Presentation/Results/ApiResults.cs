@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace GoldenTable.Common.Presentation.Results;
 
-
 public static class ApiResults
 {
     public static IResult Problem(Result result)

@@ -8,7 +8,7 @@
     ports:
       - "5000:8080"
       - "5001:8081"
-    
+  
   goldentable.database:
     image: postgres:latest
     container_name: GoldenTable.Database
@@ -19,8 +19,8 @@
     volumes:
       - ./.containers/db:/var/lib/postgresql/data
     ports:
-        - "5432:5432"
-    
+      - "5432:5432"
+  
   evently.redis:
     image: redis:latest
     container_name: GoldenTable.Redis

@@ -7,7 +7,6 @@ using MediatR;
 
 namespace GoldenTable.Common.Application.Behaviors;
 
-
 internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
     IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
@@ -67,6 +66,9 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         return validationFailures;
     }
 
-    private static ValidationError CreateValidationError(ValidationFailure[] validationFailures) =>
-        new(validationFailures.Select(f => Error.Problem(f.ErrorCode, f.ErrorMessage)).ToArray());
+    private static ValidationError CreateValidationError(ValidationFailure[] validationFailures)
+    {
+        return new ValidationError(validationFailures.Select(f => Error.Problem(f.ErrorCode, f.ErrorMessage))
+            .ToArray());
+    }
 }

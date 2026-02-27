@@ -20,18 +20,18 @@ public static class InfrastructureConfiguration
     {
         NpgsqlDataSource npgsqlDataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
         services.TryAddSingleton(npgsqlDataSource);
-        
+
         services.TryAddSingleton<IDbConnectionFactory, DbConnectionFactory>();
-        
+
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
-        
+
         IConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(redisConnectionString);
         services.TryAddSingleton(multiplexer);
-        services.AddStackExchangeRedisCache(options => 
+        services.AddStackExchangeRedisCache(options =>
             options.ConnectionMultiplexerFactory = () => Task.FromResult(multiplexer));
-        
+
         services.TryAddSingleton<ICacheService, CacheService>();
-        
+
         return services;
     }
 }
