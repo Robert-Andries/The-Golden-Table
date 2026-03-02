@@ -15,6 +15,9 @@ public sealed class ImageBuilder(Faker faker, DateTime nowUtc)
     {
         AsignValuesToNullProperties();
         Image image = Image.Create(nowUtc, _uri, _name, _description).Value;
+        _description = null;
+        _name = null;
+        _uri = null;
         return image;
     }
 

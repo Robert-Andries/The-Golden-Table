@@ -2,6 +2,7 @@
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
+using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
@@ -14,6 +15,7 @@ namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 
 public sealed class CreateDishCommandHandler(
     IUnitOfWork unitOfWork,
+    IDishDbSets  dishDbSets,
     IDishRepository dishRepository,
     IDishCacheService dishCacheService,
     ILogger<CreateDishCommandHandler> logger,
@@ -24,6 +26,11 @@ public sealed class CreateDishCommandHandler(
     {
         cancellationToken.ThrowIfCancellationRequested();
 
+        if (dishDbSets.Dishes.Any(d => d.Name.Value == request.Name))
+        {
+            return Result.Failure<Guid>(DishErrors.DishAlreadyExists);
+        }
+        
         Name name = new(request.Name);
         Description description = new(request.Description);
         Result<Money> basePriceResult = Money.Create(request.BasePriceAmount, request.BasePriceCurrency);

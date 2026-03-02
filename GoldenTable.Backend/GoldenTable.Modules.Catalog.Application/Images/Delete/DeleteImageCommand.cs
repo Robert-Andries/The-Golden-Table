@@ -2,4 +2,4 @@
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Delete;
 
-public sealed record DeleteCommand(Guid ImageId) : ICommand;
+public sealed record DeleteImageCommand(Guid ImageId) : ICommand;

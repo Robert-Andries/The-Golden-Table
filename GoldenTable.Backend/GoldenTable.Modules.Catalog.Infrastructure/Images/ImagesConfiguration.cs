@@ -14,9 +14,11 @@ internal sealed class ImagesConfiguration : IEntityTypeConfiguration<Image>
             .HasConversion(n => n.Value, value => new Name(value))
             .IsRequired();
         builder.HasIndex(i => i.Name).IsUnique();
-        builder.OwnsOne(i => i.Description, descriptionBuilder =>
+        builder.ComplexProperty(i => i.Description, descriptionBuilder =>
         {
-            descriptionBuilder.Property(d => d.Value).IsRequired();
+            descriptionBuilder.IsRequired();
+            descriptionBuilder.Property(d => d.Value)
+                .HasColumnName("Description");
         });
     }
 }

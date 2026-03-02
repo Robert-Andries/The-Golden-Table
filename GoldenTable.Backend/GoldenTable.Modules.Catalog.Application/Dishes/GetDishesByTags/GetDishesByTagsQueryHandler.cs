@@ -13,20 +13,21 @@ public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets)
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        
+        var requestedTagValues = request.Tags.Select(t => t.Value).ToList();
 
         List<Dish> dishes = await dishDbSets.Dishes
             .AsNoTracking()
-            .Where(d => request.Tags.TrueForAll(tag => d.Tags.Contains(tag)))
             .Include(d => d.Images)
             .Include(d => d.Tags)
+            .Where(d => d.Tags.Count(t => requestedTagValues.Contains(t.Value)) == requestedTagValues.Count)
             .ToListAsync(cancellationToken);
+
         if (dishes.Count == 0)
         {
             return Result.Failure<List<DishResponse>>(DishErrors.NotFound);
         }
 
-        var output = dishes.Select(d => new DishResponse(d)).ToList();
-
-        return Result.Success(output);
+        return dishes.Select(d => new DishResponse(d)).ToList();
     }
 }

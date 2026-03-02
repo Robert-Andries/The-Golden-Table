@@ -12,9 +12,9 @@ public sealed class DeleteImageCommandHandler(
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
     ILogger<DeleteImageCommandHandler> logger)
-    : ICommandHandler<DeleteCommand>
+    : ICommandHandler<DeleteImageCommand>
 {
-    public async Task<Result> Handle(DeleteCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteImageCommand request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 

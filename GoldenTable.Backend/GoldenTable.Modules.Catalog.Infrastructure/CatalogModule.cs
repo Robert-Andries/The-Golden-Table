@@ -49,5 +49,6 @@ public static class CatalogModule
         services.AddSingleton<IDishCacheService, DishCacheService>();
         services.AddSingleton<IImageCacheService, ImageCacheService>();
         services.AddScoped<IDishDbSets>(sp => sp.GetRequiredService<CatalogDbContext>());
+        services.AddScoped<IImageDbSet>(sp => sp.GetRequiredService<CatalogDbContext>());
     }
 }
