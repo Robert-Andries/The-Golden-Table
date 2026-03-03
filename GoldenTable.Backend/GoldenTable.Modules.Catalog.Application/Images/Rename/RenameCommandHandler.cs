@@ -28,7 +28,7 @@ public sealed class RenameCommandHandler(
             return ImageErrors.NotFound;
         }
 
-        Result result = image.Rename(request.NewName, dateTimeProvider.UtcNow);
+        Result result = image.Rename(new(request.NewName), dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             ImagesLogs.RenameImageError(logger, request.ImageId, result.Error);

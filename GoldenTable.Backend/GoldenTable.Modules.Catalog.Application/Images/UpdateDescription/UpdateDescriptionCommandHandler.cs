@@ -28,7 +28,7 @@ public sealed class UpdateDescriptionCommandHandler(
             return ImageErrors.NotFound;
         }
 
-        Result result = image.UpdateDescription(request.Description, dateTimeProvider.UtcNow);
+        Result result = image.UpdateDescription(new(request.Description), dateTimeProvider.UtcNow);
         if (result.IsFailure)
         {
             ImagesLogs.UpdateDescriptionError(logger, image.Id, result.Error);
