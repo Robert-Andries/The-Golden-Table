@@ -5,6 +5,7 @@ using GoldenTable.Modules.Catalog.Application.Dishes.AddImage;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
@@ -13,7 +14,7 @@ internal sealed class AddImage : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("dishes/image/add", async (Request request, ISender sender) =>
+        app.MapPost("dishes/image/add", async ([FromBody] Request request, [FromServices] ISender sender) =>
             {
                 Result result = await sender.Send(new AddImageCommand(request.DishId, request.ImageId));
 

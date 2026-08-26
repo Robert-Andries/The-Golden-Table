@@ -5,6 +5,7 @@ using GoldenTable.Modules.Catalog.Application.Images.Rename;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Images;
@@ -13,7 +14,7 @@ internal sealed class Rename : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("images/rename", async (Request request, ISender sender) =>
+        app.MapPatch("images/rename", async ( [FromBody] Request request, [FromServices] ISender sender) =>
         {
             RenameCommand command = new(request.ImageId, request.NewName);
             Result result = await sender.Send(command);

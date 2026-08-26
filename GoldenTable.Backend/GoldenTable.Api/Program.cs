@@ -18,7 +18,10 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opts =>
+{
+    opts.CustomSchemaIds(type => type.FullName?.Replace("+", "."));
+});
 
 builder.Services.AddApplication([AssemblyReference.Assembly]);
 builder.Services.AddCatalogModule(builder.Configuration);

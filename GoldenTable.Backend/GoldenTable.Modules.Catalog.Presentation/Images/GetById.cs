@@ -6,6 +6,7 @@ using GoldenTable.Modules.Catalog.Application.Images.GetImageById;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Images;
@@ -14,7 +15,7 @@ internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("images/get/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapGet("images/get/{id:guid}", async ( [FromRoute] Guid id, [FromServices] ISender sender) =>
         {
             GetImageByIdQuery command = new(id);
             Result<ImageResponse> result = await sender.Send(command);

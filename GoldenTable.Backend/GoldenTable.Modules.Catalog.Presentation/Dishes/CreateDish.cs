@@ -7,6 +7,7 @@ using GoldenTable.Modules.Catalog.Presentation.Dishes.Common.NutritionalInformat
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
@@ -15,7 +16,7 @@ internal sealed class CreateDish : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("dishes/create", async (Request request, ISender sender) =>
+        app.MapPost("dishes/create", async ( [FromBody] Request request, [FromServices] ISender sender) =>
             {
                 Result result = await sender.Send(new CreateDishCommand(
                     request.Name,

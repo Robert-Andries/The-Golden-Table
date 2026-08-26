@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.UpdateNutritionalInformation;
@@ -7,6 +7,7 @@ using GoldenTable.Modules.Catalog.Presentation.Dishes.Common.NutritionalInformat
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
@@ -15,7 +16,7 @@ public abstract class UpdateNutritionalInformation : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("dishes/update-nutritional-information/", async (Request request, ISender sender) =>
+        app.MapPatch("dishes/update-nutritional-information/", async ( [FromBody] Request request, [FromServices] ISender sender) =>
         {
             Result<NutritionalValues> nutritionalValuesResult = NutritionalValues.Create(
                 request.NutritionalInfo.Kcal,
@@ -36,7 +37,8 @@ public abstract class UpdateNutritionalInformation : IEndpoint
                 await sender.Send(new UpdateNutritionalInformationCommand(request.DishId, nutritionalValues));
 
             return result.Match(Results.NoContent, ApiResults.Problem);
-        });
+        })
+        .WithTags(Tags.Dish);
     }
 
     internal sealed class Request

@@ -1,4 +1,21 @@
 ﻿services:
+  goldentable.database:
+    image: postgres:latest
+    container_name: GoldenTable.Database
+    environment:
+      - POSTGRES_DB=goldentable
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d goldentable"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   goldentable.api:
     image: goldentable.api
     container_name: GoldenTable.Api
@@ -8,22 +25,6 @@
     ports:
       - "5000:8080"
       - "5001:8081"
-  
-  goldentable.database:
-    image: postgres:latest
-    container_name: GoldenTable.Database
-    environment:
-      - POSTGRES_DB=goldentable
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - ./.containers/db:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-  
-  evently.redis:
-    image: redis:latest
-    container_name: GoldenTable.Redis
-    restart: always
-    ports:
-      - "6379:6379"
+    depends_on:
+      goldentable.database:
+        condition: service_healthy
