@@ -150,7 +150,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.ToTable("Dishes", "Catalog");
                 });
 
-            modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.DishTag", b =>
+            modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.Tag.DishTag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,6 +161,9 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Value")
+                        .IsUnique();
 
                     b.ToTable("DishTag", "Catalog");
                 });
@@ -173,7 +176,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.DishTag", null)
+                    b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.Tag.DishTag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)

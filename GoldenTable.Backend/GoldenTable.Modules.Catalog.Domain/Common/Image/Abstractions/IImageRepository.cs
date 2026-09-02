@@ -14,6 +14,12 @@ public interface IImageRepository
     /// <param name="ImageId">The id to search for</param>
     /// <returns>Image with that id or null if there aren't any match.</returns>
     Task<Image?> GetAsync(Guid ImageId, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    ///     Gets all the images from the repository
+    /// </summary>
+    /// <returns>All the images from the repository</returns>
+    Task<List<Image>> GetAllAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Updates the specified image

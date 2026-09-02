@@ -13,6 +13,12 @@ internal sealed class ImageRepository(CatalogDbContext context) : IImageReposito
         return image;
     }
 
+    public async Task<List<Image>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        List<Image> images = await context.Images.ToListAsync(cancellationToken);
+        return images;
+    }
+
     public Task UpdateAsync(Image image, CancellationToken cancellationToken = default)
     {
         if (!context.Images.Any(i => i.Id == image.Id))

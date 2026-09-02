@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes;
@@ -56,4 +56,7 @@ internal static partial class DishLogs
     [LoggerMessage(LogLevel.Information,
         "Unable to create dish category. Error: {error}")]
     internal static partial void CreateCategoryError(ILogger logger, Error error);
+
+    [LoggerMessage(LogLevel.Information, "Could not create tag. Error: {error}")]
+    internal static partial void CreateTagError(ILogger logger, Error error);
 }

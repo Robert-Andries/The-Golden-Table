@@ -3,7 +3,6 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -19,9 +18,7 @@ public class GetByTags : IEndpoint
         EndpointRouteBuilderExtensions.MapGet(app, "dishes/get-dish-by-tags/", 
             async ( [AsParameters] Request request, [FromServices] ISender sender) =>
         {
-            var tags = Enumerable.Select(request.Tags, tag => DishTag.Create(tag).Value).ToList();
-            
-            Result<List<DishResponse>> result = await sender.Send(new GetDishesByTagsQuery(tags));
+            Result<List<DishResponse>> result = await sender.Send(new GetDishesByTagsQuery(request.TagIds.ToList()));
 
             return ResultExtensions.Match(result, Results.Ok, ApiResults.Problem);
         })
@@ -31,6 +28,6 @@ public class GetByTags : IEndpoint
     internal sealed class Request
     {
         [FromQuery] 
-        public string[] Tags { get; set; }
+        public Guid[] TagIds { get; set; } = [];
     }
 }

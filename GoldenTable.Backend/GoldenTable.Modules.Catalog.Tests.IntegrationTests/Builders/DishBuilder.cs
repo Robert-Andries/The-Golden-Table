@@ -1,8 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Bogus;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
@@ -132,7 +133,7 @@ public sealed class DishBuilder(Faker faker, DateTime nowUtc)
         int numberOfTags = faker.Random.Int(5, 10);
         while (numberOfTags-- > 0)
         {
-            _tags.Add(DishTag.Create(faker.Name.LastName()).Value);
+            _tags.Add(DishTag.Create(faker.Name.LastName() + Guid.NewGuid().ToString("N")).Value);
         }
     }
 }

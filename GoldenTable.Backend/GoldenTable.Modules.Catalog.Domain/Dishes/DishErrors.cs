@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain;
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes;
 
@@ -40,9 +40,6 @@ public static class DishErrors
 
     public static Error NotFound { get; } = new("DishErrors.NotFound",
         "The dish was not found.", ErrorType.NotFound);
-
-    public static Error InvalidValueForTag { get; } = new("DishErrors.InvalidValueForTag",
-        "The provided value for tag is invalid.", ErrorType.Validation);
 
     public static Error InvalidSize { get; } = new("DishErrors.InvalidSize",
         "The provided size is invalid.", ErrorType.Validation);

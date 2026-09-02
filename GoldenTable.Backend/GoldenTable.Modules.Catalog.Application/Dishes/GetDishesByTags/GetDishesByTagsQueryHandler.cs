@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Application.Messaging;
+using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
@@ -13,14 +13,12 @@ public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets)
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
-        var requestedTagValues = request.Tags.Select(t => t.Value).ToList();
 
         List<Dish> dishes = await dishDbSets.Dishes
             .AsNoTracking()
             .Include(d => d.Images)
             .Include(d => d.Tags)
-            .Where(d => d.Tags.Count(t => requestedTagValues.Contains(t.Value)) == requestedTagValues.Count)
+            .Where(d => d.Tags.Count(t => request.TagIds.Contains(t.Id)) == request.TagIds.Count)
             .ToListAsync(cancellationToken);
 
         if (dishes.Count == 0)

@@ -1,6 +1,5 @@
-﻿using GoldenTable.Common.Application.Messaging;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
+using GoldenTable.Common.Application.Messaging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
 
-public sealed record GetDishesByTagsQuery(List<DishTag> Tags) : IQuery<List<DishResponse>>;
+public sealed record GetDishesByTagsQuery(List<Guid> TagIds) : IQuery<List<DishResponse>>;

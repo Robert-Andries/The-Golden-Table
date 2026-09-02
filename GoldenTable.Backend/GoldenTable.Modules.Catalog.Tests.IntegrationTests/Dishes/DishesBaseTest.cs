@@ -1,5 +1,6 @@
-﻿using GoldenTable.Modules.Catalog.Domain.Common.Image;
+using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 using GoldenTable.Modules.Catalog.Tests.IntegrationTests.Builders;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,18 @@ public class DishesBaseTest : BaseIntegrationTest
     protected async Task PutImageInDb(Image image)
     {
         await context.Images.AddAsync(image);
+        await context.SaveChangesAsync();
+    }
+
+    protected async Task PutTagInDb(DishTag tag)
+    {
+        context.Set<DishTag>().Add(tag);
+        await context.SaveChangesAsync();
+    }
+
+    protected async Task PutTagsInDb(IEnumerable<DishTag> tags)
+    {
+        context.Set<DishTag>().AddRange(tags);
         await context.SaveChangesAsync();
     }
 

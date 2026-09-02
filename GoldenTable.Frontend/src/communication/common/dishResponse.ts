@@ -1,35 +1,37 @@
 export type size = {
-    Name: string,
-    PriceAdded: number,
-    Weight: number
-}
+  name: string;
+  priceAdded: number;
+  weight: number;
+};
 
 export type energy = {
-    Kcal: number,
-    Kj: number
-}
+  kcal: number;
+  kj: number;
+};
 
 export type carbohydrates = {
-    Total: number,
-    OfWhichSugar: number
-}
+  total: number;
+  ofWhichSugar: number;
+};
 
 export type nutritionalInformation = {
-    Energy: energy,
-    GramsOfFat: number,
-    GramsOfCarbohydrates: carbohydrates,
-    GramsOfProtein: number,
-    GramsOfSalt: number
-}
+  energy: energy;
+  gramsOfFat: number;
+  gramsOfCarbohydrates: carbohydrates;
+  gramsOfProtein: number;
+  gramsOfSalt: number;
+};
 
 export type dishResponse = {
-  Name: string,
-  Description: string,
-  BasePriceAmount: number,
-  BasePriceCurrency: string,
-  Category: string,
-  Tags: string[],
-  NutritionalInformation: nutritionalInformation,
-  ImagesUris: string[],
-  Sizes: size[]
-}
+  id: string;
+  name: string;
+  description: string;
+  basePriceAmount: number;
+  basePriceCurrency: string;
+  category: string;
+  tags: string[];
+  nutritionalInformation: nutritionalInformation;
+  imagesUris: string[];
+  imageIds: string[];
+  sizes: size[];
+};
