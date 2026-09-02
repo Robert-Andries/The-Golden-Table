@@ -6,11 +6,13 @@ public sealed class ImageResponse
 {
     public ImageResponse(Image image)
     {
-        Uri = image.Uri.AbsoluteUri;
+        Id = image.Id;
+        Uri = image.Uri.ToString();
         Name = image.Name.Value;
         Description = image.Description is null ? string.Empty : image.Description.Value;
     }
 
+    public Guid Id { get; set; }
     public string Uri { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }

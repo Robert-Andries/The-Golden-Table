@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
@@ -31,7 +31,7 @@ internal sealed class CreateDish : IEndpoint
                     request.NutritionalInformation.GramsOfProtein,
                     request.NutritionalInformation.GramsOfSalt,
                     request.DishCategory,
-                    request.DishTags));
+                    request.TagIds));
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
             })
@@ -48,6 +48,6 @@ internal sealed class CreateDish : IEndpoint
         public NutritionalRequest NutritionalInformation { get; set; }
         public List<Guid> ImageIds { get; set; }
         public string DishCategory { get; set; }
-        public List<DishTag> DishTags { get; set; }
+        public List<Guid> TagIds { get; set; }
     }
 }

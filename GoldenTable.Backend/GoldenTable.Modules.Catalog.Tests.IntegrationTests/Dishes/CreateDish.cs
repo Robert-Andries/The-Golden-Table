@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
@@ -18,6 +18,7 @@ public sealed class CreateDish : DishesBaseTest
         // Arrange
         await ClearDatabaseAsync();
         Dish dish = DishBuilder.Build();
+        await PutTagsInDb(dish.Tags);
 
         // Act
         Result<Guid> result = await Sender.Send(new CreateDishCommand(
@@ -33,7 +34,7 @@ public sealed class CreateDish : DishesBaseTest
             dish.NutritionalInformation.GramsOfProtein,
             dish.NutritionalInformation.GramsOfSalt,
             dish.Category.Name,
-            dish.Tags.ToList()));
+            dish.Tags.Select(tag => tag.Id).ToList()));
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -64,7 +65,7 @@ public sealed class CreateDish : DishesBaseTest
             dish.NutritionalInformation.GramsOfProtein,
             dish.NutritionalInformation.GramsOfSalt,
             dish.Category.Name,
-            dish.Tags.ToList()));
+            dish.Tags.Select(tag => tag.Id).ToList()));
 
         // Assert
         result.Error.Should().Be(DishErrors.DishAlreadyExists);
@@ -77,6 +78,7 @@ public sealed class CreateDish : DishesBaseTest
         // Arrange
         await ClearDatabaseAsync();
         Dish dish = DishBuilder.Build();
+        await PutTagsInDb(dish.Tags);
 
         // Act
         Result<Guid> result = await Sender.Send(new CreateDishCommand(
@@ -92,7 +94,7 @@ public sealed class CreateDish : DishesBaseTest
             dish.NutritionalInformation.GramsOfProtein,
             dish.NutritionalInformation.GramsOfSalt,
             dish.Category.Name,
-            dish.Tags.ToList()));
+            dish.Tags.Select(tag => tag.Id).ToList()));
 
         // Assert
         result.Error.Should().Be(DishErrors.InvalidName);

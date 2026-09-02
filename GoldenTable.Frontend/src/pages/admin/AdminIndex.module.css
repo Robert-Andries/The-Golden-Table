@@ -1,0 +1,127 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-gray-700);
+  padding-bottom: 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--color-primary-400);
+}
+
+.addButton {
+  background-color: var(--color-primary-600);
+  color: var(--color-gray-900);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.addButton:hover {
+  background-color: var(--color-primary-500);
+  transform: translateY(-2px);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-gray-800);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.row:hover {
+  transform: translateX(4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1.5rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--color-gray-100);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-200);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.editButton {
+  background-color: transparent;
+  color: var(--color-primary-400);
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: 1px solid var(--color-primary-400);
+  margin-left: 1rem;
+}
+
+.editButton:hover {
+  background-color: var(--color-primary-600);
+  color: var(--color-gray-900);
+  border-color: var(--color-primary-600);
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--color-gray-400);
+  padding: 3rem;
+  background-color: var(--color-gray-800);
+  border-radius: 12px;
+}

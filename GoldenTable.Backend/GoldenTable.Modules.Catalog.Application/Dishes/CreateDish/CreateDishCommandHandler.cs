@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Application.Clock;
+using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
@@ -7,6 +7,8 @@ using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 using Microsoft.Extensions.Logging;
@@ -17,6 +19,7 @@ public sealed class CreateDishCommandHandler(
     IUnitOfWork unitOfWork,
     IDishDbSets  dishDbSets,
     IDishRepository dishRepository,
+    IDishTagRepository dishTagRepository,
     IDishCacheService dishCacheService,
     ILogger<CreateDishCommandHandler> logger,
     IDateTimeProvider dateTimeProvider)
@@ -29,6 +32,12 @@ public sealed class CreateDishCommandHandler(
         if (dishDbSets.Dishes.Any(d => d.Name.Value == request.Name))
         {
             return Result.Failure<Guid>(DishErrors.DishAlreadyExists);
+        }
+
+        List<DishTag> tags = await dishTagRepository.GetByIdsAsync(request.TagIds, cancellationToken);
+        if (tags.Count != request.TagIds.Count)
+        {
+            return Result.Failure<Guid>(DishTagErrors.SomeTagsNotFound);
         }
         
         Name name = new(request.Name);
@@ -69,7 +78,7 @@ public sealed class CreateDishCommandHandler(
             request.Sizes,
             nutritionalInformation,
             dishCategory,
-            request.Tags,
+            tags,
             dateTimeProvider.UtcNow);
 
         if (result.IsFailure)

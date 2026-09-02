@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Dishes;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 
 namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes;
@@ -29,7 +29,7 @@ public sealed class GetDishesByTags : DishesBaseTest
         }
 
         // Act
-        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery([commonTag]));
+        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery([commonTag.Id]));
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -53,7 +53,7 @@ public sealed class GetDishesByTags : DishesBaseTest
         }
 
         // Act
-        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery(commonTags));
+        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery(commonTags.Select(t => t.Id).ToList()));
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -75,7 +75,7 @@ public sealed class GetDishesByTags : DishesBaseTest
         }
 
         // Act
-        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery([uniqueTag]));
+        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery([uniqueTag.Id]));
 
         // Assert
         result.Error.Should().Be(DishErrors.NotFound);

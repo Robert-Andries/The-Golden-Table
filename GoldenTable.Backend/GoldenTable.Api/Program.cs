@@ -32,6 +32,16 @@ builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
     .AddRedis(cacheConnectionString);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddCatalogModule(builder.Configuration);
@@ -40,6 +50,7 @@ WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("AllowFrontend");
     app.UseSwagger();
     app.UseSwaggerUI();
     app.ApplyMigrations();
