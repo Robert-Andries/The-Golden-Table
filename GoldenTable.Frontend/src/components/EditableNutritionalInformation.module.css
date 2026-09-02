@@ -1,0 +1,27 @@
+.container {
+  background-color: var(--color-gray-800);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  color: var(--color-primary-400);
+  border-bottom: 1px solid var(--color-gray-600);
+  padding-bottom: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+}

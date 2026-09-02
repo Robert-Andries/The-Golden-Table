@@ -1,0 +1,56 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+  position: relative;
+  z-index: 101;
+  background: var(--color-gray-800);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.4);
+  max-height: 85vh;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-gray-700);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-gray-100);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--color-gray-300);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  border-radius: 0.25rem;
+}
+
+.closeButton:hover {
+  color: var(--color-gray-100);
+  background: var(--color-gray-700);
+}
+
+.body {
+  padding: 1.5rem;
+  overflow-y: auto;
+}

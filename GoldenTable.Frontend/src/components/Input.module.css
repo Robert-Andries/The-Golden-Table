@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-gray-200);
+  margin: 0;
+}
+
+.input {
+  background-color: var(--color-gray-900);
+  border: 1px solid var(--color-gray-600);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--color-gray-100);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 2px rgba(253, 193, 77, 0.2);
+}
