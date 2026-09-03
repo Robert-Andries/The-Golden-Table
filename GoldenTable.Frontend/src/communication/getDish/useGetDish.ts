@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchGetDish } from "./fetchGetDish";
 
-export default function useGetAllDishes(id: string | undefined) {
+export default function useGetDish(id: string | undefined) {
     const query = useQuery({
         queryKey: ['dish', id],
         queryFn: ({signal}) => fetchGetDish(id!, signal),

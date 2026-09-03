@@ -44,8 +44,6 @@ builder.Services.AddCors(options =>
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddCatalogModule(builder.Configuration);
-
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())

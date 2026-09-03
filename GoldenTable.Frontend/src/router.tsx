@@ -2,12 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "./pages/common/RootLayout";
 import Index from "./pages/common/Index";
-import Shop from "./pages/shop/Shop";
 import DishItem from "./pages/shop/DishItem";
 import RouteErrorBoundary from "./pages/common/RouteErrorBoundary";
 import AdminIndex from "./pages/admin/AdminIndex";
-import EditDish from "./pages/admin/EditDish";
-import AddDish from "./pages/admin/AddDish";
+import ManageImages from "./pages/admin/images/ManageImages";
+import Shop from "./pages/shop/Shop";
+import EditDish from "./pages/admin/dish/EditDish";
+import AddDish from "./pages/admin/dish/AddDish";
+import Tags from "./pages/admin/tags/Tags";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,8 @@ const router = createBrowserRouter([
           {index: true, element: <AdminIndex />},
           {path: "edit/:id", element: <EditDish />},
           {path: "add", element: <AddDish />},
+          {path: "images", element: <ManageImages />},
+          {path: "tags", element: <Tags />}
         ]
       }
     ],

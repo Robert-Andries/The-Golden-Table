@@ -35,4 +35,15 @@ internal sealed class DishTagRepository(CatalogDbContext context) : IDishTagRepo
     {
         await context.Tags.AddAsync(tag, cancellationToken);
     }
+
+    public Task UpdateAsync(DishTag tag, CancellationToken cancellationToken = default)
+    {
+        context.Tags.Update(tag);
+        return Task.CompletedTask;
+    }
+
+    public void Remove(DishTag tag)
+    {
+        context.Tags.Remove(tag);
+    }
 }

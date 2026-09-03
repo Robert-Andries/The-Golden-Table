@@ -27,6 +27,30 @@
   max-height: 500px;
 }
 
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  overflow-x: auto;
+  background-color: var(--color-gray-900, #111827);
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.thumbnailActive {
+  border-color: var(--color-primary-500, #3b82f6);
+}
+
+
 .infoSection {
   flex: 1;
   display: flex;

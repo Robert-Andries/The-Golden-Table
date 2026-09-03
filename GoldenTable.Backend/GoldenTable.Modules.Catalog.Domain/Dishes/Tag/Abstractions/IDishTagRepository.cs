@@ -45,4 +45,17 @@ public interface IDishTagRepository
     /// <param name="tag">What to add</param>
     /// <param name="cancellationToken">Cancellation token</param>
     Task AddAsync(DishTag tag, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Method to update a tag in the repository
+    /// </summary>
+    /// <param name="tag">The tag to update</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    Task UpdateAsync(DishTag tag, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Method to remove a tag from the repository
+    /// </summary>
+    /// <param name="tag">The tag to remove</param>
+    void Remove(DishTag tag);
 }
