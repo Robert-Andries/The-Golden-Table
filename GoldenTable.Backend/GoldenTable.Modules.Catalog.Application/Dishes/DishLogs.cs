@@ -59,4 +59,10 @@ internal static partial class DishLogs
 
     [LoggerMessage(LogLevel.Information, "Could not create tag. Error: {error}")]
     internal static partial void CreateTagError(ILogger logger, Error error);
+
+    [LoggerMessage(LogLevel.Information, "Tag with id: '{tagId}' not found")]
+    internal static partial void TagNotFound(ILogger logger, Guid tagId);
+
+    [LoggerMessage(LogLevel.Information, "Could not edit tag with id: '{tagId}'. Error: {error}")]
+    internal static partial void EditTagError(ILogger logger, Guid tagId, Error error);
 }

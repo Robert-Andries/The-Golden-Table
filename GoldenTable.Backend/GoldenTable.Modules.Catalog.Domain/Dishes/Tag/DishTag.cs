@@ -34,4 +34,25 @@ public sealed class DishTag : Entity
             Value = value
         };
     }
+
+    /// <summary>
+    ///     Updates the value of the tag
+    /// </summary>
+    /// <param name="newValue">The new value for the tag</param>
+    /// <returns>Result indicating success or the error that occurred</returns>
+    public Result UpdateValue(string newValue)
+    {
+        if (string.IsNullOrEmpty(newValue))
+        {
+            return Result.Failure(DishTagErrors.InvalidValue);
+        }
+
+        if (Value == newValue)
+        {
+            return Result.Failure(DishTagErrors.SameValue);
+        }
+
+        Value = newValue;
+        return Result.Success();
+    }
 }

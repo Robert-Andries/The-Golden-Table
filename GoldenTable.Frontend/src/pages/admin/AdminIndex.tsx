@@ -40,6 +40,12 @@ export default function AdminIndex() : ReactNode {
       )}
       <div className={styles.header}>
         <h1 className={styles.title}>Admin Dashboard</h1>
+        <NavLink to={`images`} className={styles.addButton}>
+          Manage Images
+        </NavLink>
+        <NavLink to={`tags`} className={styles.addButton}>
+          Manage Tags
+        </NavLink>
         <NavLink to={`add`} className={styles.addButton}>
           Add a new dish
         </NavLink>

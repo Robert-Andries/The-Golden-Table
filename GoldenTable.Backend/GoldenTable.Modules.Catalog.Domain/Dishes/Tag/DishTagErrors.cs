@@ -15,4 +15,7 @@ public static class DishTagErrors
 
     public static Error SomeTagsNotFound { get; } =
         new("DishTagErrors.SomeTagsNotFound", "One or more tags were not found.", ErrorType.NotFound);
+
+    public static Error SameValue { get; } =
+        new("DishTagErrors.SameValue", "The tag already has the provided value.", ErrorType.Validation);
 }

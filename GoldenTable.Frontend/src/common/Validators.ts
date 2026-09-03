@@ -23,3 +23,13 @@ export function isValidCurrency(currency: string | null): boolean {
 export function isStringArray(obj: any): obj is string[] {
   return Array.isArray(obj) && obj.every((item) => typeof item === "string");
 }
+
+export function isValidUri(uri : string | null | undefined) {
+  if(uri === undefined || uri === null) return false;
+  try {
+    new URL(uri);
+    return true;
+  } catch {
+    return false;
+  }
+}
