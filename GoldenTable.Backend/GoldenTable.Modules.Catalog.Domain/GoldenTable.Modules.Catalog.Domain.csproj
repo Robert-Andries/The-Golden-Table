@@ -2,4 +2,10 @@
     <ItemGroup>
         <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Update="SonarAnalyzer.CSharp" Version="10.33.0.1635">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
 </Project>
