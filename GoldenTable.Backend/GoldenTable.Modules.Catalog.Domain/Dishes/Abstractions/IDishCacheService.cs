@@ -1,4 +1,4 @@
-﻿namespace GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
+namespace GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 
 /// <summary>
 ///     A simple way to interact with the dish cache
@@ -17,4 +17,10 @@ public interface IDishCacheService
     /// </summary>
     /// <param name="dish">The dish to update</param>
     Task UpdateAsync(Dish dish, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Removes the cache entry of a dish
+    /// </summary>
+    /// <param name="dishId">The dish id to remove</param>
+    Task RemoveAsync(Guid dishId, CancellationToken cancellationToken = default);
 }

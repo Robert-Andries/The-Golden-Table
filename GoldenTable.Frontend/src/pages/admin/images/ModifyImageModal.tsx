@@ -4,7 +4,7 @@ import styles from "./ModifyImageModal.module.css";
 import useGetImageById from "../../../communication/getImageById/useGetImageById";
 import Input from "../../../components/Input";
 import Modal from "../../../components/Modal";
-import type { ImageInfo } from "../../../communication/getAllImages/response";
+import type { image } from "../../../types/image";
 
 type Props = {
   isOpen: boolean;
@@ -16,7 +16,7 @@ function ModifyImageFormContent({
   image,
   onClose,
 }: {
-  image: ImageInfo;
+  image: image;
   onClose: () => void;
 }): ReactNode {
   const boundEditAction = async (prevState: unknown, formData: FormData) => {

@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import placeholderImage from "../../../assets/default-placeholder-food.png"
 import styles from "./ImageItem.module.css";
-import { isValidUri } from "../../../common/Validators";
-import type { ImageInfo } from "../../../communication/getAllImages/response";
+import { isValidUri } from "../../../common/validators";
+import type { image } from "../../../types/image";
 
 type props = {
-  image: ImageInfo;
+  image: image;
   onDelete: (id : string) => void,
   onModify: (id : string) => void
 }

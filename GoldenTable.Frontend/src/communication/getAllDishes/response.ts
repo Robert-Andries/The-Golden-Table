@@ -1,3 +1,3 @@
-import type { dishResponse } from "../common/dishResponse";
+import type { dish } from "../../types/dish";
 
-export type response = dishResponse[];
+export type response = dish[];

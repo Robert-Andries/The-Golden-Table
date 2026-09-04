@@ -1,5 +1,5 @@
 import baseUrl from "../common/baseUrl";
-import fetchError from "../common/fetchError";
+import FetchError from "../common/fetchError";
 import type { response as getAllResponse } from "./response";
 
 export async function fetchGetAllDishes(signal?: AbortSignal) {
@@ -8,7 +8,7 @@ export async function fetchGetAllDishes(signal?: AbortSignal) {
 
   const info = await response.json();
   if(!response.ok) {
-    throw new fetchError('An error occuredwhile fetching all the dishes!', response.status, info);
+    throw await FetchError.createAsync(`An error occuredwhile fetching all the dishes`, response);
   }
 
   const output = info as getAllResponse;

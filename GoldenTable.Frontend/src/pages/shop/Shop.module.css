@@ -5,6 +5,37 @@
   padding: 1rem 0;
 }
 
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 1rem 0;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 600px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-gray-700, #374151);
+  background-color: var(--color-gray-800, #1f2937);
+  color: var(--color-gray-200, #e5e7eb);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput:focus {
+  border-color: var(--color-primary-500, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.searchInput::placeholder {
+  color: var(--color-gray-400, #9ca3af);
+}
+
+
 
 .emptyState {
   text-align: center;

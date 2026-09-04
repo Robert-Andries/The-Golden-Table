@@ -1,8 +1,3 @@
-export type response = ImageInfo[];
+import type { image } from "../../types/image";
 
-export type ImageInfo = {
-  id: string;
-  uri: string;
-  name: string;
-  description: string;
-};
+export type response = image[];

@@ -7,16 +7,16 @@ import ImageModal from "../../../components/ImageModal";
 import useModal from "../../../components/useModal";
 import placeholderImg from "../../../assets/default-placeholder-food.png";
 import styles from "./EditDish.module.css";
-import type { dishTag } from "../../../communication/getAllTags/response";
-import type { ImageInfo } from "../../../communication/getAllImages/response";
 import { addAction } from "./addDishAction";
 import DishTagSelector from "./DishTagSelector";
+import type { dishTag } from "../../../types/dishTag";
+import type { image } from "../../../types/image";
 
-type Props = {
+type props = {
   tagData: dishTag[];
 };
 
-export default function AddDishForm({ tagData }: Props): ReactNode {
+export default function AddDishForm({ tagData }: props): ReactNode {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [activeTags, setActiveTags] = useState<string[]>([]);
@@ -33,7 +33,7 @@ export default function AddDishForm({ tagData }: Props): ReactNode {
     });
   }
 
-  function handleImagesSelected(selectedImages: ImageInfo[]) {
+  function handleImagesSelected(selectedImages: image[]) {
     setImageIds(selectedImages.map((img) => img.id));
     setImageUris(selectedImages.map((img) => img.uri));
   }

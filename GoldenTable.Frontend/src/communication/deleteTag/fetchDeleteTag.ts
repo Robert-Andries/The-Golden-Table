@@ -1,5 +1,5 @@
-import { ApplicationError } from "../../common/ApplicationError";
 import baseUrl from "../common/baseUrl";
+import fetchError from "../common/fetchError";
 
 export default async function fetchDeleteTag(tagId: string) {
   const url = baseUrl + `/dishes/tags/delete/${tagId}`;
@@ -8,15 +8,6 @@ export default async function fetchDeleteTag(tagId: string) {
   });
 
   if(response.ok === false) {
-    let errorMessage = "unknown error";
-    let status = response.status ?? 500;
-    try {
-      const responseBody = await response.json();
-      errorMessage = responseBody.detail ?? errorMessage;
-      status = responseBody.status ?? status;
-    } catch (e) {
-      // ignore
-    }
-    throw new ApplicationError(`Could not delete tag: ${errorMessage}`, status);
+    throw await fetchError.createAsync(`Could not delete tag`, response);
   }
 }

@@ -6,7 +6,7 @@ export default function useGetDish(id: string | undefined) {
         queryKey: ['dish', id],
         queryFn: ({signal}) => fetchGetDish(id!, signal),
         staleTime: 1000 * 60 * 5, // 5 minutes
-        enabled: !!id   // !!id means id is undefined or empty
+        enabled: !!id   // !!id means if id is undefined or empty
     })
 
     return query;

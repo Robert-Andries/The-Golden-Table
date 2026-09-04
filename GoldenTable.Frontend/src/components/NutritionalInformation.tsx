@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { nutritionalInformation } from "../communication/common/dishResponse";
+import type { nutritionalInformation } from "../types/dish";
 import styles from "./NutritionalInformation.module.css";
 
 type NutritionalProps = {

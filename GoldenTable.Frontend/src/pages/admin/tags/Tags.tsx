@@ -1,10 +1,10 @@
 import { useState, type ReactNode } from "react";
-import type { dishTag } from "../../../communication/getAllTags/response";
 import useGetAllTags from "../../../communication/getAllTags/useGetAllTags";
 import CreateTagModal from "./CreateTagModal";
 import ModifyTagModal from "./ModifyTagModal";
 import useModal from "../../../components/useModal";
 import styles from "./Tags.module.css";
+import type { dishTag } from "../../../types/dishTag";
 
 type props = {
   tags: dishTag[];

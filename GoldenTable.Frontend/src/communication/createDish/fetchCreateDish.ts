@@ -1,5 +1,5 @@
-import { ApplicationError } from "../../common/ApplicationError";
 import baseUrl from "../common/baseUrl";
+import fetchError from "../common/fetchError";
 
 export async function fetchCreateDish(payload: unknown) {
   const url = baseUrl + `/dishes/create`;
@@ -13,7 +13,6 @@ export async function fetchCreateDish(payload: unknown) {
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    throw new ApplicationError(`Failed to create dish. ${body.detail ?? ""}`, response.status);
+    throw await fetchError.createAsync('Failed to create dish',response);
   }
 }

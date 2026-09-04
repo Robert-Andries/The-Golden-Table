@@ -1,14 +1,19 @@
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
+using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.EditTag;
 
 public sealed class EditTagCommandHandler(
     IDishTagRepository dishTagRepository,
+    IDishDbSets dishDbSets,
+    IDishCacheService dishCacheService,
     IUnitOfWork unitOfWork,
     ILogger<EditTagCommandHandler> logger)
     : ICommandHandler<EditTagCommand>
@@ -37,8 +42,18 @@ public sealed class EditTagCommandHandler(
             return Result.Failure(updateResult.Error);
         }
 
+        List<Guid> dishIdsToInvalidate = await dishDbSets.Dishes
+            .Where(d => d.Tags.Any(t => t.Id == request.TagId))
+            .Select(d => d.Id)
+            .ToListAsync(cancellationToken);
+
         await dishTagRepository.UpdateAsync(tag, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        foreach (Guid dishId in dishIdsToInvalidate)
+        {
+            await dishCacheService.RemoveAsync(dishId, cancellationToken);
+        }
 
         return Result.Success();
     }

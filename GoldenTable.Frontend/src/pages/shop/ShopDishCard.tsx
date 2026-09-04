@@ -1,11 +1,11 @@
 import { useState, type ReactNode } from "react";
-import type { dishResponse } from "../../communication/common/dishResponse";
 import placeholderImg from "../../assets/default-placeholder-food.png";
 import { NavLink } from "react-router-dom";
 import styles from "./ShopDishCard.module.css";
+import type { dish } from "../../types/dish";
 
 type props = {
-  dish: dishResponse;
+  dish: dish;
 };
 
 function ShopDishCard({ dish }: props): ReactNode {
