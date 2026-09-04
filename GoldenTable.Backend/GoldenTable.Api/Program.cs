@@ -18,7 +18,10 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opts =>
+{
+    opts.CustomSchemaIds(type => type.FullName?.Replace("+", "."));
+});
 
 builder.Services.AddApplication([AssemblyReference.Assembly]);
 builder.Services.AddCatalogModule(builder.Configuration);
@@ -29,14 +32,23 @@ builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
     .AddRedis(cacheConnectionString);
 
-builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
-builder.Services.AddCatalogModule(builder.Configuration);
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("AllowFrontend");
     app.UseSwagger();
     app.UseSwaggerUI();
     app.ApplyMigrations();
@@ -56,4 +68,4 @@ app.UseExceptionHandler();
 
 app.MapEndpoints();
 
-app.Run();
+await app.RunAsync();

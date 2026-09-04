@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Force.DeepCloner;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
-using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes;
 

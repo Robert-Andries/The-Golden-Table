@@ -1,0 +1,56 @@
+import { useState, type ReactNode } from "react";
+
+import styles from "./Shop.module.css";
+import searchDish from "../../common/searchDish";
+import useGetAllDishes from "../../communication/getAllDishes/useGetAllDishes";
+import ShopDishCard from "./ShopDishCard";
+import type { dish } from "../../types/dish";
+
+type props = {
+  dishes: dish[]
+}
+
+function DisplayShop({dishes} : props) : ReactNode {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const displayedDishes = searchDish(dishes ?? [], searchTerm);
+
+  return (
+    <>
+      <div className={styles.searchContainer}>
+        <input 
+          type="text" 
+          placeholder="Search for a delicious dish..." 
+          className={styles.searchInput}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      </div>
+      <div className={styles.container}>
+        {displayedDishes.map((dish) => <ShopDishCard key={dish.id} dish={dish} />)}
+      </div>
+    </>
+  );
+}
+
+function Shop(): ReactNode {
+  const { data, isPending, isError, error } = useGetAllDishes();
+  
+  if (isPending) {
+    return <div className={styles.loading}>Loading dishes, please wait...</div>;
+  }
+  if (isError) {
+    return (
+      <div
+        className={styles.error}
+      >{`An error occured while getting dishes, ${error.message}`}</div>
+    );
+  }
+  if (data.length === 0) {
+    return <div className={styles.emptyState}>No dishes found!</div>;
+  }
+
+  return <DisplayShop dishes={data} />
+}
+
+
+
+export default Shop;

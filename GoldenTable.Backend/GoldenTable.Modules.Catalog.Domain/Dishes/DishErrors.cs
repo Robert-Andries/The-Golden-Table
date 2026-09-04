@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain;
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes;
 
@@ -39,10 +39,7 @@ public static class DishErrors
         "The provided nutritional information is the same as the dish's one.", ErrorType.Validation);
 
     public static Error NotFound { get; } = new("DishErrors.NotFound",
-        "The dish with the provided id not found.", ErrorType.NotFound);
-
-    public static Error InvalidValueForTag { get; } = new("DishErrors.InvalidValueForTag",
-        "The provided value for tag is invalid.", ErrorType.Validation);
+        "The dish was not found.", ErrorType.NotFound);
 
     public static Error InvalidSize { get; } = new("DishErrors.InvalidSize",
         "The provided size is invalid.", ErrorType.Validation);
@@ -55,4 +52,7 @@ public static class DishErrors
 
     public static Error TagsAlreadyPresent { get; } = new("DishErrors.TagsAlreadyPresent",
         "The provided tags are already present.", ErrorType.Validation);
+
+    public static Error DishAlreadyExists { get; } = new Error("DishErrors.DishAlreadyExists",
+        "The provided dish already exists.", ErrorType.Validation);
 }

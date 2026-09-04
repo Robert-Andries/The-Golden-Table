@@ -1,8 +1,9 @@
-﻿using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
@@ -283,7 +284,7 @@ public sealed class Dish : Entity
             return DishErrors.InvalidTags;
         }
 
-        var uniqueTags = tags.Where(t => Tags.All(dt => dt.Value != t.Value)).ToList();
+        var uniqueTags = tags.Where(t => Tags.All(dt => dt.Id != t.Id)).ToList();
         if (uniqueTags.Count == 0)
         {
             return DishErrors.TagsAlreadyPresent;
@@ -312,7 +313,8 @@ public sealed class Dish : Entity
             return DishErrors.InvalidTags;
         }
 
-        var usefulTags = Tags.IntersectBy(tags.Select(t => t.Value), t => t.Value).ToList();
+        var tagIds = tags.Select(t => t.Id).ToHashSet();
+        var usefulTags = Tags.Where(t => tagIds.Contains(t.Id)).ToList();
         if (usefulTags.Count == 0)
         {
             return Result.Success();

@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Application.Messaging;
+using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
@@ -16,4 +16,4 @@ public sealed record CreateDishCommand(
     float GramsOfProtein,
     float GramsOfSalt,
     string DishCategory,
-    List<DishTag> Tags) : ICommand<Guid>;
+    List<Guid> TagIds) : ICommand<Guid>;

@@ -56,6 +56,16 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.ComplexProperty(typeof(Dictionary<string, object>), "Description", "GoldenTable.Modules.Catalog.Domain.Common.Image.Image.Description#Description", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("Description");
+                        });
+
                     b.HasKey("Id");
 
                     b.HasIndex("DishId");
@@ -140,7 +150,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.ToTable("Dishes", "Catalog");
                 });
 
-            modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.DishTag", b =>
+            modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.Tag.DishTag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,6 +161,9 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Value")
+                        .IsUnique();
 
                     b.ToTable("DishTag", "Catalog");
                 });
@@ -163,7 +176,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.DishTag", null)
+                    b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.Tag.DishTag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -175,25 +188,6 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.Dish", null)
                         .WithMany("Images")
                         .HasForeignKey("DishId");
-
-                    b.OwnsOne("GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Description", "Description", b1 =>
-                        {
-                            b1.Property<Guid>("ImageId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("ImageId");
-
-                            b1.ToTable("Images", "Catalog");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ImageId");
-                        });
-
-                    b.Navigation("Description");
                 });
 
             modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.Dish", b =>

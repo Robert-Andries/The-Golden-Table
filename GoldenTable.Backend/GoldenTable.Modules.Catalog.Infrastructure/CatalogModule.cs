@@ -1,9 +1,10 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Abstractions;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
 using GoldenTable.Modules.Catalog.Infrastructure.Dishes;
 using GoldenTable.Modules.Catalog.Infrastructure.Images;
@@ -46,8 +47,10 @@ public static class CatalogModule
 
         services.AddScoped<IDishRepository, DishRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
+        services.AddScoped<IDishTagRepository, DishTagRepository>();
         services.AddSingleton<IDishCacheService, DishCacheService>();
         services.AddSingleton<IImageCacheService, ImageCacheService>();
         services.AddScoped<IDishDbSets>(sp => sp.GetRequiredService<CatalogDbContext>());
+        services.AddScoped<IImageDbSet>(sp => sp.GetRequiredService<CatalogDbContext>());
     }
 }

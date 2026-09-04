@@ -1,4 +1,5 @@
-﻿using GoldenTable.Common.Domain;
+using System.Text.Json.Serialization;
+using GoldenTable.Common.Domain;
 
 namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 
@@ -13,21 +14,22 @@ public record Currency
     
     public static readonly IReadOnlyCollection<Currency> All = [EUR, RON, USD];
 
+    [JsonConstructor]
     private Currency(string code, string name, string? symbol = null)
     {
         Code = code;
         Name = name;
-        if (string.IsNullOrEmpty(symbol))
-        {
-            Symbol = Code;
-        }
+        Symbol = string.IsNullOrEmpty(symbol) ? Code : symbol;
     }
+    
+    private Currency() 
+    {}
 
     /// <summary>
     ///     Gets the currency's code
     ///     E.g. EUR/USD
     /// </summary>
-    public string Code { get; }
+    public string Code { get; private set; }
 
     /// <summary>
     ///     Gets the currency's name
@@ -39,7 +41,7 @@ public record Currency
     ///     Gets the currency's symbol
     ///     E.g. $
     /// </summary>
-    public string Symbol { get; }
+    public string Symbol { get; private set; }
 
     /// <summary>
     ///     Gets a Currency object

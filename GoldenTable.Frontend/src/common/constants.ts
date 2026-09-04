@@ -1,0 +1,1 @@
+export const validCurrencies : string[] = ["RON", "EUR"];

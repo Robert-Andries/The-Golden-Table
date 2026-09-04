@@ -1,4 +1,4 @@
-﻿using GoldenTable.Modules.Catalog.Domain.Dishes;
+using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
@@ -8,6 +8,7 @@ public sealed class DishResponse
 {
     public DishResponse(Dish dish)
     {
+        Id = dish.Id;
         Name = dish.Name.Value;
         Description = dish.Description.Value;
         BasePriceAmount = dish.BasePrice.Amount;
@@ -15,10 +16,12 @@ public sealed class DishResponse
         Category = dish.Category.Name;
         Tags = dish.Tags.Select(t => t.Value).ToList();
         NutritionalInformation = dish.NutritionalInformation;
-        ImagesUris = dish.Images.Select(i => i.Uri.AbsoluteUri).ToList();
+        ImagesUris = dish.Images.Select(i => i.Uri.ToString()).ToList();
+        ImageIds = dish.Images.Select(i => i.Id).ToList();
         Sizes = dish.Sizes.ToList();
     }
 
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public decimal BasePriceAmount { get; set; }
@@ -27,5 +30,6 @@ public sealed class DishResponse
     public List<string> Tags { get; set; }
     public NutritionalValues NutritionalInformation { get; set; }
     public List<string> ImagesUris { get; set; }
+    public List<Guid> ImageIds { get; set; }
     public List<DishSize> Sizes { get; set; }
 }

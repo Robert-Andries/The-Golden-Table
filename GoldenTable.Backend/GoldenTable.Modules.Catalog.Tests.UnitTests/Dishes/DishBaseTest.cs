@@ -1,9 +1,10 @@
-﻿using Bogus;
+using Bogus;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
+using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 using Name = GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Name;
@@ -63,7 +64,7 @@ public abstract class DishBaseTest : BaseTest
         return images;
     }
 
-    private List<DishSize> CreateDishSizes(Faker faker, int count)
+    private static List<DishSize> CreateDishSizes(Faker faker, int count)
     {
         List<DishSize> sizes = new();
         for (int i = 0; i < count; i++)
@@ -77,7 +78,7 @@ public abstract class DishBaseTest : BaseTest
         return sizes;
     }
 
-    private List<DishTag> CreateDishTags(Faker faker, int count)
+    private static List<DishTag> CreateDishTags(Faker faker, int count)
     {
         List<DishTag> tags = new();
         for (int i = 0; i < count; i++)
