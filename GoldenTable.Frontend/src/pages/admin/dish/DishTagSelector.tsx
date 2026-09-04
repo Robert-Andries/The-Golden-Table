@@ -19,6 +19,7 @@ export default function DishTagSelector({ tagData, activeTags, onTagClick }: Pro
               key={tag.id}
               className={`${styles.tag} ${isActive ? styles.active : ""}`}
               onClick={() => onTagClick(tag.value)}
+              role="button"
             >
               {tag.value}
             </h4>

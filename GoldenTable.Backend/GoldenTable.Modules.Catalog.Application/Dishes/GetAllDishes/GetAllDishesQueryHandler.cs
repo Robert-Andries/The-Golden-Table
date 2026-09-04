@@ -4,6 +4,7 @@ using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetAllDishes;
 
 public sealed class GetAllDishesQueryHandler(
@@ -18,6 +19,7 @@ public sealed class GetAllDishesQueryHandler(
             .AsNoTracking()
             .Include(d => d.Images)
             .Include(d => d.Tags)
+            .AsSplitQuery()
             .ToListAsync(cancellationToken);
         var output = dishes.Select(x => new DishResponse(x)).ToList();
         return output;

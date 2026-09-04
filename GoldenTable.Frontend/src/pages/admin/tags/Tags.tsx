@@ -39,7 +39,7 @@ function DisplayTags({ tags }: props): ReactNode {
           <p className={styles.emptyState}>No tags found!</p>
         ) : (
           tags.map((tag) => (
-            <div key={tag.id} className={styles.tagCard} onClick={() => handleTagClick(tag.id)}>
+            <div key={tag.id} className={styles.tagCard} onClick={() => handleTagClick(tag.id)} role="button">
               <h3 className={styles.tagValue}>{tag.value}</h3>
             </div>
           ))
