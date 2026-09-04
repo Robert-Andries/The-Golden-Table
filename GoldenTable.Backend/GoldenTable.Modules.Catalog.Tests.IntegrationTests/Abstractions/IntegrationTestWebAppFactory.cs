@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Testcontainers.PostgreSql;
 using Testcontainers.Redis;
@@ -7,9 +7,10 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 
 public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly RedisContainer _cacheContainer = new RedisBuilder("redis:8.6").Build();
+    private readonly RedisContainer _cacheContainer = new RedisBuilder("redis:7")
+        .Build();
 
-    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder("postgres:18")
+    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder("postgres:16")
         .WithDatabase("goldentable")
         .WithUsername("postgres")
         .WithPassword("postgres")
