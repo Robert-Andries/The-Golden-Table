@@ -3,10 +3,10 @@ import {
   hasMinLenght,
   isGreaterThen0,
   isValidCurrency,
-} from "../../../common/Validators";
+} from "../../../common/validators";
 import { getInputNutritionsFromFormData } from "../../../components/EditableNutritionalInformation";
-import type { nutritionalInformation, dishResponse } from "../../../communication/common/dishResponse";
-import type { dishTag } from "../../../communication/getAllTags/response";
+import type { dish, nutritionalInformation } from "../../../types/dish";
+import type { dishTag } from "../../../types/dishTag";
 
 export type actionObject = {
   errors: string[] | null;
@@ -23,7 +23,7 @@ export type actionObject = {
 export async function editAction(
   prevFormState: unknown,
   formData: FormData,
-  originalData: dishResponse,
+  originalData: dish,
   activeTags: string[],
   tagData: dishTag[],
   imageIds: string[]

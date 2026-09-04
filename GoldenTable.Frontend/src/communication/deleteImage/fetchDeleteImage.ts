@@ -1,5 +1,5 @@
-import { ApplicationError } from "../../common/ApplicationError";
 import baseUrl from "../common/baseUrl";
+import fetchError from "../common/fetchError";
 
 export default async function fetchDeleteImage(id: string) {
   const uri = baseUrl + `/images/delete/${id}`;
@@ -7,10 +7,6 @@ export default async function fetchDeleteImage(id: string) {
     method: "DELETE",
   });
   if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    throw new ApplicationError(
-      `Failed to delete image. ${body.detail ?? ""}`,
-      response.status,
-    );
+    throw await fetchError.createAsync(`Failed to delete image`, response);
   }
 }

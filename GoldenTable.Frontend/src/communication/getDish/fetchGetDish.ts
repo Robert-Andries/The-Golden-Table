@@ -1,16 +1,16 @@
+import type { dish } from "../../types/dish";
 import baseUrl from "../common/baseUrl";
-import type { dishResponse } from "../common/dishResponse";
 import fetchError from "../common/fetchError";
 
 export async function fetchGetDish(id: string, signal?: AbortSignal) {
   const requestUrl = baseUrl + "/dishes/id/" + id;
   const response = await fetch(requestUrl, { signal });
 
-  const info = await response.json();
+  const body = await response.json();
   if(!response.ok) {
-    throw new fetchError('An error occuredwhile fetching the dish!', response.status, info);
+    throw await fetchError.createAsync(`An error occured while fetching the dish`, response);
   }
 
-  const output = info as dishResponse;
+  const output = body as dish;
   return output;
 }

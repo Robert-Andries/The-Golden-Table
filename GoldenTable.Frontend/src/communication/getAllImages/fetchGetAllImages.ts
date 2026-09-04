@@ -1,5 +1,5 @@
 import baseUrl from "../common/baseUrl";
-import fetchError from "../common/fetchError";
+import FetchError from "../common/fetchError";
 import type { response as getAllImagesResponse } from "./response";
 
 export async function fetchGetAllImages(signal?: AbortSignal) {
@@ -8,11 +8,7 @@ export async function fetchGetAllImages(signal?: AbortSignal) {
 
   const info = await response.json();
   if (!response.ok) {
-    throw new fetchError(
-      "An error occurred while fetching all the images!",
-      response.status,
-      info
-    );
+    throw await FetchError.createAsync('An error occurred while fetching all the images', response);
   }
 
   const output = info as getAllImagesResponse;

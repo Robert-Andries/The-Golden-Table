@@ -1,4 +1,4 @@
-import { hasMinLenght, isValidUri } from "../../../common/Validators";
+import { hasMinLenght, isValidUri } from "../../../common/validators";
 import queryClient from "../../../communication/common/queryClient";
 import type { createImagePayload } from "../../../communication/createImage/createImagePayload";
 import { fetchCreateImage } from "../../../communication/createImage/fetchCreateImage";

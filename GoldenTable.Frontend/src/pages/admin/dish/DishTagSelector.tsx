@@ -1,4 +1,4 @@
-import type { dishTag } from "../../../communication/getAllTags/response";
+import type { dishTag } from "../../../types/dishTag";
 import styles from "./EditDish.module.css";
 
 type Props = {

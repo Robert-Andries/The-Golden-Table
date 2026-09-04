@@ -1,17 +1,16 @@
-import { ApplicationError } from "../../common/ApplicationError";
+import type { image } from "../../types/image";
 import baseUrl from "../common/baseUrl";
-import type { ImageInfo } from "../getAllImages/response";
+import FetchError from "../common/fetchError";
 
-export default async function fetchGetImageById(id: string) : Promise<ImageInfo> {
+export default async function fetchGetImageById(id: string) : Promise<image> {
   const uri = baseUrl + `/images/get/${id}`;
-
   const response = await fetch(uri);
 
-  const body = await response.json();
   if(!response.ok) {
-    throw new ApplicationError(`Could not fetch image with id ${id}: ${body.detail ?? "unknown error"}`, body.status ?? 500)
+    throw await FetchError.createAsync(`Could not fetch image with id ${id}`, response)
   }
 
-  const image = body as ImageInfo;
+  const body = await response.json();
+  const image = body as image;
   return image;
 }

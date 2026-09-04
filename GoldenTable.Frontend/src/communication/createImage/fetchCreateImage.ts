@@ -1,5 +1,5 @@
-import { ApplicationError } from "../../common/ApplicationError";
 import baseUrl from "../common/baseUrl";
+import FetchError from "../common/fetchError";
 import type { createImagePayload } from "./createImagePayload";
 
 export async function fetchCreateImage(payload: createImagePayload) {
@@ -14,7 +14,6 @@ export async function fetchCreateImage(payload: createImagePayload) {
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    throw new ApplicationError(`Failed to create image. ${body.detail ?? ''}`, response.status);
+    throw await FetchError.createAsync("Failed to create image", response);
   }
 }

@@ -1,5 +1,5 @@
-import { ApplicationError } from "../../common/ApplicationError";
 import baseUrl from "../common/baseUrl";
+import fetchError from "../common/fetchError";
 
 export async function fetchEditDish(id: string, payload: unknown) {
   const url = baseUrl + `/dishes/edit/${id}`;
@@ -13,7 +13,6 @@ export async function fetchEditDish(id: string, payload: unknown) {
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    throw new ApplicationError(`Failed to update dish state. ${body.detail ?? ''}`, response.status);
+    throw await fetchError.createAsync(`Failed to update dish state`, response);
   }
 }

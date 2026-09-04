@@ -22,7 +22,7 @@ export type nutritionalInformation = {
   gramsOfSalt: number;
 };
 
-export type dishResponse = {
+export type dish = {
   id: string;
   name: string;
   description: string;

@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import useGetAllImages from "../communication/getAllImages/useGetAllImages";
-import type { ImageInfo } from "../communication/getAllImages/response";
 import styles from "./ImageModal.module.css";
+import type { image } from "../types/image";
 
-type Props = {
+type props = {
   isOpen: boolean;
   onClose: () => void;
   preSelectedImageIds?: string[];
-  extractedImages: (selectedImages: ImageInfo[]) => void;
+  extractedImages: (selectedImages: image[]) => void;
 };
 
 export default function ImageModal({
@@ -17,7 +17,7 @@ export default function ImageModal({
   onClose,
   preSelectedImageIds = [],
   extractedImages,
-}: Props): ReactNode {
+}: props): ReactNode {
   const { data: images, isLoading, isError } = useGetAllImages();
   const [selectedIds, setSelectedIds] = useState<Set<string>>(
     new Set(preSelectedImageIds)

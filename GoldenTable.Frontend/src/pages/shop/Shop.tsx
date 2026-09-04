@@ -1,13 +1,13 @@
 import { useState, type ReactNode } from "react";
 
 import styles from "./Shop.module.css";
-import type { dishResponse } from "../../communication/common/dishResponse";
 import searchDish from "../../common/searchDish";
 import useGetAllDishes from "../../communication/getAllDishes/useGetAllDishes";
 import ShopDishCard from "./ShopDishCard";
+import type { dish } from "../../types/dish";
 
 type props = {
-  dishes: dishResponse[]
+  dishes: dish[]
 }
 
 function DisplayShop({dishes} : props) : ReactNode {
@@ -16,9 +16,16 @@ function DisplayShop({dishes} : props) : ReactNode {
 
   return (
     <>
-      <input type="text" placeholder="Search a dish" onChange={e => setSearchTerm(e.target.value)}/>
+      <div className={styles.searchContainer}>
+        <input 
+          type="text" 
+          placeholder="Search for a delicious dish..." 
+          className={styles.searchInput}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className={styles.container}>
-        {displayedDishes.map((dish) => <ShopDishCard dish={dish} />)}
+        {displayedDishes.map((dish) => <ShopDishCard key={dish.id} dish={dish} />)}
       </div>
     </>
   );

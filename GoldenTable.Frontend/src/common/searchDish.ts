@@ -1,10 +1,10 @@
-import type { dishResponse } from "../communication/common/dishResponse";
+import type { dish } from "../types/dish";
 
 export default function searchDish(
-  dishes: dishResponse[],
+  dishes: dish[],
   searchTerm: string,
-): dishResponse[] {
-  let output: dishResponse[] = [];
+): dish[] {
+  let output: dish[] = [];
   const searchTermLower = searchTerm.toLowerCase();
   dishes.forEach((dish) => {
     if (

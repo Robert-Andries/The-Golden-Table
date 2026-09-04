@@ -1,4 +1,4 @@
-﻿using GoldenTable.Common.Application.Caching;
+using GoldenTable.Common.Application.Caching;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 
@@ -18,6 +18,12 @@ internal sealed class DishCacheService(ICacheService cacheService) : IDishCacheS
     {
         string cacheKey = GetCacheKey(dish.Id);
         return cacheService.SetAsync(cacheKey, dish, ExpirationTime, cancellationToken);
+    }
+
+    public Task RemoveAsync(Guid dishId, CancellationToken cancellationToken = default)
+    {
+        string cacheKey = GetCacheKey(dishId);
+        return cacheService.RemoveAsync(cacheKey, cancellationToken);
     }
 
     private static string GetCacheKey(Guid dishId)

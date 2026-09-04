@@ -1,8 +1,8 @@
 import { ApplicationError } from "../../../common/ApplicationError";
-import { hasMinLenght } from "../../../common/Validators";
+import { hasMinLenght } from "../../../common/validators";
 import queryClient from "../../../communication/common/queryClient";
 import fetchEditTag from "../../../communication/editTag/fetchEditTag";
-import type { dishTag } from "../../../communication/getAllTags/response";
+import type { dishTag } from "../../../types/dishTag";
 
 type actionType = {
   errors: string[],

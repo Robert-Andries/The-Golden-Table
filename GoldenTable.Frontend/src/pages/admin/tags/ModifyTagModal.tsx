@@ -1,5 +1,4 @@
 import { useActionState, type ReactNode } from "react";
-import type { dishTag } from "../../../communication/getAllTags/response";
 import Modal from "../../../components/Modal";
 import Input from "../../../components/Input";
 import useModal from "../../../components/useModal";
@@ -8,6 +7,7 @@ import fetchDeleteTag from "../../../communication/deleteTag/fetchDeleteTag";
 import modifyTagAction from "./modifyTagAction";
 import styles from "./Tags.module.css";
 import queryClient from "../../../communication/common/queryClient";
+import type { dishTag } from "../../../types/dishTag";
 
 type props = {
   tag: dishTag;

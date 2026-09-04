@@ -1,7 +1,7 @@
 import type { ReactNode, InputHTMLAttributes } from "react";
 import styles from "./Input.module.css";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface props extends InputHTMLAttributes<HTMLInputElement> {
   defaultText: string | number;
 }
 
@@ -10,7 +10,7 @@ export default function Input({
   type,
   defaultText,
   ...rest
-}: InputProps): ReactNode {
+}: props): ReactNode {
   return (
     <div className={styles.container}>
       <label className={styles.label}>{name}</label>

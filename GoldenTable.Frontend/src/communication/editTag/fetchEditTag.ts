@@ -1,6 +1,6 @@
-import { ApplicationError } from "../../common/ApplicationError";
+import type { dishTag } from "../../types/dishTag";
 import baseUrl from "../common/baseUrl";
-import type { dishTag } from "../getAllTags/response";
+import fetchError from "../common/fetchError";
 
 type requestBody = {
   value: string;
@@ -17,20 +17,10 @@ export default async function fetchEditTag(id: string, tag: dishTag) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(requestBody)
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
-    let errorMessage = "unknown error";
-    try {
-      const responseBody = await response.json();
-      errorMessage = responseBody.detail ?? "unknown error";
-    } catch (e) {
-      // response might be empty or not JSON
-    }
-    throw new ApplicationError(
-      `An error occured while editing tag: ${errorMessage}`,
-      response.status,
-    );
+    throw await fetchError.createAsync(`An error occured while editing tag`, response);
   }
 }
