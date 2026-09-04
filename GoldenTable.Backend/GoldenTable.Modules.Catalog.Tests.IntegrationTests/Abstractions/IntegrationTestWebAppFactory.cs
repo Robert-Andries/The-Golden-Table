@@ -7,10 +7,10 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 
 public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly RedisContainer _cacheContainer = new RedisBuilder("redis:7.4")
+    private readonly RedisContainer _cacheContainer = new RedisBuilder("redis:latest")
         .Build();
 
-    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder("postgres:16")
+    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder("postgres:latest")
         .WithDatabase("goldentable")
         .WithUsername("postgres")
         .WithPassword("postgres")
