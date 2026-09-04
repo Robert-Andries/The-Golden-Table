@@ -58,16 +58,13 @@ jobs:
       - name: Build
         run: dotnet build "${{ env.Solution_Name }}" --configuration ${{ matrix.configuration }} --no-restore
 
-      - name: Test
-        run: dotnet test "${{ env.Solution_Name }}" --configuration ${{ matrix.configuration }} --no-build --collect:"XPlat Code Coverage"
-
       - name: End SonarQube Analysis
         if: matrix.configuration == 'Release'
         shell: powershell
         run: |
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-  snyk-scan:
+  Code-Quality-Assurance:
     runs-on: ubuntu-latest
     environment: SNYK_TOKENS 
     steps:
@@ -81,6 +78,12 @@ jobs:
 
       - name: Restore
         run: dotnet restore "${{ env.Solution_Name }}" /p:EnableWindowsTargeting=true
+
+      - name: Build
+        run: dotnet build "${{ env.Solution_Name }}" --configuration ${{ matrix.configuration }}
+        
+      - name: Test
+        run: dotnet test "${{ env.Solution_Name }}" --configuration ${{ matrix.configuration }} --no-build --collect:"XPlat Code Coverage"
 
       - name: Snyk Security Scan
         uses: snyk/actions/dotnet@master
