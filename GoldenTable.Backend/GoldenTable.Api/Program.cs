@@ -68,4 +68,4 @@ app.UseExceptionHandler();
 
 app.MapEndpoints();
 
-app.Run();
+await app.RunAsync();

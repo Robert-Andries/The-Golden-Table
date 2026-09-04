@@ -27,7 +27,7 @@ public abstract class BaseIntegrationTest : IDisposable
         _scope.Dispose();
     }
 
-    protected async Task ClearDatabaseAsync()
+    protected static async Task ClearDatabaseAsync()
     {
         var tableNames = context.Model.GetEntityTypes()
             .Select(t => $"\"{t.GetSchema() ?? "public"}\".\"{t.GetTableName()}\"")

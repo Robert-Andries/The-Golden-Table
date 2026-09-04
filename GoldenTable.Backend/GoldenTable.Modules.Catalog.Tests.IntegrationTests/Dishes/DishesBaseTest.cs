@@ -19,38 +19,38 @@ public class DishesBaseTest : BaseIntegrationTest
     protected DishBuilder DishBuilder { get; init; }
     protected ImageBuilder ImageBuilder { get; init; }
 
-    protected async Task PutDishInDb(Dish dish)
+    protected static async Task PutDishInDb(Dish dish)
     {
         context.Dishes.Add(dish);
         await context.SaveChangesAsync();
     }
 
-    protected async Task PutImageInDb(Image image)
+    protected static async Task PutImageInDb(Image image)
     {
         await context.Images.AddAsync(image);
         await context.SaveChangesAsync();
     }
 
-    protected async Task PutTagInDb(DishTag tag)
+    protected static async Task PutTagInDb(DishTag tag)
     {
         context.Set<DishTag>().Add(tag);
         await context.SaveChangesAsync();
     }
 
-    protected async Task PutTagsInDb(IEnumerable<DishTag> tags)
+    protected static async Task PutTagsInDb(IEnumerable<DishTag> tags)
     {
         context.Set<DishTag>().AddRange(tags);
         await context.SaveChangesAsync();
     }
 
-    protected async Task<Dish> GetDishFromDb(Guid dishId)
+    protected static async Task<Dish> GetDishFromDb(Guid dishId)
     {
         return await context.Dishes
             .Include(d => d.Tags)
             .Include(d => d.Images).FirstAsync(d => d.Id == dishId);
     }
 
-    protected async Task<Image> GetImageFromDb(Guid imageId)
+    protected static async Task<Image> GetImageFromDb(Guid imageId)
     {
         return await context.Images.AsNoTracking().FirstAsync(i => i.Id == imageId);
     }

@@ -10,13 +10,13 @@ public class TagsBaseTest : BaseIntegrationTest
     {
     }
 
-    protected async Task PutTagInDb(DishTag tag)
+    protected static async Task PutTagInDb(DishTag tag)
     {
         context.Set<DishTag>().Add(tag);
         await context.SaveChangesAsync();
     }
 
-    protected async Task<DishTag?> GetTagFromDb(Guid tagId)
+    protected static async Task<DishTag?> GetTagFromDb(Guid tagId)
     {
         return await context.Set<DishTag>().AsNoTracking().FirstOrDefaultAsync(t => t.Id == tagId);
     }

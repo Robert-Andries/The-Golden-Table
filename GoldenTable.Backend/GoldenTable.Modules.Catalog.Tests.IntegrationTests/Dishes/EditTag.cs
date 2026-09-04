@@ -26,7 +26,7 @@ public sealed class EditTag : TagsBaseTest
         result.IsSuccess.Should().BeTrue();
         DishTag? updatedTag = await GetTagFromDb(tag.Id);
         updatedTag.Should().NotBeNull();
-        updatedTag!.Value.Should().Be("UpdatedTag");
+        updatedTag.Value.Should().Be("UpdatedTag");
     }
 
     [Fact]

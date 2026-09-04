@@ -15,13 +15,13 @@ public class ImageBaseTest : BaseIntegrationTest
     
     protected ImageBuilder ImageBuilder { get; init; }
     
-    protected async Task PutImageInDb(Image image)
+    protected static async Task PutImageInDb(Image image)
     {
         await context.Images.AddAsync(image);
         await context.SaveChangesAsync();
     }
     
-    protected async Task<Image> GetImageFromDb(Guid imageId)
+    protected static async Task<Image> GetImageFromDb(Guid imageId)
     {
         return await context.Images.AsNoTracking().FirstAsync(i => i.Id == imageId);
     }
