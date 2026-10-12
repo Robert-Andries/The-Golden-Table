@@ -10,6 +10,7 @@ import Shop from "./pages/shop/Shop";
 import EditDish from "./pages/admin/dish/EditDish";
 import AddDish from "./pages/admin/dish/AddDish";
 import Tags from "./pages/admin/tags/Tags";
+import { ProtectedRoute } from "./auth/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
       {
         path: "admin",
         children: [
-          {index: true, element: <AdminIndex />},
-          {path: "edit/:id", element: <EditDish />},
-          {path: "add", element: <AddDish />},
-          {path: "images", element: <ManageImages />},
-          {path: "tags", element: <Tags />}
+          {index: true, element: <ProtectedRoute role="admin"><AdminIndex /></ProtectedRoute>},
+          {path: "edit/:id", element: <ProtectedRoute role="admin"><EditDish /></ProtectedRoute>},
+          {path: "add", element: <ProtectedRoute role="admin"><AddDish /></ProtectedRoute>},
+          {path: "images", element: <ProtectedRoute role="admin"><ManageImages /></ProtectedRoute>},
+          {path: "tags", element: <ProtectedRoute role="admin"><Tags /></ProtectedRoute>}
         ]
       }
     ],
