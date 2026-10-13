@@ -2,6 +2,7 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Images.Delete;
+using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,7 @@ internal sealed class Delete : IEndpoint
 
             return result.Match(Results.NoContent, ApiResults.Problem);
         })
+        .RequirePermission(Permissions.DeleteImage)
         .WithTags(Tags.Image);
     }
 }
