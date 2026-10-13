@@ -1,13 +1,13 @@
 services:
   goldentable.database:
-    image: postgres:latest
+    image: postgres:17
     container_name: GoldenTable.Database
     environment:
       - POSTGRES_DB=goldentable
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./.containers/db:/var/lib/postgresql
+      - ./.containers/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
@@ -21,6 +21,20 @@ services:
     container_name: GoldenTable.Redis
     ports:
       - "6379:6379"
+  
+  goldentable.identity:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: GoldenTable.Identity
+    command: start-dev #--import-realm
+    environment:
+      - KC_HEALTH-ENABLED=true
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data
+      - ./.files:/opt/keycloak/data/import
+    ports:
+      - 18080:8080
 
   goldentable.api:
     image: goldentable.api
@@ -34,3 +48,5 @@ services:
     depends_on:
       goldentable.database:
         condition: service_healthy
+        
+    
