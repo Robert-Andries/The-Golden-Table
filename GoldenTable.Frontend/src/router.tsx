@@ -22,20 +22,21 @@ const router = createBrowserRouter([
       {
         path: "shop",
         children: [
-          { index:true, element: <Shop />},
-          { path: ":id",element: <DishItem />},
+          { index: true, element: <Shop /> },
+          { path: ":id", element: <DishItem /> },
         ],
       },
       {
         path: "admin",
+        element: <ProtectedRoute role="admin" />,
         children: [
-          {index: true, element: <ProtectedRoute role="admin"><AdminIndex /></ProtectedRoute>},
-          {path: "edit/:id", element: <ProtectedRoute role="admin"><EditDish /></ProtectedRoute>},
-          {path: "add", element: <ProtectedRoute role="admin"><AddDish /></ProtectedRoute>},
-          {path: "images", element: <ProtectedRoute role="admin"><ManageImages /></ProtectedRoute>},
-          {path: "tags", element: <ProtectedRoute role="admin"><Tags /></ProtectedRoute>}
-        ]
-      }
+          { index: true, element: <AdminIndex /> },
+          { path: "edit/:id", element: <EditDish /> },
+          { path: "add", element: <AddDish /> },
+          { path: "images", element: <ManageImages /> },
+          { path: "tags", element: <Tags /> },
+        ],
+      },
     ],
   },
 ]);

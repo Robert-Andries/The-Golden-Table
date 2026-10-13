@@ -133,7 +133,7 @@ export default function AddDishForm({ tagData }: props): ReactNode {
       </div>
       <div>
         {formState.errors?.map((error: string) => (
-          <h3 key={error} style={{ color: "var(--color-red-500, #ef4444)" }}>{error}</h3>
+          <h3 key={error} className={styles.formError}>{error}</h3>
         ))}
       </div>
       <input 

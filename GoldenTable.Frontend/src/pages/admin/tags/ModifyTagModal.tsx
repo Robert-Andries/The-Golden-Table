@@ -8,6 +8,7 @@ import modifyTagAction from "./modifyTagAction";
 import styles from "./Tags.module.css";
 import queryClient from "../../../communication/common/queryClient";
 import type { dishTag } from "../../../types/dishTag";
+import { Can } from "../../../auth/Can";
 
 type props = {
   tag: dishTag;
@@ -34,7 +35,7 @@ export default function ModifyTagModal({
   function deleteTag() {
     async function deleteAsync(): Promise<void> {
       await fetchDeleteTag(tag.id);
-      queryClient.invalidateQueries({queryKey: ['dishes', 'tags']});
+      queryClient.invalidateQueries({ queryKey: ["dishes", "tags"] });
       onClose();
     }
     deleteAsync();
@@ -52,26 +53,46 @@ export default function ModifyTagModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <form action={formAction} className={styles.form}>
-        <h2 style={{margin: 0, color: 'var(--color-primary-400, #60a5fa)'}}>Modify Tag</h2>
+        <h2 className={styles.modalTitle}>Modify Tag</h2>
         {formState.errors.length > 0 && (
           <div className={styles.errorContainer}>
             {formState.errors.map((error, index) => (
-              <p key={index} className={styles.errorMessage}>{error}</p>
+              <p key={index} className={styles.errorMessage}>
+                {error}
+              </p>
             ))}
           </div>
         )}
         <Input type="text" name="Name" defaultText={formState.name} />
-        
+
         <div className={styles.buttonGroup}>
-          <button type="button" onClick={handleDelete} className={styles.deleteBtn} disabled={pending}>
-            Delete
-          </button>
-          <button type="button" onClick={onClose} className={styles.cancelBtn} disabled={pending}>
+          <Can permission="dishes:delete-tag">
+            <button
+              type="button"
+              onClick={handleDelete}
+              className={styles.deleteBtn}
+              disabled={pending}
+            >
+              Delete
+            </button>
+          </Can>
+          <button
+            type="button"
+            onClick={onClose}
+            className={styles.cancelBtn}
+            disabled={pending}
+          >
             Cancel
           </button>
-          <button type="submit" className={styles.submitBtn} disabled={pending}>
-            {pending ? "Submitting..." : `Submit`}
-          </button>
+          <Can permission="dishes:edit-tag">
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={pending}
+            >
+              {pending ? "Submitting..." : `Submit`}
+            </button>
+          </Can>
         </div>
       </form>
 

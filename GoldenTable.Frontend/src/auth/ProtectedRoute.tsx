@@ -1,20 +1,77 @@
 import { useEffect, type ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 import { useAuth } from "./useAuth";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { Forbidden } from "../components/Forbidden";
 
-interface Props {
-  children: ReactNode;
-  role?: string; // optional: require a specific realm role
+interface ProtectedRouteProps {
+  children?: ReactNode;
+  role?: string;
+  roles?: string[];
+  permission?: string;
+  permissions?: string[];
+  requireAll?: boolean;
+  redirectUri?: string;
 }
 
-export function ProtectedRoute({ children, role }: Props) {
-  const { authenticated, hasRole, login } = useAuth();
+export function ProtectedRoute({
+  children,
+  role,
+  roles,
+  permission,
+  permissions,
+  requireAll = false,
+  redirectUri,
+}: ProtectedRouteProps): ReactNode {
+  const {
+    initialized,
+    authenticated,
+    hasRole,
+    hasAnyRole,
+    hasAllRoles,
+    hasPermission,
+    login,
+  } = useAuth();
 
   useEffect(() => {
-    if (!authenticated) login(); // send to Keycloak, come back to this page
-  }, [authenticated, login]);
+    if (initialized && !authenticated) {
+      login(redirectUri ?? window.location.href);
+    }
+  }, [initialized, authenticated, login, redirectUri]);
 
-  if (!authenticated) return <p>Redirecting to login...</p>;
-  if (role && !hasRole(role)) return <p>403: you don't have access to this page.</p>;
+  if (!initialized) {
+    return <LoadingScreen message="Initialising..." />;
+  }
 
-  return <>{children}</>;
+  if (!authenticated) {
+    return <LoadingScreen message="Redirecting to login page..." />;
+  }
+
+  if (role && !hasRole(role)) {
+    return <Forbidden requiredRole={role} />;
+  }
+
+  if (roles && roles.length > 0) {
+    const rolesMatch = requireAll ? hasAllRoles(roles) : hasAnyRole(roles);
+    if (!rolesMatch) {
+      return <Forbidden requiredRoles={roles} />;
+    }
+  }
+
+  if (permission && !hasPermission(permission)) {
+    return <Forbidden requiredPermission={permission} />;
+  }
+
+  if (permissions && permissions.length > 0) {
+    const permissionsMatch = requireAll
+      ? permissions.every((p) => hasPermission(p))
+      : permissions.some((p) => hasPermission(p));
+    if (!permissionsMatch) {
+      return <Forbidden requiredPermission={permissions.join(", ")} />;
+    }
+  }
+
+  return children ? <>{children}</> : <Outlet />;
 }
+
+export default ProtectedRoute;

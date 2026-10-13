@@ -3,6 +3,7 @@ import useGetAllTags from "../../../communication/getAllTags/useGetAllTags";
 import CreateTagModal from "./CreateTagModal";
 import ModifyTagModal from "./ModifyTagModal";
 import useModal from "../../../components/useModal";
+import { Can } from "../../../auth/Can";
 import styles from "./Tags.module.css";
 import type { dishTag } from "../../../types/dishTag";
 
@@ -31,7 +32,9 @@ function DisplayTags({ tags }: props): ReactNode {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Tags Management</h1>
-        <button className={styles.addButton} onClick={handleAddTag}>Add a tag</button>
+        <Can permission="dishes:create-tag">
+          <button className={styles.addButton} onClick={handleAddTag}>Add a tag</button>
+        </Can>
       </div>
 
       <div className={styles.tagsGrid}>

@@ -4,7 +4,7 @@ export default function searchDish(
   dishes: dish[],
   searchTerm: string,
 ): dish[] {
-  let output: dish[] = [];
+  const output: dish[] = [];
   const searchTermLower = searchTerm.toLowerCase();
   dishes.forEach((dish) => {
     if (
