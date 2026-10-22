@@ -70,7 +70,7 @@ function MainHeader(): ReactNode {
                   onClick={() => logout()}
                   className={style.logoutBtn}
                 >
-                  Deconectare
+                  Disconnect
                 </button>
               </>
             ) : (
@@ -79,7 +79,7 @@ function MainHeader(): ReactNode {
                 onClick={() => login()}
                 className={style.loginBtn}
               >
-                Conectare
+                Connect
               </button>
             )}
           </div>
