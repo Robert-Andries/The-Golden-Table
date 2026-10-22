@@ -22,7 +22,7 @@ function CreateTagModal({ isOpen, onClose }: props): ReactNode {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <form action={formAction} className={styles.form}>
-        <h2 style={{margin: 0, color: 'var(--color-primary-400, #60a5fa)'}}>Create Tag</h2>
+        <h2 className={styles.modalTitle}>Create Tag</h2>
         {formState.errors.length > 0 && (
           <div className={styles.errorContainer}>
             {formState.errors.map((error, index) => (

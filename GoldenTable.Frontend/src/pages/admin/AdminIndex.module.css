@@ -125,3 +125,17 @@
   background-color: var(--color-gray-800);
   border-radius: 12px;
 }
+
+.notification {
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
