@@ -8,6 +8,7 @@ using GoldenTable.Common.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
+using Quartz;
 using StackExchange.Redis;
 
 namespace GoldenTable.Common.Infrastructure;
@@ -27,6 +28,9 @@ public static class InfrastructureConfiguration
         services.TryAddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
+        
+        services.AddQuartz();
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
         IConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(redisConnectionString);
         services.TryAddSingleton(multiplexer);
