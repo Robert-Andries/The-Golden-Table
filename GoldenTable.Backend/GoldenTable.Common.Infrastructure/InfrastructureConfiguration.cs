@@ -5,6 +5,7 @@ using GoldenTable.Common.Infrastructure.Authentication;
 using GoldenTable.Common.Infrastructure.Caching;
 using GoldenTable.Common.Infrastructure.Clock;
 using GoldenTable.Common.Infrastructure.Data;
+using GoldenTable.Common.Infrastructure.Outbox;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
@@ -28,6 +29,8 @@ public static class InfrastructureConfiguration
         services.TryAddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
+
+        services.TryAddSingleton<InsertOutboxMessagesInterceptor>();
         
         services.AddQuartz();
         services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);

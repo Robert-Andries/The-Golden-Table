@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using GoldenTable.Common.Infrastructure.Outbox;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
@@ -41,7 +42,9 @@ public static class CatalogModule
         });
         services.AddDbContext<CatalogDbContext>((sp, options) =>
             options.UseNpgsql(databaseConnectionString, npgsqlOptions =>
-                npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog)));
+                    npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog))
+                .AddInterceptors(sp.GetRequiredService<InsertOutboxMessagesInterceptor>()));
+                
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<CatalogDbContext>());
 

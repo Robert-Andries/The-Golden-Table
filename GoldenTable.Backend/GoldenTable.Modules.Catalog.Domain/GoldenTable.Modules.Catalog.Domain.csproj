@@ -3,10 +3,14 @@
         <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj"/>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Update="SonarAnalyzer.CSharp" Version="10.33.0.1635">
+      <PackageReference Update="SonarAnalyzer.CSharp" Version="10.35.0.4138">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.14">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

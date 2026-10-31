@@ -4,16 +4,20 @@
         <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.14" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.14" />
-        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.11" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Npgsql" Version="10.0.3" />
-        <PackageReference Update="SonarAnalyzer.CSharp" Version="10.33.0.1635">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.14">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Quartz.Extensions.Hosting" Version="4.6.1" />
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.14" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="Npgsql" Version="10.0.3" />
+        <PackageReference Update="SonarAnalyzer.CSharp" Version="10.35.0.4138">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="4.6.2" />
     </ItemGroup>
 </Project>
