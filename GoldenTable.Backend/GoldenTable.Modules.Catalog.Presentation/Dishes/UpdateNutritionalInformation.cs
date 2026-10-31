@@ -13,34 +13,35 @@ using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
 
-public abstract class UpdateNutritionalInformation : IEndpoint
+internal sealed class UpdateNutritionalInformation : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPatch("dishes/update-nutritional-information/", async ( [FromBody] Request request, [FromServices] ISender sender) =>
-        {
-            Result<NutritionalValues> nutritionalValuesResult = NutritionalValues.Create(
-                request.NutritionalInfo.Kcal,
-                request.NutritionalInfo.GramsOfFat,
-                request.NutritionalInfo.GramsOfCarbohydrates,
-                request.NutritionalInfo.GramsOfSugar,
-                request.NutritionalInfo.GramsOfProtein,
-                request.NutritionalInfo.GramsOfSalt);
+        app.MapPatch("dishes/update-nutritional-information/",
+                async ([FromBody] Request request, [FromServices] ISender sender) =>
+                {
+                    Result<NutritionalValues> nutritionalValuesResult = NutritionalValues.Create(
+                        request.NutritionalInfo.Kcal,
+                        request.NutritionalInfo.GramsOfFat,
+                        request.NutritionalInfo.GramsOfCarbohydrates,
+                        request.NutritionalInfo.GramsOfSugar,
+                        request.NutritionalInfo.GramsOfProtein,
+                        request.NutritionalInfo.GramsOfSalt);
 
-            if (nutritionalValuesResult.IsFailure)
-            {
-                return ApiResults.Problem(nutritionalValuesResult.Error);
-            }
+                    if (nutritionalValuesResult.IsFailure)
+                    {
+                        return ApiResults.Problem(nutritionalValuesResult.Error);
+                    }
 
-            NutritionalValues nutritionalValues = nutritionalValuesResult.Value;
+                    NutritionalValues nutritionalValues = nutritionalValuesResult.Value;
 
-            Result result =
-                await sender.Send(new UpdateNutritionalInformationCommand(request.DishId, nutritionalValues));
+                    Result result =
+                        await sender.Send(new UpdateNutritionalInformationCommand(request.DishId, nutritionalValues));
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        })
-        .RequirePermission(Permissions.UpdateNutritionalInformation)
-        .WithTags(Tags.Dish);
+                    return result.Match(Results.NoContent, ApiResults.Problem);
+                })
+            .RequirePermission(Permissions.UpdateNutritionalInformation)
+            .WithTags(Tags.Dish);
     }
 
     internal sealed class Request

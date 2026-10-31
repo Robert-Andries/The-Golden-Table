@@ -10,9 +10,9 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 public abstract class BaseIntegrationTest : IDisposable
 {
     protected static CatalogDbContext context;
-    private readonly IServiceScope _scope;
     protected readonly Faker Faker = new();
     protected readonly ISender Sender;
+    private readonly IServiceScope _scope;
 
     protected BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {

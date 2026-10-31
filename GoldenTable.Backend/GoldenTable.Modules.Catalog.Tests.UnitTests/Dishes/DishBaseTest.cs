@@ -70,8 +70,8 @@ public abstract class DishBaseTest : BaseTest
         for (int i = 0; i < count; i++)
         {
             string name = faker.Name.FirstName();
-            float priceAdded = faker.Random.Float(-100f, 100f);
-            float weight = faker.Random.Float(1f, 200f);
+            decimal priceAdded = faker.Random.Decimal(-100, 100);
+            decimal weight = faker.Random.Decimal(1, 200);
             sizes.Add(new DishSize(name, priceAdded, weight));
         }
 

@@ -12,4 +12,8 @@ internal static partial class OutboxLogs
 
     [LoggerMessage(LogLevel.Error, "{module} - Exception while processing outbox message {messageId}")]
     internal static partial void Error(ILogger logger, string module, Guid messageId, Exception exception);
+
+    [LoggerMessage(LogLevel.Error, "{module} - Exception while handling outbox message {messageId} with {handler}")]
+    internal static partial void HandlerError(ILogger logger, string module, Guid messageId, string handler,
+        Exception exception);
 }

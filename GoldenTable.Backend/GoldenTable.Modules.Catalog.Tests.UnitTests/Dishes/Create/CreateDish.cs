@@ -27,7 +27,7 @@ public sealed class CreateDish : BaseTest
         _validName = new Name(Faker.Name.FullName());
         _validDescription = new Description(Faker.Hacker.Phrase());
         _validBasePrice = Money.Create(Faker.Random.Decimal(0M, 100M), "RON").Value;
-        _validSizes = [new DishSize("Small", 100f, 200), new DishSize("Medium", 200f, 300f)];
+        _validSizes = [new DishSize("Small", 100, 200), new DishSize("Medium", 200, 300)];
         _validNutritionalValues = NutritionalValues.Create(200, 200, 200, 200, 200, 200).Value;
         _validCategory = DishCategory.Create(Faker.Name.LastName()).Value;
         _validTags = [DishTag.Create("Vegan").Value];

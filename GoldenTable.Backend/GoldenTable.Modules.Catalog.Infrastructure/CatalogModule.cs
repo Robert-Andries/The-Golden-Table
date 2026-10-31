@@ -9,6 +9,7 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
 using GoldenTable.Modules.Catalog.Infrastructure.Dishes;
 using GoldenTable.Modules.Catalog.Infrastructure.Images;
+using GoldenTable.Modules.Catalog.Infrastructure.Outbox;
 using GoldenTable.Modules.Catalog.Presentation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -23,7 +24,11 @@ public static class CatalogModule
     {
         services.AddEndpoints(AssemblyReference.Assembly);
 
+        services.AddDomainEventHandlers(Application.AssemblyReference.Assembly);
+
         services.AddInfrastructure(configuration);
+
+        services.AddOutboxJob<ProcessOutboxJob>(configuration.GetSection("Catalog:Outbox"));
 
         return services;
     }
@@ -44,7 +49,7 @@ public static class CatalogModule
             options.UseNpgsql(databaseConnectionString, npgsqlOptions =>
                     npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog))
                 .AddInterceptors(sp.GetRequiredService<InsertOutboxMessagesInterceptor>()));
-                
+
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<CatalogDbContext>());
 

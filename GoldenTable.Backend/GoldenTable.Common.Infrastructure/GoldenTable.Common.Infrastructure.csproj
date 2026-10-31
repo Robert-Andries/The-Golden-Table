@@ -4,6 +4,7 @@
         <ProjectReference Include="..\GoldenTable.Common.Domain\GoldenTable.Common.Domain.csproj"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="MassTransit" Version="8.5.12" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.14" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.14" />

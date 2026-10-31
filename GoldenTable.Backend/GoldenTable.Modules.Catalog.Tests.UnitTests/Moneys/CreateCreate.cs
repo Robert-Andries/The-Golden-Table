@@ -11,7 +11,7 @@ public sealed class CreateMoney : BaseTest
     {
         // Arrange
         decimal amount = Faker.Random.Decimal(0m, 100m);
-        Currency currency = Currency.USD;
+        Currency currency = Currency.Usd;
 
         // Act
         Result<Money> result = Money.Create(amount, currency);
@@ -35,7 +35,7 @@ public sealed class CreateMoney : BaseTest
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Value.Amount.Should().Be(amount);
-        result.Value.Currency.Should().Be(Currency.USD);
+        result.Value.Currency.Should().Be(Currency.Usd);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public sealed class CreateMoney : BaseTest
     {
         // Arrange
         decimal amount = Faker.Random.Decimal(-100M, -1M);
-        Currency currency = Currency.USD;
+        Currency currency = Currency.Usd;
 
         // Act
         Result<Money> result = Money.Create(amount, currency);

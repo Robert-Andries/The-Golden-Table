@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
-        <ProjectReference Include="..\GoldenTable.Modules.Catalog.Domain\GoldenTable.Modules.Catalog.Domain.csproj" />
+        <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj"/>
+        <ProjectReference Include="..\GoldenTable.Modules.Catalog.Domain\GoldenTable.Modules.Catalog.Domain.csproj"/>
+        <ProjectReference Include="..\GoldenTable.Modules.Catalog.IntegrationEvents\GoldenTable.Modules.Catalog.IntegrationEvents.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.14" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.14"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14"/>
         <PackageReference Update="SonarAnalyzer.CSharp" Version="10.35.0.4138">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.14" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.14"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.14">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Dishes\CreateTag\" />
+        <Folder Include="Dishes\CreateTag\"/>
     </ItemGroup>
 </Project>

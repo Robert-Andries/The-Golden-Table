@@ -14,7 +14,7 @@ public class CreateMoney : BaseTest
     public CreateMoney()
     {
         _validCurrencyCode = "USD";
-        _validCurrency = Currency.USD;
+        _validCurrency = Currency.Usd;
         _validAmount = Faker.Random.Decimal(0M, 1000M);
     }
 

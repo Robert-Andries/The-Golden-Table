@@ -46,6 +46,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8FA6AB96
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.Tests.IntegrationTests", "GoldenTable.Modules.Catalog.Tests.IntegrationTests\GoldenTable.Modules.Catalog.Tests.IntegrationTests.csproj", "{B5B985C1-E0AE-4B15-871F-86C47513354E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.IntegrationEvents", "GoldenTable.Modules.Catalog.IntegrationEvents\GoldenTable.Modules.Catalog.IntegrationEvents.csproj", "{59CE152C-C276-47DE-82B1-D418A015D472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Modules.Catalog.Tests.ArchitectureTests", "GoldenTable.Modules.Catalog.Tests.ArchitectureTests\GoldenTable.Modules.Catalog.Tests.ArchitectureTests.csproj", "{843B6FEA-ADD3-4D8A-95DA-2E8AF4E3F03C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AB4F7023-0D16-5AF1-0AA6-3C5658A89896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenTable.Common.Tests.UnitTests", "GoldenTable.Common.Tests.UnitTests\GoldenTable.Common.Tests.UnitTests.csproj", "{3D8C41FE-FD65-43BA-AAAA-4CAFB6AC6200}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +78,10 @@ Global
 		{8FA6AB96-F861-4044-B0FF-98CA9DB979F3} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
 		{60E4E7DD-42FF-4BE6-A69A-4E4901142342} = {8FA6AB96-F861-4044-B0FF-98CA9DB979F3}
 		{B5B985C1-E0AE-4B15-871F-86C47513354E} = {8FA6AB96-F861-4044-B0FF-98CA9DB979F3}
+		{59CE152C-C276-47DE-82B1-D418A015D472} = {6ACE6192-9C8F-405D-98ED-F13010A3F4CE}
+		{843B6FEA-ADD3-4D8A-95DA-2E8AF4E3F03C} = {8FA6AB96-F861-4044-B0FF-98CA9DB979F3}
+		{AB4F7023-0D16-5AF1-0AA6-3C5658A89896} = {AEFC1DE5-8A5C-46D8-BC2B-D074E34118AD}
+		{3D8C41FE-FD65-43BA-AAAA-4CAFB6AC6200} = {AB4F7023-0D16-5AF1-0AA6-3C5658A89896}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0FA6DA9A-ACB1-426F-A676-7B1C01FCEF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -116,6 +128,18 @@ Global
 		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5B985C1-E0AE-4B15-871F-86C47513354E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CE152C-C276-47DE-82B1-D418A015D472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CE152C-C276-47DE-82B1-D418A015D472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CE152C-C276-47DE-82B1-D418A015D472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CE152C-C276-47DE-82B1-D418A015D472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{843B6FEA-ADD3-4D8A-95DA-2E8AF4E3F03C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{843B6FEA-ADD3-4D8A-95DA-2E8AF4E3F03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{843B6FEA-ADD3-4D8A-95DA-2E8AF4E3F03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{843B6FEA-ADD3-4D8A-95DA-2E8AF4E3F03C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8C41FE-FD65-43BA-AAAA-4CAFB6AC6200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8C41FE-FD65-43BA-AAAA-4CAFB6AC6200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8C41FE-FD65-43BA-AAAA-4CAFB6AC6200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8C41FE-FD65-43BA-AAAA-4CAFB6AC6200}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

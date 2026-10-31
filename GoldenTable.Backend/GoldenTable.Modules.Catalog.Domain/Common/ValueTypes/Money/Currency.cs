@@ -8,11 +8,10 @@ namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 /// </summary>
 public record Currency
 {
-    public static Currency EUR { get; } = new("EUR", "EURO", "€");
-    public static Currency RON { get; } = new("RON", "RON");
-    public static Currency USD { get; } = new("USD", "American Dollar", "$");
-    
-    public static readonly IReadOnlyCollection<Currency> All = [EUR, RON, USD];
+    public static Currency Eur { get; } = new("EUR", "EURO", "€");
+    public static Currency Ron { get; } = new("RON", "RON");
+    public static Currency Usd { get; } = new("USD", "American Dollar", "$");
+    public static readonly IReadOnlyCollection<Currency> All = [Eur, Ron, Usd];
 
     [JsonConstructor]
     private Currency(string code, string name, string? symbol = null)
@@ -21,10 +20,11 @@ public record Currency
         Name = name;
         Symbol = string.IsNullOrEmpty(symbol) ? Code : symbol;
     }
-    
-    private Currency() 
-    {}
 
+    private Currency()
+    {
+    }
+    
     /// <summary>
     ///     Gets the currency's code
     ///     E.g. EUR/USD
@@ -52,9 +52,9 @@ public record Currency
     {
         return code switch
         {
-            "EUR" => EUR,
-            "RON" => RON,
-            "USD" => USD,
+            "EUR" => Eur,
+            "RON" => Ron,
+            "USD" => Usd,
             _ => Result.Failure<Currency>(MoneyErrors.InvalidCurrency)
         };
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByTags;
 
-public class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets)
+internal sealed class GetDishesByTagsQueryHandler(IDishDbSets dishDbSets)
     : IQueryHandler<GetDishesByTagsQuery, List<DishResponse>>
 {
     public async Task<Result<List<DishResponse>>> Handle(GetDishesByTagsQuery request,

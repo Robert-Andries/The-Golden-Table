@@ -85,7 +85,7 @@ public sealed class Dish : Entity
             Category = category,
             _tags = tags
         };
-        dish.Raise(new DishCreatedDomainEvent(dish.Id, nowUtc));
+        dish.Raise(new DishCreatedDomainEvent(dish.Id));
         return dish;
     }
 
@@ -93,7 +93,7 @@ public sealed class Dish : Entity
     ///     Method used to update the Name property
     /// </summary>
     /// <param name="name">The new name</param>
-    /// <param name="nowUtc">When the update occures</param>
+    /// <param name="nowUtc">When the update occurs</param>
     /// <returns>Result indicating success and the error that occured </returns>
     public Result Rename(Name name, DateTime nowUtc)
     {
@@ -109,7 +109,7 @@ public sealed class Dish : Entity
 
         Name = name;
         ModifiedOnUtc = nowUtc;
-        Raise(new DishRenamedDomainEvent(Id, Name, nowUtc));
+        Raise(new DishUpdatedNameDomainEvent(Id, name));
         return Result.Success();
     }
 
@@ -128,7 +128,7 @@ public sealed class Dish : Entity
 
         Description = description;
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedDescriptionDomainEvent(Id, Description, nowUtc));
+        Raise(new DishUpdatedDescriptionDomainEvent(Id, description));
         return Result.Success();
     }
 
@@ -147,7 +147,7 @@ public sealed class Dish : Entity
 
         BasePrice = newPrice;
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedBasePriceDomainEvent(Id, BasePrice, nowUtc));
+        Raise(new DishUpdatedPriceDomainEvent(Id, newPrice.Amount, newPrice.Currency.Code));
         return Result.Success();
     }
 
@@ -171,7 +171,7 @@ public sealed class Dish : Entity
 
         _sizes.Add(size);
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedSizeDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedSizesDomainEvent(Id, _sizes.ToList()));
         return Result.Success();
     }
 
@@ -191,7 +191,37 @@ public sealed class Dish : Entity
         DishSize size = Sizes.First(d => d.Name == sizeName);
         _sizes.Remove(size);
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedSizeDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedSizesDomainEvent(Id, _sizes.ToList()));
+        return Result.Success();
+    }
+    
+    /// <summary>
+    ///     Assigns the provided sizes to the dish, removing the previous sizes
+    /// </summary>
+    /// <param name="sizes">The sizes to assign</param>
+    /// <param name="nowUtc">When the operation occured</param>
+    /// <returns>Result indicating success and the error that occured</returns>
+    public Result UpdateSizes(IReadOnlyList<DishSize> sizes, DateTime nowUtc)
+    {
+        if (sizes.Any(s => string.IsNullOrEmpty(s.Name) || s.Weight <= 0))
+        {
+            return DishErrors.InvalidSize;
+        }
+
+        if (sizes.DistinctBy(s => s.Name).Count() != sizes.Count)
+        {
+            return DishErrors.SizeAlreadyPresent;
+        }
+
+        if (_sizes.OrderBy(s => s.Name).SequenceEqual(sizes.OrderBy(s => s.Name)))
+        {
+            return Result.Success();
+        }
+
+        _sizes.Clear();
+        _sizes.AddRange(sizes);
+        ModifiedOnUtc = nowUtc;
+        Raise(new DishUpdatedSizesDomainEvent(Id, _sizes.ToList()));
         return Result.Success();
     }
 
@@ -210,7 +240,7 @@ public sealed class Dish : Entity
 
         NutritionalInformation = nutritionalInformation;
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedNutritionalInformation(Id, nowUtc));
+        Raise(new DishUpdatedNutritionalInformationDomainEvent(Id, nutritionalInformation));
         return Result.Success();
     }
 
@@ -229,7 +259,7 @@ public sealed class Dish : Entity
 
         _images.Add(image);
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedImagesDomainEvent(Id, _images.Select(i => i.Id).ToList()));
         return Result.Success();
     }
 
@@ -248,7 +278,37 @@ public sealed class Dish : Entity
 
         _images.Remove(Images.First(i => i.Id == imageId));
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedImagesDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedImagesDomainEvent(Id, _images.Select(i => i.Id).ToList()));
+        return Result.Success();
+    }
+
+    /// <summary>
+    ///     Updates the images of the dish. The old images are removed
+    /// </summary>
+    /// <param name="images">The new images</param>
+    /// <param name="nowUtc">When the update occured</param>
+    /// <returns>Result indicating success and the error that occured </returns>
+    public Result UpdateImages(IReadOnlyList<Image> images, DateTime nowUtc)
+    {
+        if (images.Any(i => string.IsNullOrEmpty(i.Uri.AbsoluteUri) || string.IsNullOrEmpty(i.Name.Value)))
+        {
+            return DishErrors.InvalidImages;
+        }
+
+        if (images.DistinctBy(i => i.Uri.AbsoluteUri).Count() != images.Count)
+        {
+            return DishErrors.ImagesAlreadyPresent;
+        }
+
+        if (_images.Select(i => i.Id).Order().SequenceEqual(images.Select(i => i.Id).Order()))
+        {
+            return Result.Success();
+        }
+
+        _images.Clear();
+        _images.AddRange(images);
+        ModifiedOnUtc = nowUtc;
+        Raise(new DishUpdatedImagesDomainEvent(Id, _images.Select(i => i.Id).ToList()));
         return Result.Success();
     }
 
@@ -267,7 +327,7 @@ public sealed class Dish : Entity
 
         Category = category;
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedCategoryDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedCategoryDomainEvent(Id, category.Name));
         return Result.Success();
     }
 
@@ -296,7 +356,7 @@ public sealed class Dish : Entity
         }
 
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedTagsDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedTagsDomainEvent(Id, _tags.Select(t => t.Id).ToList()));
         return Result.Success();
     }
 
@@ -326,7 +386,40 @@ public sealed class Dish : Entity
         }
 
         ModifiedOnUtc = nowUtc;
-        Raise(new DishUpdatedTagsDomainEvent(Id, nowUtc));
+        Raise(new DishUpdatedTagsDomainEvent(Id, _tags.Select(t => t.Id).ToList()));
         return Result.Success();
+    }
+    
+    /// <summary>
+    ///     Updates the tags of the dish. The old ones are removed
+    /// </summary>
+    /// <param name="tags">The new tags</param>
+    /// <param name="nowUtc">When the update occured</param>
+    /// <returns>Result indicating success and the error that occured </returns>
+    public Result UpdateTags(IReadOnlyList<DishTag> tags, DateTime nowUtc)
+    {
+        if (tags.DistinctBy(t => t.Id).Count() != tags.Count)
+        {
+            return DishErrors.TagsAlreadyPresent;
+        }
+
+        if (_tags.Select(t => t.Id).Order().SequenceEqual(tags.Select(t => t.Id).Order()))
+        {
+            return Result.Success();
+        }
+
+        _tags.Clear();
+        _tags.AddRange(tags);
+        ModifiedOnUtc = nowUtc;
+        Raise(new DishUpdatedTagsDomainEvent(Id, _tags.Select(t => t.Id).ToList()));
+        return Result.Success();
+    }
+
+    /// <summary>
+    ///     Records that the dish is deleted. The caller still has to remove it from the repository
+    /// </summary>
+    public void Delete()
+    {
+        Raise(new DishDeletedDomainEvent(Id));
     }
 }

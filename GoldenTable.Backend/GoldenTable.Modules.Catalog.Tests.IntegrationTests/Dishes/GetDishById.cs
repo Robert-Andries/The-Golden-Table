@@ -32,6 +32,26 @@ public sealed class GetDishById : DishesBaseTest
     }
 
     [Fact]
+    public async Task Should_ReturnDishResponse_WhenDishIsCached()
+    {
+        // Arrange
+        await ClearDatabaseAsync();
+        Dish dish = DishBuilder.Build();
+        await PutTagsInDb(dish.Tags);
+        // Creating the dish also stores it in the cache
+        Result<Guid> createResult = await Sender.Send(ToCreateDishCommand(dish));
+
+        // Act
+        Result<DishResponse> result = await Sender.Send(new GetDishByIdQuery(createResult.Value));
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Name.Should().Be(dish.Name.Value);
+        result.Value.BasePriceAmount.Should().Be(dish.BasePrice.Amount);
+        result.Value.BasePriceCurrency.Should().Be(dish.BasePrice.Currency.Code);
+    }
+
+    [Fact]
     public async Task Should_ReturnError_DishNotFound()
     {
         // Arrange

@@ -1,4 +1,3 @@
-using GoldenTable.Common.Domain;
 using GoldenTable.Common.Infrastructure.Outbox;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
@@ -14,14 +13,15 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database;
 public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
     : DbContext(options), IUnitOfWork, IDishDbSets, IImageDbSet
 {
-    public DbSet<Image> Images { get; set; }
-    public DbSet<Dish> Dishes { get; set; }
     public DbSet<DishTag> Tags { get; set; }
+    public DbSet<Dish> Dishes { get; set; }
+    public DbSet<Image> Images { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schemas.Catalog);
         modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
+        modelBuilder.ApplyConfiguration(new OutboxMessageConsumerConfiguration());
         modelBuilder.ApplyConfiguration(new DishesConfiguration());
         modelBuilder.ApplyConfiguration(new ImagesConfiguration());
         modelBuilder.ApplyConfiguration(new DishTagConfiguration());

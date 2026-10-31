@@ -31,7 +31,7 @@ public class Rename : DishBaseTest
         sut.Name.Should().Be(validName);
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
         sut.ModifiedOnUtc.Should().NotBe(sut.CreatedOnUtc);
-        AssertDomainEventWasPublished<DishRenamedDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedNameDomainEvent>(sut);
     }
 
     [Fact]

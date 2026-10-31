@@ -12,19 +12,19 @@ using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
 
-public class GetByName : IEndpoint
+internal sealed class GetByName : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("dishes/name/{name}", async ( [FromRoute] string name, [FromServices] ISender sender) =>
-        {
-            Name finalName = new(name);
+        app.MapGet("dishes/name/{name}", async ([FromRoute] string name, [FromServices] ISender sender) =>
+            {
+                Name finalName = new(name);
 
-            Result<List<DishResponse>> result = await sender.Send(new GetDishesByNameQuery(finalName));
+                Result<List<DishResponse>> result = await sender.Send(new GetDishesByNameQuery(finalName));
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .AllowAnonymous()
-        .WithTags(Tags.Dish);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .AllowAnonymous()
+            .WithTags(Tags.Dish);
     }
 }

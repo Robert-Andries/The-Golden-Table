@@ -16,7 +16,7 @@ public sealed class UpdateBasePrice : DishBaseTest
         Dish original = DishFaker.Generate();
         Dish sut = original.DeepClone();
         decimal validAmount = Faker.Random.Decimal(1M, 100M);
-        Money money = Money.Create(validAmount, Currency.RON).Value;
+        Money money = Money.Create(validAmount, Currency.Ron).Value;
 
         // Act
         Result result = sut.UpdateBasePrice(money, SometimeUtc);
@@ -31,7 +31,7 @@ public sealed class UpdateBasePrice : DishBaseTest
         });
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
         sut.BasePrice.Should().Be(money);
-        AssertDomainEventWasPublished<DishUpdatedBasePriceDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedPriceDomainEvent>(sut);
     }
 
     [Fact]

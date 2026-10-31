@@ -15,14 +15,14 @@ internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("images/get/{id:guid}", async ( [FromRoute] Guid id, [FromServices] ISender sender) =>
-        {
-            GetImageByIdQuery command = new(id);
-            Result<ImageResponse> result = await sender.Send(command);
+        app.MapGet("images/get/{id:guid}", async ([FromRoute] Guid id, [FromServices] ISender sender) =>
+            {
+                GetImageByIdQuery command = new(id);
+                Result<ImageResponse> result = await sender.Send(command);
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .AllowAnonymous()
-        .WithTags(Tags.Image);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .AllowAnonymous()
+            .WithTags(Tags.Image);
     }
 }

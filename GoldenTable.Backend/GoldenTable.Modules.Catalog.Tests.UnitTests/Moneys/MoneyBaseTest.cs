@@ -13,7 +13,7 @@ public abstract class MoneyBaseTest : BaseTest
     {
         MoneyFaker = new Faker<Money>().CustomInstantiator(f =>
         {
-            Currency[] availableCurrencies = [Currency.USD, Currency.RON, Currency.EUR];
+            Currency[] availableCurrencies = [Currency.Usd, Currency.Ron, Currency.Eur];
             Currency currency = f.PickRandom(availableCurrencies, 1).First();
             decimal amount = Faker.Random.Decimal(0M, 100M);
 

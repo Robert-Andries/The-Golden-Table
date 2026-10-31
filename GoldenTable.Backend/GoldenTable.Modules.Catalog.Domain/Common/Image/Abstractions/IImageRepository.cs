@@ -11,10 +11,10 @@ public interface IImageRepository
     /// <summary>
     ///     Gets the image with the specified id from the repository
     /// </summary>
-    /// <param name="ImageId">The id to search for</param>
+    /// <param name="imageId">The id to search for</param>
     /// <returns>Image with that id or null if there aren't any match.</returns>
-    Task<Image?> GetAsync(Guid ImageId, CancellationToken cancellationToken = default);
-    
+    Task<Image?> GetAsync(Guid imageId, CancellationToken cancellationToken = default);
+
     /// <summary>
     ///     Gets all the images from the repository
     /// </summary>

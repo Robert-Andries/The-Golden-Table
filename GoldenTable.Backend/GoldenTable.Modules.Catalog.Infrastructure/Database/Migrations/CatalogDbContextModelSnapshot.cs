@@ -67,6 +67,20 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.ToTable("OutboxMessages", "Catalog");
                 });
 
+            modelBuilder.Entity("GoldenTable.Common.Infrastructure.Outbox.OutboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("OutboxMessageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("OutboxMessageId", "Name");
+
+                    b.ToTable("OutboxMessageConsumers", "Catalog");
+                });
+
             modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Common.Image.Image", b =>
                 {
                     b.Property<Guid>("Id")
@@ -252,11 +266,11 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<float>("PriceAdded")
-                                .HasColumnType("real");
+                            b1.Property<decimal>("PriceAdded")
+                                .HasColumnType("numeric");
 
-                            b1.Property<float>("Weight")
-                                .HasColumnType("real");
+                            b1.Property<decimal>("Weight")
+                                .HasColumnType("numeric");
 
                             b1.HasKey("DishId", "Id");
 

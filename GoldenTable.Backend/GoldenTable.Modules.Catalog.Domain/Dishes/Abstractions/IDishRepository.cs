@@ -31,4 +31,10 @@ public interface IDishRepository
     /// <param name="dish">Dish to update</param>
     /// <remarks>If the provided dish does not exist in the repository, the method will simply return</remarks>
     Task UpdateAsync(Dish dish, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    ///     Removes the dish from the repository
+    /// </summary>
+    /// <param name="dish">The dish to remove</param>
+    void Remove(Dish dish);
 }

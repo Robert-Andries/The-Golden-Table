@@ -39,8 +39,8 @@ public sealed class GetDishesByName : DishesBaseTest
     {
         // Arrange
         await ClearDatabaseAsync();
-        Dish dish1 = DishBuilder.WithName(new("ATESTTEST")).Build();
-        Dish dish2 = DishBuilder.WithName(new("ATEST1234")).Build();
+        Dish dish1 = DishBuilder.WithName(new Name("ATESTTEST")).Build();
+        Dish dish2 = DishBuilder.WithName(new Name("ATEST1234")).Build();
         Dish dish3 = DishBuilder.Build();
         await PutDishInDb(dish1);
         await PutDishInDb(dish2);
@@ -48,7 +48,7 @@ public sealed class GetDishesByName : DishesBaseTest
         List<DishResponse> expectedResponse = [new(dish1), new(dish2)];
         string partOfNameStr = "ATEST";
         Name partialName = new(partOfNameStr);
-        
+
         // Act
         Result<List<DishResponse>> result = await Sender.Send(new GetDishesByNameQuery(partialName));
 
@@ -64,7 +64,7 @@ public sealed class GetDishesByName : DishesBaseTest
         await ClearDatabaseAsync();
         Dish dish = DishBuilder.Build();
         await PutDishInDb(dish);
-        Name nonExistentName = new (dish.Name.Value + "NonExistentSuffix");
+        Name nonExistentName = new(dish.Name.Value + "NonExistentSuffix");
         var query = new GetDishesByNameQuery(nonExistentName);
 
         // Act

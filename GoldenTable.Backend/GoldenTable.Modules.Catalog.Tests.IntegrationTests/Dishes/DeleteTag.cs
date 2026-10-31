@@ -9,7 +9,8 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes;
 public sealed class DeleteTag : TagsBaseTest
 {
     public DeleteTag(IntegrationTestWebAppFactory factory) : base(factory)
-    { }
+    {
+    }
 
     [Fact]
     public async Task Should_DeleteTag_Successfully()

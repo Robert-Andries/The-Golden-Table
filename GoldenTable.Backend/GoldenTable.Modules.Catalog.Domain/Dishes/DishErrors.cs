@@ -15,6 +15,9 @@ public static class DishErrors
 
     public static Error ImageAlreadyPresent { get; } = new("DishErrors.ImageAlreadyPresent",
         "The provided image is already present.", ErrorType.Validation);
+    
+    public static Error ImagesAlreadyPresent { get; } = new("DishErrors.ImagesAlreadyPresent",
+        "The provided images are already present.", ErrorType.Validation);
 
     public static Error ImageNotPresent { get; } = new("DishErrors.ImageNotPresent",
         "The provided image is not present.", ErrorType.Validation);
@@ -53,6 +56,9 @@ public static class DishErrors
     public static Error TagsAlreadyPresent { get; } = new("DishErrors.TagsAlreadyPresent",
         "The provided tags are already present.", ErrorType.Validation);
 
-    public static Error DishAlreadyExists { get; } = new Error("DishErrors.DishAlreadyExists",
+    public static Error DishAlreadyExists { get; } = new("DishErrors.DishAlreadyExists",
         "The provided dish already exists.", ErrorType.Validation);
+
+    public static Error InvalidImages { get; } = new("DishErrors.InvalidImages",
+        "The provided images are invalid.", ErrorType.Validation);
 }

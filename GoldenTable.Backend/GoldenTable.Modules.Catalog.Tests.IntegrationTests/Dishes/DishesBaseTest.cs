@@ -1,6 +1,9 @@
+using GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
+using GoldenTable.Modules.Catalog.Application.Dishes.EditDish;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
+using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 using GoldenTable.Modules.Catalog.Tests.IntegrationTests.Builders;
 using Microsoft.EntityFrameworkCore;
@@ -53,5 +56,54 @@ public class DishesBaseTest : BaseIntegrationTest
     protected static async Task<Image> GetImageFromDb(Guid imageId)
     {
         return await context.Images.AsNoTracking().FirstAsync(i => i.Id == imageId);
+    }
+
+    /// <summary>
+    ///     Creates a command that creates a dish with the same values as the provided one
+    /// </summary>
+    protected static CreateDishCommand ToCreateDishCommand(Dish dish)
+    {
+        return new CreateDishCommand(
+            dish.Name.Value,
+            dish.Description.Value,
+            dish.BasePrice.Amount,
+            dish.BasePrice.Currency.Code,
+            dish.Sizes.ToList(),
+            dish.NutritionalInformation.Energy.Kcal,
+            dish.NutritionalInformation.GramsOfFat,
+            dish.NutritionalInformation.GramsOfCarbohydrates.Total,
+            dish.NutritionalInformation.GramsOfCarbohydrates.OfWhichSugar,
+            dish.NutritionalInformation.GramsOfProtein,
+            dish.NutritionalInformation.GramsOfSalt,
+            dish.Category.Name,
+            dish.Tags.Select(tag => tag.Id).ToList());
+    }
+
+    /// <summary>
+    ///     Creates an edit command that keeps the dish as it is, except for the provided values
+    /// </summary>
+    protected static EditDishCommand CreateEditDishCommand(
+        Dish dish,
+        string? name = null,
+        decimal? basePriceAmount = null,
+        List<DishSize>? sizes = null,
+        List<Guid>? tagIds = null)
+    {
+        return new EditDishCommand(
+            dish.Id,
+            name ?? dish.Name.Value,
+            dish.Description.Value,
+            basePriceAmount ?? dish.BasePrice.Amount,
+            dish.BasePrice.Currency.Code,
+            sizes ?? dish.Sizes.ToList(),
+            dish.NutritionalInformation.Energy.Kcal,
+            dish.NutritionalInformation.GramsOfFat,
+            dish.NutritionalInformation.GramsOfCarbohydrates.Total,
+            dish.NutritionalInformation.GramsOfCarbohydrates.OfWhichSugar,
+            dish.NutritionalInformation.GramsOfProtein,
+            dish.NutritionalInformation.GramsOfSalt,
+            dish.Category.Name,
+            tagIds ?? dish.Tags.Select(t => t.Id).ToList(),
+            dish.Images.Select(i => i.Id).ToList());
     }
 }

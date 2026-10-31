@@ -7,9 +7,9 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Images;
 
 internal sealed class ImageRepository(CatalogDbContext context) : IImageRepository
 {
-    public async Task<Image?> GetAsync(Guid ImageId, CancellationToken cancellationToken = default)
+    public async Task<Image?> GetAsync(Guid imageId, CancellationToken cancellationToken = default)
     {
-        Image? image = await context.Images.FirstOrDefaultAsync(i => i.Id == ImageId, cancellationToken);
+        Image? image = await context.Images.FirstOrDefaultAsync(i => i.Id == imageId, cancellationToken);
         return image;
     }
 

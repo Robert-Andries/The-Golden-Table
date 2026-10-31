@@ -2,7 +2,7 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
-public sealed record DishCreatedDomainEvent(Guid DishId, DateTime OccurredOnUtc) : IDomainEvent
+public sealed class DishCreatedDomainEvent(Guid dishId) : DomainEvent
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid DishId { get; init; } = dishId;
 }

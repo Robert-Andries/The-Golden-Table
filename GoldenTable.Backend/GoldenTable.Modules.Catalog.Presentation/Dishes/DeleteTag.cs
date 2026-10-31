@@ -16,13 +16,13 @@ internal sealed class DeleteTag : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapDelete("dishes/tags/delete/{id:guid}", async ([FromRoute] Guid id, [FromServices] ISender sender) =>
-        {
-            DeleteTagCommand command = new(id);
-            Result result = await sender.Send(command);
+            {
+                DeleteTagCommand command = new(id);
+                Result result = await sender.Send(command);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        })
-        .RequirePermission(Permissions.DeleteTag)
-        .WithTags(Tags.Dish);
+                return result.Match(Results.NoContent, ApiResults.Problem);
+            })
+            .RequirePermission(Permissions.DeleteTag)
+            .WithTags(Tags.Dish);
     }
 }

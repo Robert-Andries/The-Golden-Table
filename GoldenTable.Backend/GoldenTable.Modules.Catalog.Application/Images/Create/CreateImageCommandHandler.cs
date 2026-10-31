@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Create;
 
-public sealed class CreateImageCommandHandler(
+internal sealed class CreateImageCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageDbSet imageDbSet,
@@ -27,17 +27,20 @@ public sealed class CreateImageCommandHandler(
         {
             return Result.Failure<Guid>(ImageErrors.UriAlreadyExists);
         }
-        
+
         Name name = new(request.Name);
         if (!name.IsValid())
         {
             return Result.Failure<Guid>(ImageErrors.InvalidName);
         }
+
         if (imageDbSet.Images.Any(i => i.Name == name))
         {
             return Result.Failure<Guid>(ImageErrors.NameAlreadyExists);
         }
-        Description description = request.Description is null ? new("") :  new(request.Description);
+
+        Description description =
+            request.Description is null ? new Description("") : new Description(request.Description);
 
         Result<Image> imageResult = Image.Create(
             dateTimeProvider.UtcNow,

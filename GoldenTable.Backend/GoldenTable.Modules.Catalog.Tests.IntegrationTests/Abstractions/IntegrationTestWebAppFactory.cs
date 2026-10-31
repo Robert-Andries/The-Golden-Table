@@ -34,5 +34,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
         Environment.SetEnvironmentVariable("ConnectionStrings:Database", _dbContainer.GetConnectionString());
         Environment.SetEnvironmentVariable("ConnectionStrings:Cache", _cacheContainer.GetConnectionString());
+        // Process the outbox often, so tests that wait for published events finish quickly
+        Environment.SetEnvironmentVariable("Catalog:Outbox:IntervalInSeconds", "1");
     }
 }

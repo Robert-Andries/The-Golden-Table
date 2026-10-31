@@ -16,12 +16,12 @@ internal sealed class GetAllTags : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("dishes/tags/get-all", async ([FromServices] ISender sender) =>
-        {
-            Result<List<TagResponse>> result = await sender.Send(new GetAllTagsQuery());
+            {
+                Result<List<TagResponse>> result = await sender.Send(new GetAllTagsQuery());
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .AllowAnonymous()
-        .WithTags(Tags.Dish);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .AllowAnonymous()
+            .WithTags(Tags.Dish);
     }
 }

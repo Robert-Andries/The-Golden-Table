@@ -15,9 +15,9 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 
-public sealed class CreateDishCommandHandler(
+internal sealed class CreateDishCommandHandler(
     IUnitOfWork unitOfWork,
-    IDishDbSets  dishDbSets,
+    IDishDbSets dishDbSets,
     IDishRepository dishRepository,
     IDishTagRepository dishTagRepository,
     IDishCacheService dishCacheService,
@@ -39,7 +39,7 @@ public sealed class CreateDishCommandHandler(
         {
             return Result.Failure<Guid>(DishTagErrors.SomeTagsNotFound);
         }
-        
+
         Name name = new(request.Name);
         Description description = new(request.Description);
         Result<Money> basePriceResult = Money.Create(request.BasePriceAmount, request.BasePriceCurrency);

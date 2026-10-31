@@ -1,11 +1,13 @@
 ﻿using GoldenTable.Common.Application.Caching;
 using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Application.Data;
+using GoldenTable.Common.Application.EventBus;
 using GoldenTable.Common.Infrastructure.Authentication;
 using GoldenTable.Common.Infrastructure.Caching;
 using GoldenTable.Common.Infrastructure.Clock;
 using GoldenTable.Common.Infrastructure.Data;
 using GoldenTable.Common.Infrastructure.Outbox;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
@@ -41,6 +43,18 @@ public static class InfrastructureConfiguration
             options.ConnectionMultiplexerFactory = () => Task.FromResult(multiplexer));
 
         services.TryAddSingleton<ICacheService, CacheService>();
+
+        services.TryAddSingleton<IEventBus, EventBus.EventBus>();
+
+        services.AddMassTransit(configure =>
+        {
+            configure.SetKebabCaseEndpointNameFormatter();
+
+            configure.UsingInMemory((context, cfg) =>
+            {
+                cfg.ConfigureEndpoints(context);
+            });
+        });
 
         return services;
     }

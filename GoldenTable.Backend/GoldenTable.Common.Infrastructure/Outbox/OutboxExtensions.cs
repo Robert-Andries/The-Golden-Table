@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Reflection;
+using GoldenTable.Common.Application.Messaging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Quartz;
 
 namespace GoldenTable.Common.Infrastructure.Outbox;
@@ -32,7 +35,20 @@ public static class OutboxExtensions
                             schedule.WithInterval(TimeSpan.FromSeconds(outboxOptions.IntervalInSeconds))
                                 .RepeatForever()));
         });
-        
+
+        return services;
+    }
+
+    public static IServiceCollection AddDomainEventHandlers(this IServiceCollection services, Assembly assembly)
+    {
+        IEnumerable<Type> handlerTypes = assembly.GetTypes()
+            .Where(t => t is { IsClass: true, IsAbstract: false } && t.IsAssignableTo(typeof(IDomainEventHandler)));
+
+        foreach (Type handlerType in handlerTypes)
+        {
+            services.TryAddScoped(handlerType);
+        }
+
         return services;
     }
 }

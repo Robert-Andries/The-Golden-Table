@@ -28,7 +28,8 @@ internal static partial class DishLogs
         "Error: {error}")]
     internal static partial void RemoveImageError(ILogger logger, Guid imageId, Guid dishId, Error error);
 
-    [LoggerMessage(LogLevel.Information, "Dishes - Cannot remove Size: {size} from dish with id: {dishId}. Error: {error}")]
+    [LoggerMessage(LogLevel.Information,
+        "Dishes - Cannot remove Size: {size} from dish with id: {dishId}. Error: {error}")]
     internal static partial void RemoveSizeError(ILogger logger, string size, Guid dishId, Error error);
 
     [LoggerMessage(LogLevel.Information, "Dishes - Cannot remove tags from dish with id: {dishId}. Error: {error}")]
@@ -40,13 +41,16 @@ internal static partial class DishLogs
     [LoggerMessage(LogLevel.Information, "Dishes - There was an error trying to create money object: {error}")]
     internal static partial void CreateMoneyObjectError(ILogger logger, Error error);
 
-    [LoggerMessage(LogLevel.Information, "Dishes - Cannot update base price for dish with id: {dishId}. Error: {error}")]
+    [LoggerMessage(LogLevel.Information,
+        "Dishes - Cannot update base price for dish with id: {dishId}. Error: {error}")]
     internal static partial void UpdateBasePriceError(ILogger logger, Guid dishId, Error error);
 
-    [LoggerMessage(LogLevel.Information, "Dishes - Cannot update description for dish dish with id: {dishId}. Error: {error}")]
+    [LoggerMessage(LogLevel.Information,
+        "Dishes - Cannot update description for dish dish with id: {dishId}. Error: {error}")]
     internal static partial void UpdateDescriptionError(ILogger logger, Guid dishId, Error error);
 
-    [LoggerMessage(LogLevel.Information, "Dishes - Cannot update category for dish dish with id: {dishId}. Error: {error}")]
+    [LoggerMessage(LogLevel.Information,
+        "Dishes - Cannot update category for dish dish with id: {dishId}. Error: {error}")]
     internal static partial void UpdateCategoryError(ILogger logger, Guid dishId, Error error);
 
     [LoggerMessage(LogLevel.Information,
