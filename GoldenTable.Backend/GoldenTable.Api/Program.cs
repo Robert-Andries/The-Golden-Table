@@ -26,7 +26,10 @@ builder.Services.AddSwaggerGenWithAuthSupport(builder.Configuration);
 builder.Services.AddApplication([AssemblyReference.Assembly]);
 builder.Services.AddCatalogModule(builder.Configuration);
 
-builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
+builder.Services.AddInfrastructure(
+    [CatalogModule.ConfigureConsumers],
+    databaseConnectionString,
+    cacheConnectionString);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)

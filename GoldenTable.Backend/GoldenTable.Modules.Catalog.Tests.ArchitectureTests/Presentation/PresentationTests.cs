@@ -1,4 +1,6 @@
-﻿using GoldenTable.Common.Presentation.Endpoints;
+﻿using FluentAssertions;
+using GoldenTable.Common.Application.EventBus;
+using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Tests.ArchitectureTests.Abstractions;
 using MassTransit;
 using NetArchTest.Rules;
@@ -33,11 +35,26 @@ public class PresentationTests : BaseTest
     }
 
     [Fact]
-    public void IntegrationEventConsumer_Should_BeSealed()
+    public void Presentation_ShouldNotHave_MassTransitConsumers()
+    {
+        // Integration events must go through the inbox: the generic IntegrationEventConsumer stores them,
+        // and integration event handlers process them
+        IEnumerable<Type> consumers = Types.InAssembly(PresentationAssembly)
+            .That()
+            .ImplementInterface(typeof(IConsumer<>))
+            .GetTypes();
+
+        consumers.Select(t => t.FullName).Should().BeEmpty();
+    }
+
+    [Fact]
+    public void IntegrationEventHandler_Should_BeSealed()
     {
         Types.InAssembly(PresentationAssembly)
             .That()
-            .ImplementInterface(typeof(IConsumer<>))
+            .ImplementInterface(typeof(IIntegrationEventHandler<>))
+            .Or()
+            .Inherit(typeof(IntegrationEventHandler<>))
             .Should()
             .BeSealed()
             .GetResult()
@@ -45,13 +62,29 @@ public class PresentationTests : BaseTest
     }
 
     [Fact]
-    public void IntegrationEventConsumer_ShouldHave_NameEndingWith_IntegrationEventConsumer()
+    public void IntegrationEventHandler_Should_NotBePublic()
     {
         Types.InAssembly(PresentationAssembly)
             .That()
-            .ImplementInterface(typeof(IConsumer<>))
+            .ImplementInterface(typeof(IIntegrationEventHandler<>))
+            .Or()
+            .Inherit(typeof(IntegrationEventHandler<>))
             .Should()
-            .HaveNameEndingWith("IntegrationEventConsumer")
+            .NotBePublic()
+            .GetResult()
+            .ShouldBeSuccessful();
+    }
+
+    [Fact]
+    public void IntegrationEventHandler_ShouldHave_NameEndingWith_IntegrationEventHandler()
+    {
+        Types.InAssembly(PresentationAssembly)
+            .That()
+            .ImplementInterface(typeof(IIntegrationEventHandler<>))
+            .Or()
+            .Inherit(typeof(IntegrationEventHandler<>))
+            .Should()
+            .HaveNameEndingWith("IntegrationEventHandler")
             .GetResult()
             .ShouldBeSuccessful();
     }

@@ -1,3 +1,4 @@
+using GoldenTable.Common.Infrastructure.Inbox;
 using GoldenTable.Common.Infrastructure.Outbox;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
@@ -22,6 +23,8 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
         modelBuilder.HasDefaultSchema(Schemas.Catalog);
         modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
         modelBuilder.ApplyConfiguration(new OutboxMessageConsumerConfiguration());
+        modelBuilder.ApplyConfiguration(new InboxMessageConfiguration());
+        modelBuilder.ApplyConfiguration(new InboxMessageConsumerConfiguration());
         modelBuilder.ApplyConfiguration(new DishesConfiguration());
         modelBuilder.ApplyConfiguration(new ImagesConfiguration());
         modelBuilder.ApplyConfiguration(new DishTagConfiguration());

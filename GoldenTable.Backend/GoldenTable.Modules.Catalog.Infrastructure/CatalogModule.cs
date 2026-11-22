@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using GoldenTable.Common.Infrastructure.Inbox;
 using GoldenTable.Common.Infrastructure.Outbox;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
@@ -9,8 +10,10 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
 using GoldenTable.Modules.Catalog.Infrastructure.Dishes;
 using GoldenTable.Modules.Catalog.Infrastructure.Images;
+using GoldenTable.Modules.Catalog.Infrastructure.Inbox;
 using GoldenTable.Modules.Catalog.Infrastructure.Outbox;
 using GoldenTable.Modules.Catalog.Presentation;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -26,11 +29,22 @@ public static class CatalogModule
 
         services.AddDomainEventHandlers(Application.AssemblyReference.Assembly);
 
+        services.AddIntegrationEventHandlers(AssemblyReference.Assembly);
+
         services.AddInfrastructure(configuration);
 
         services.AddOutboxJob<ProcessOutboxJob>(configuration.GetSection("Catalog:Outbox"));
 
+        services.AddInboxJob<ProcessInboxJob>(configuration.GetSection("Catalog:Inbox"));
+
         return services;
+    }
+
+#pragma warning disable IDE0060
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+#pragma warning restore IDE0060
+    {
+        // No consumers for this module
     }
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)

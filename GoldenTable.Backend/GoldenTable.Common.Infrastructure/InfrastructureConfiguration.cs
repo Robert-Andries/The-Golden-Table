@@ -20,6 +20,7 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
+        Action<IRegistrationConfigurator>[] moduleConfigureConsumers,
         string databaseConnectionString,
         string redisConnectionString)
     {
@@ -46,8 +47,14 @@ public static class InfrastructureConfiguration
 
         services.TryAddSingleton<IEventBus, EventBus.EventBus>();
 
+        // MassTransit can only be configured once, so every module adds its consumers here
         services.AddMassTransit(configure =>
         {
+            foreach (Action<IRegistrationConfigurator> configureConsumers in moduleConfigureConsumers)
+            {
+                configureConsumers(configure);
+            }
+
             configure.SetKebabCaseEndpointNameFormatter();
 
             configure.UsingInMemory((context, cfg) =>
