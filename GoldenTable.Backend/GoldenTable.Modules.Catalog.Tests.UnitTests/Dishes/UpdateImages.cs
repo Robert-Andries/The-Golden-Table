@@ -2,7 +2,6 @@
 using Force.DeepCloner;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 

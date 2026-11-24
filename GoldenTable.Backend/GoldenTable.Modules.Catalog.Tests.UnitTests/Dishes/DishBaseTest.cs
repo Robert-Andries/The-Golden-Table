@@ -1,13 +1,13 @@
 using Bogus;
 using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain.Money;
+using GoldenTable.Common.Tests.UnitTests;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
-using Name = GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Name;
+using Name = GoldenTable.Common.Domain.Name;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes;
 

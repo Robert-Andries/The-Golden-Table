@@ -1,5 +1,6 @@
 ﻿using Bogus;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Common.Domain.Money;
+using GoldenTable.Common.Tests.UnitTests;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Moneys;
 

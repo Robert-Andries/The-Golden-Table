@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using GoldenTable.Common.Domain;
 
-namespace GoldenTable.Modules.Catalog.Tests.UnitTests;
+namespace GoldenTable.Common.Tests.UnitTests;
 
 public abstract class BaseTest
 {

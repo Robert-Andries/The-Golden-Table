@@ -1,4 +1,4 @@
-﻿namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
+﻿namespace GoldenTable.Common.Domain;
 
 /// <summary>
 ///     Value object holding the necesarry data for a description

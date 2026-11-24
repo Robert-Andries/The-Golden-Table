@@ -1,6 +1,4 @@
-﻿using GoldenTable.Common.Domain;
-
-namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+﻿namespace GoldenTable.Common.Domain.Money;
 
 /// <summary>
 ///     A class representing money objects

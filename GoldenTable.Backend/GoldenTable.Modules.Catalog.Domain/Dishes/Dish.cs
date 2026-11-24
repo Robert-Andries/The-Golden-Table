@@ -1,7 +1,6 @@
 using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain.Money;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;

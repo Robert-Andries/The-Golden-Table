@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
-using GoldenTable.Common.Domain;
 
-namespace GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+namespace GoldenTable.Common.Domain.Money;
 
 /// <summary>
 ///     Record used to storing data related to money's currency

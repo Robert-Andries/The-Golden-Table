@@ -1,7 +1,7 @@
 using FluentAssertions;
 using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Common.Domain.Money;
+using GoldenTable.Common.Tests.UnitTests;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;

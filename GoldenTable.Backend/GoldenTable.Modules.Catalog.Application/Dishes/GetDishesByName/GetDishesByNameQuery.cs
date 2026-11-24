@@ -1,5 +1,5 @@
 ﻿using GoldenTable.Common.Application.Messaging;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
+using GoldenTable.Common.Domain;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByName;
 

@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Bogus;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;

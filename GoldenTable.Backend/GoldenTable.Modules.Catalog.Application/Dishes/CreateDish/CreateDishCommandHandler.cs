@@ -1,10 +1,9 @@
 using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain.Money;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;

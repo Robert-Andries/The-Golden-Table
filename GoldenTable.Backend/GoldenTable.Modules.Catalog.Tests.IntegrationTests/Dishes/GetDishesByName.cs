@@ -2,7 +2,6 @@
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Dishes;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByName;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Tests.IntegrationTests.Abstractions;
 

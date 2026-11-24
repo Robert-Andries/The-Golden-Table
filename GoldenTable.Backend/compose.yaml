@@ -26,6 +26,7 @@ services:
     image: quay.io/keycloak/keycloak:latest
     container_name: GoldenTable.Identity
     command: start-dev #--import-realm
+    user: root
     environment:
       - KC_HEALTH-ENABLED=true
       - KEYCLOAK_ADMIN=admin

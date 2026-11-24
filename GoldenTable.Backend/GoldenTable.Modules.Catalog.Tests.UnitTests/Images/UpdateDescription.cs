@@ -3,7 +3,6 @@ using Force.DeepCloner;
 using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Events;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Images;
 

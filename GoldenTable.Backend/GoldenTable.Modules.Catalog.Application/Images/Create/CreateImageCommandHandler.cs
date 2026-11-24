@@ -5,7 +5,6 @@ using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Abstractions;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Create;

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Force.DeepCloner;
 using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Common.Domain.Money;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Moneys;
 

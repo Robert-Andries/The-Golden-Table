@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Bogus;
+using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Builders;
 
