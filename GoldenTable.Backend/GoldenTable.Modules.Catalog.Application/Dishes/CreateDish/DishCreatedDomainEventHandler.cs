@@ -10,11 +10,13 @@ using MediatR;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 
-internal sealed class DishCreatedDomainEventHandler(ISender sender, IEventBus bus) : DomainEventHandler<DishCreatedDomainEvent>
+internal sealed class DishCreatedDomainEventHandler(ISender sender, IEventBus bus)
+    : DomainEventHandler<DishCreatedDomainEvent>
 {
     public override async Task Handle(DishCreatedDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {
-        Result<DishResponse> dishResult = await sender.Send(new GetDishByIdQuery(domainEvent.DishId), cancellationToken);
+        Result<DishResponse> dishResult =
+            await sender.Send(new GetDishByIdQuery(domainEvent.DishId), cancellationToken);
 
         if (dishResult.IsFailure)
         {
@@ -31,7 +33,7 @@ internal sealed class DishCreatedDomainEventHandler(ISender sender, IEventBus bu
                 dishResponse.Name,
                 dishResponse.BasePriceAmount,
                 dishResponse.BasePriceCurrency,
-                dishResponse.Sizes.Select(s => new DishSizeModel(s.Name, s.PriceAdded, s.Weight)).ToList()), 
+                dishResponse.Sizes.Select(s => new DishSizeModel(s.Name, s.PriceAdded, s.Weight)).ToList()),
             cancellationToken);
     }
 }

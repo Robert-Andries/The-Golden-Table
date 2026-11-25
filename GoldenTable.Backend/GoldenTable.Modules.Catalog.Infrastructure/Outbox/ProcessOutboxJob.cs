@@ -1,5 +1,6 @@
 ﻿using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Infrastructure.Outbox;
+using GoldenTable.Modules.Catalog.Application;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,7 @@ internal sealed class ProcessOutboxJob(
     IOptionsMonitor<OutboxOptions> outboxOptions,
     ILogger<ProcessOutboxJob> logger,
     IServiceScopeFactory scopeFactory)
-    : OutboxBaseJob("Catalog", Application.AssemblyReference.Assembly, outboxOptions, logger, scopeFactory)
+    : OutboxBaseJob("Catalog", AssemblyReference.Assembly, outboxOptions, logger, scopeFactory)
 {
     protected override async Task<IReadOnlyList<OutboxMessageResponse>> GetOutboxMessagesAsync(int batchSize,
         CancellationToken cancellationToken)

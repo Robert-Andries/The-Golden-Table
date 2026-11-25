@@ -129,12 +129,13 @@ internal sealed class EditDishCommandHandler(
 
             images.Add(image);
         }
+
         Result imageResult = dish.UpdateImages(images, now);
         if (imageResult.IsFailure)
         {
             return imageResult;
         }
-        
+
         await unitOfWork.SaveChangesAsync(cancellationToken);
         await dishCacheService.UpdateAsync(dish, cancellationToken);
 

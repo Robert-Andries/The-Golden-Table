@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>GoldenTable.Modules.Orders.Presentation</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GoldenTable.Common.Presentation\GoldenTable.Common.Presentation.csproj"/>
+        <ProjectReference Include="..\GoldenTable.Modules.Orders.Application\GoldenTable.Modules.Orders.Application.csproj"/>
+        <ProjectReference Include="..\GoldenTable.Modules.Orders.Domain\GoldenTable.Modules.Orders.Domain.csproj"/>
+    </ItemGroup>
+
+</Project>

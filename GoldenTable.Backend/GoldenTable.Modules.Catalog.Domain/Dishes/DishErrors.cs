@@ -15,7 +15,7 @@ public static class DishErrors
 
     public static Error ImageAlreadyPresent { get; } = new("DishErrors.ImageAlreadyPresent",
         "The provided image is already present.", ErrorType.Validation);
-    
+
     public static Error ImagesAlreadyPresent { get; } = new("DishErrors.ImagesAlreadyPresent",
         "The provided images are already present.", ErrorType.Validation);
 

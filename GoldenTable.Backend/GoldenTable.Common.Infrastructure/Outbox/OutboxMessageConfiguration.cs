@@ -8,10 +8,9 @@ public sealed class OutboxMessageConfiguration : IEntityTypeConfiguration<Outbox
     public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
         builder.ToTable("OutboxMessages");
-        
+
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Content).HasColumnType("jsonb").IsRequired();
-        
     }
 }

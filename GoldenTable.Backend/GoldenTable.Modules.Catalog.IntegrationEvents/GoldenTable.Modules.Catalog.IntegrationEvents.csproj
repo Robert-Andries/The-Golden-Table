@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj" />
+        <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj"/>
     </ItemGroup>
 
 </Project>

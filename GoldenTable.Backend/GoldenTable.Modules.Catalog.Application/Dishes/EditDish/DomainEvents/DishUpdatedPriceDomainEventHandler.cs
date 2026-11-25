@@ -5,9 +5,11 @@ using GoldenTable.Modules.Catalog.IntegrationEvents;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.EditDish.DomainEvents;
 
-internal sealed class DishUpdatedPriceDomainEventHandler(IEventBus bus) : DomainEventHandler<DishUpdatedPriceDomainEvent>
+internal sealed class DishUpdatedPriceDomainEventHandler(IEventBus bus)
+    : DomainEventHandler<DishUpdatedPriceDomainEvent>
 {
-    public override async Task Handle(DishUpdatedPriceDomainEvent domainEvent, CancellationToken cancellationToken = default)
+    public override async Task Handle(DishUpdatedPriceDomainEvent domainEvent,
+        CancellationToken cancellationToken = default)
     {
         await bus.PublishAsync(
             new DishUpdatedPriceIntegrationEvent(

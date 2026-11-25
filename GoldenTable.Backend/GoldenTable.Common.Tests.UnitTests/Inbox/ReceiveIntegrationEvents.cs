@@ -25,8 +25,8 @@ public sealed class TestInboxDbContext(DbContextOptions<TestInboxDbContext> opti
 
 public sealed class ReceiveIntegrationEvents : IAsyncLifetime
 {
-    private readonly ServiceProvider _serviceProvider;
     private readonly ITestHarness _harness;
+    private readonly ServiceProvider _serviceProvider;
 
     public ReceiveIntegrationEvents()
     {
@@ -99,7 +99,7 @@ public sealed class ReceiveIntegrationEvents : IAsyncLifetime
         // Called by class name, because MassTransit.Testing has its own Take for async sequences
         IAsyncEnumerable<IReceivedMessage<ReceivedIntegrationEvent>> received =
             consumer.Consumed.SelectAsync<ReceivedIntegrationEvent>();
-        int consumed = await AsyncEnumerable.CountAsync(AsyncEnumerable.Take(received, count));
+        int consumed = await AsyncEnumerable.Take(received, count).CountAsync();
 
         consumed.Should().Be(count);
     }

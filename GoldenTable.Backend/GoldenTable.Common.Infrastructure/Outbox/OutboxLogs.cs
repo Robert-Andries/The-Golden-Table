@@ -6,7 +6,7 @@ internal static partial class OutboxLogs
 {
     [LoggerMessage(LogLevel.Information, "{module} - Beginning to process outbox messages")]
     internal static partial void BeginProcess(ILogger logger, string module);
-    
+
     [LoggerMessage(LogLevel.Information, "{module} - Completed processing outbox messages")]
     internal static partial void CompleteProcess(ILogger logger, string module);
 

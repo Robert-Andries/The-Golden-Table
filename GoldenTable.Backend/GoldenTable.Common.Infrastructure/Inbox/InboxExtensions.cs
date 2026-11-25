@@ -16,7 +16,8 @@ public static class InboxExtensions
     {
         string jobName = typeof(TJob).FullName!;
         InboxOptions inboxOptions = section.Get<InboxOptions>()
-                                    ?? throw new InvalidOperationException($"Missing inbox configuration section '{section.Path}'.");
+                                    ?? throw new InvalidOperationException(
+                                        $"Missing inbox configuration section '{section.Path}'.");
 
         if (inboxOptions.IntervalInSeconds <= 0 || inboxOptions.BatchSize <= 0)
         {

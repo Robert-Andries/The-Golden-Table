@@ -13,10 +13,10 @@ namespace GoldenTable.Common.Infrastructure.Outbox;
 [DisallowConcurrentExecution]
 public abstract class OutboxBaseJob : IJob
 {
-    private readonly string _moduleName;
     private readonly Assembly _handlersAssembly;
-    private readonly IOptionsMonitor<OutboxOptions> _outboxOptions;
     private readonly ILogger _logger;
+    private readonly string _moduleName;
+    private readonly IOptionsMonitor<OutboxOptions> _outboxOptions;
     private readonly IServiceScopeFactory _scopeFactory;
 
     protected OutboxBaseJob(
@@ -34,7 +34,7 @@ public abstract class OutboxBaseJob : IJob
     }
 
     public async ValueTask Execute(IJobExecutionContext context,
-        CancellationToken cancellationToken = new CancellationToken())
+        CancellationToken cancellationToken = new())
     {
         OutboxLogs.BeginProcess(_logger, _moduleName);
 

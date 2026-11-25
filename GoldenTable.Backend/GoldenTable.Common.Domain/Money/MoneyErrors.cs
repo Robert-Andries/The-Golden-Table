@@ -15,7 +15,4 @@ public static class MoneyErrors
     public static Error NotEnoughMoneyToSubtract { get; } =
         new("Money.NotEnoughMoneyToSubtract", "The provided amount is higher then the current amount.",
             ErrorType.Validation);
-
-    public static Error SameInstance { get; } =
-        new("Money.SameInstance", "This operation cannot be done on itself.", ErrorType.Validation);
 }

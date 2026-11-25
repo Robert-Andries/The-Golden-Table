@@ -10,6 +10,8 @@ public record Currency
     public static Currency Eur { get; } = new("EUR", "EURO", "€");
     public static Currency Ron { get; } = new("RON", "RON");
     public static Currency Usd { get; } = new("USD", "American Dollar", "$");
+
+    // Must stay below Eur/Ron/Usd: static initializers run in source order
     public static readonly IReadOnlyCollection<Currency> All = [Eur, Ron, Usd];
 
     [JsonConstructor]
@@ -23,24 +25,24 @@ public record Currency
     private Currency()
     {
     }
-    
+
     /// <summary>
     ///     Gets the currency's code
     ///     E.g. EUR/USD
     /// </summary>
-    public string Code { get; private set; }
+    public string Code { get; private init; }
 
     /// <summary>
     ///     Gets the currency's name
     ///     E.g. US Dollars, Euro
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; private init; }
 
     /// <summary>
     ///     Gets the currency's symbol
     ///     E.g. $
     /// </summary>
-    public string Symbol { get; private set; }
+    public string Symbol { get; private init; }
 
     /// <summary>
     ///     Gets a Currency object

@@ -25,7 +25,7 @@ public static class InfrastructureConfiguration
         string redisConnectionString)
     {
         services.AddAuthenticationInternal();
-        
+
         NpgsqlDataSource npgsqlDataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
         services.TryAddSingleton(npgsqlDataSource);
 
@@ -34,7 +34,7 @@ public static class InfrastructureConfiguration
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.TryAddSingleton<InsertOutboxMessagesInterceptor>();
-        
+
         services.AddQuartz();
         services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 

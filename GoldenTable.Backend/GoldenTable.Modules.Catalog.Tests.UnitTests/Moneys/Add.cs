@@ -13,30 +13,34 @@ public sealed class Add : MoneyBaseTest
         // Arrange
         Money original = MoneyFaker.Generate();
         Money sut = original.DeepClone();
+        Money sutCopy = sut.DeepClone();
 
         // Act
-        Result result = sut.Add(original);
+        Result<Money> result = sut.Add(original);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
-        sut.Should().BeEquivalentTo(original, options => options.Excluding(m => m.Amount));
-        sut.Amount.Should().Be(original.Amount * 2);
+        result.Value.Currency.Should().Be(original.Currency);
+        result.Value.Amount.Should().Be(original.Amount * 2);
+        result.Value.Should().NotBeSameAs(sut);
+        sut.Should().BeEquivalentTo(sutCopy);
+        original.Should().BeEquivalentTo(sutCopy);
     }
 
     [Fact]
-    public void Should_NotAddMoney_SameInstance()
+    public void Should_AddMoney_ToItself()
     {
         // Arrange
-        Money original = MoneyFaker.Generate();
-        Money sut = original.DeepClone();
+        Money sut = MoneyFaker.Generate();
+        Money copy = sut.DeepClone();
 
         // Act
-        Result result = sut.Add(sut);
+        Result<Money> result = sut.Add(sut);
 
         // Assert
-        result.IsFailure.Should().BeTrue();
-        result.Error.Should().Be(MoneyErrors.SameInstance);
-        sut.Should().BeEquivalentTo(original);
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Amount.Should().Be(copy.Amount * 2);
+        sut.Should().BeEquivalentTo(copy);
     }
 
     [Fact]
@@ -44,21 +48,12 @@ public sealed class Add : MoneyBaseTest
     {
         // Arrange
         Money original = MoneyFaker.Generate();
-        Money sut = MoneyFaker.Generate();
-        for (int i = 0; i < 100 && sut.Currency == original.Currency; i++)
-        {
-            if (i == 99)
-            {
-                throw new Exception("Cannot make 2 different currencies");
-            }
-
-            sut = MoneyFaker.Generate();
-        }
-
+        Currency differentCurrency = new[] { Currency.Usd, Currency.Ron, Currency.Eur }.First(c => c != original.Currency);
+        Money sut = Money.Create(original.Amount, differentCurrency).Value;
         Money copy = sut.DeepClone();
 
         // Act
-        Result result = sut.Add(original);
+        Result<Money> result = sut.Add(original);
 
         // Assert
         result.IsFailure.Should().BeTrue();

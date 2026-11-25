@@ -6,7 +6,6 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Application;
 using GoldenTable.Modules.Catalog.Infrastructure;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
@@ -20,7 +19,6 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuthSupport(builder.Configuration);
-
 
 
 builder.Services.AddApplication([AssemblyReference.Assembly]);

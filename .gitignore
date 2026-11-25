@@ -5,6 +5,7 @@
 
 # Docker
 .container/
+*.container
 
 # User-specific files
 *.rsuser

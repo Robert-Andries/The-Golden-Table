@@ -23,7 +23,7 @@ public sealed class EditDish : DishesBaseTest
         string newName = Faker.Name.FullName() + Guid.NewGuid().ToString("N");
 
         // Act
-        Result result = await Sender.Send(CreateEditDishCommand(dish, name: newName));
+        Result result = await Sender.Send(CreateEditDishCommand(dish, newName));
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -79,7 +79,7 @@ public sealed class EditDish : DishesBaseTest
         await PutDishInDb(otherDish);
 
         // Act
-        Result result = await Sender.Send(CreateEditDishCommand(dish, name: otherDish.Name.Value));
+        Result result = await Sender.Send(CreateEditDishCommand(dish, otherDish.Name.Value));
 
         // Assert
         result.Error.Should().Be(DishErrors.DishAlreadyExists);

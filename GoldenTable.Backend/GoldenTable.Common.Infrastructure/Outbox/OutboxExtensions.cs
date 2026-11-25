@@ -16,7 +16,8 @@ public static class OutboxExtensions
     {
         string jobName = typeof(TJob).FullName!;
         OutboxOptions outboxOptions = section.Get<OutboxOptions>()
-                                      ?? throw new InvalidOperationException($"Missing outbox configuration section '{section.Path}'.");
+                                      ?? throw new InvalidOperationException(
+                                          $"Missing outbox configuration section '{section.Path}'.");
 
         if (outboxOptions.IntervalInSeconds <= 0 || outboxOptions.BatchSize <= 0)
         {

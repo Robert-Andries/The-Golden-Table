@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 namespace GoldenTable.Common.Infrastructure.Outbox;
 
-
 public sealed class InsertOutboxMessagesInterceptor : SaveChangesInterceptor
 {
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(

@@ -2,7 +2,7 @@
     <ItemGroup>
         <ProjectReference Include="..\GoldenTable.Common.Application\GoldenTable.Common.Application.csproj"/>
         <ProjectReference Include="..\GoldenTable.Modules.Catalog.Domain\GoldenTable.Modules.Catalog.Domain.csproj"/>
-        <ProjectReference Include="..\GoldenTable.Modules.Catalog.IntegrationEvents\GoldenTable.Modules.Catalog.IntegrationEvents.csproj" />
+        <ProjectReference Include="..\GoldenTable.Modules.Catalog.IntegrationEvents\GoldenTable.Modules.Catalog.IntegrationEvents.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

@@ -193,7 +193,7 @@ public sealed class Dish : Entity
         Raise(new DishUpdatedSizesDomainEvent(Id, _sizes.ToList()));
         return Result.Success();
     }
-    
+
     /// <summary>
     ///     Assigns the provided sizes to the dish, removing the previous sizes
     /// </summary>
@@ -388,7 +388,7 @@ public sealed class Dish : Entity
         Raise(new DishUpdatedTagsDomainEvent(Id, _tags.Select(t => t.Id).ToList()));
         return Result.Success();
     }
-    
+
     /// <summary>
     ///     Updates the tags of the dish. The old ones are removed
     /// </summary>

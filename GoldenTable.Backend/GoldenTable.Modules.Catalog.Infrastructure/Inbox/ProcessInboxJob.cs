@@ -1,6 +1,7 @@
 ﻿using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Infrastructure.Inbox;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
+using GoldenTable.Modules.Catalog.Presentation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,7 @@ internal sealed class ProcessInboxJob(
     IOptionsMonitor<InboxOptions> inboxOptions,
     ILogger<ProcessInboxJob> logger,
     IServiceScopeFactory scopeFactory)
-    : InboxBaseJob("Catalog", Presentation.AssemblyReference.Assembly, inboxOptions, logger, scopeFactory)
+    : InboxBaseJob("Catalog", AssemblyReference.Assembly, inboxOptions, logger, scopeFactory)
 {
     protected override async Task<IReadOnlyList<InboxMessageResponse>> GetInboxMessagesAsync(int batchSize,
         CancellationToken cancellationToken)

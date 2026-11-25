@@ -1,7 +1,8 @@
 ﻿namespace GoldenTable.Common.Domain.Money;
 
 /// <summary>
-///     A class representing money objects
+///     An immutable value object representing an amount of money in a currency.
+///     Operations never change an instance, they return a new one.
 /// </summary>
 public sealed record Money
 {
@@ -12,12 +13,12 @@ public sealed record Money
     /// <summary>
     ///     The amount of money
     /// </summary>
-    public decimal Amount { get; private set; }
+    public decimal Amount { get; private init; }
 
     /// <summary>
     ///     The currency of that money object
     /// </summary>
-    public Currency Currency { get; private set; }
+    public Currency Currency { get; private init; }
 
     /// <summary>
     ///     Factory method to create a money object
@@ -59,49 +60,37 @@ public sealed record Money
     }
 
     /// <summary>
-    ///     Method to add to the current money object the amount of the other money object.
+    ///     Adds the amount of the other money object to this one.
     /// </summary>
-    /// <remarks>Adding to the current object does not affect the "other" object passed as argument</remarks>
-    /// <returns>Result object indicating the success or failure and respective code</returns>
-    public Result Add(Money other)
+    /// <remarks>Neither object is modified: the sum is returned as a new money object</remarks>
+    /// <returns>Result holding the sum, or the error that occured</returns>
+    public Result<Money> Add(Money other)
     {
-        if (ReferenceEquals(this, other))
-        {
-            return MoneyErrors.SameInstance;
-        }
-
         if (Currency != other.Currency)
         {
-            return MoneyErrors.CurrencyDiffer;
+            return Result.Failure<Money>(MoneyErrors.CurrencyDiffer);
         }
 
-        Amount += other.Amount;
-        return Result.Success();
+        return Create(Amount + other.Amount, Currency);
     }
 
     /// <summary>
-    ///     Method to subtract from current money object the amount of the other money object.
+    ///     Subtracts the amount of the other money object from this one.
     /// </summary>
-    /// <remarks>Subtracting from the current object does not affect the "other" object passed as argument</remarks>
-    /// <returns>Result object indicating the success or failure and respective code</returns>
-    public Result Subtract(Money other)
+    /// <remarks>Neither object is modified: the difference is returned as a new money object</remarks>
+    /// <returns>Result holding the difference, or the error that occured</returns>
+    public Result<Money> Subtract(Money other)
     {
-        if (ReferenceEquals(this, other))
-        {
-            return MoneyErrors.SameInstance;
-        }
-
         if (Currency != other.Currency)
         {
-            return MoneyErrors.CurrencyDiffer;
+            return Result.Failure<Money>(MoneyErrors.CurrencyDiffer);
         }
 
         if (other.Amount > Amount)
         {
-            return MoneyErrors.NotEnoughMoneyToSubtract;
+            return Result.Failure<Money>(MoneyErrors.NotEnoughMoneyToSubtract);
         }
 
-        Amount -= other.Amount;
-        return Result.Success();
+        return Create(Amount - other.Amount, Currency);
     }
 }

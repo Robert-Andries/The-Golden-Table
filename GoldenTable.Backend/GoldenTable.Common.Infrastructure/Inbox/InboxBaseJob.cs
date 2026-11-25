@@ -12,10 +12,10 @@ namespace GoldenTable.Common.Infrastructure.Inbox;
 [DisallowConcurrentExecution]
 public abstract class InboxBaseJob : IJob
 {
-    private readonly string _moduleName;
     private readonly Assembly _handlersAssembly;
     private readonly IOptionsMonitor<InboxOptions> _inboxOptions;
     private readonly ILogger _logger;
+    private readonly string _moduleName;
     private readonly IServiceScopeFactory _scopeFactory;
 
     protected InboxBaseJob(
@@ -33,7 +33,7 @@ public abstract class InboxBaseJob : IJob
     }
 
     public async ValueTask Execute(IJobExecutionContext context,
-        CancellationToken cancellationToken = new CancellationToken())
+        CancellationToken cancellationToken = new())
     {
         InboxLogs.BeginProcess(_logger, _moduleName);
 

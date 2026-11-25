@@ -13,8 +13,8 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes;
 
 public sealed class PublishIntegrationEvents : DishesBaseTest, IAsyncLifetime
 {
-    private readonly PublishedMessages _publishedMessages = new();
     private readonly ConnectHandle _publishObserverHandle;
+    private readonly PublishedMessages _publishedMessages = new();
 
     public PublishIntegrationEvents(IntegrationTestWebAppFactory factory) : base(factory)
     {
@@ -63,7 +63,7 @@ public sealed class PublishIntegrationEvents : DishesBaseTest, IAsyncLifetime
         string newName = Faker.Name.FullName() + Guid.NewGuid().ToString("N");
 
         // Act
-        Result result = await Sender.Send(CreateEditDishCommand(dish, name: newName));
+        Result result = await Sender.Send(CreateEditDishCommand(dish, newName));
 
         // Assert
         result.IsSuccess.Should().BeTrue();
