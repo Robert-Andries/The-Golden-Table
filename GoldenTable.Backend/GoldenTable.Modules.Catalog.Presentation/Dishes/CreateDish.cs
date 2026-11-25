@@ -39,7 +39,6 @@ internal sealed class CreateDish : IEndpoint
             .RequirePermission(Permissions.CreateDish)
             .WithTags(Tags.Dish);
     }
-
     internal sealed class Request
     {
         public string Name { get; set; }

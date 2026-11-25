@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using GoldenTable.Common.Infrastructure.Inbox;
 using GoldenTable.Common.Infrastructure.Outbox;
 using GoldenTable.Common.Presentation.Endpoints;
@@ -55,10 +54,6 @@ public static class CatalogModule
             throw new Exception("Database connection string is empty");
         }
 
-        services.ConfigureHttpJsonOptions(options =>
-        {
-            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
         services.AddDbContext<CatalogDbContext>((sp, options) =>
             options.UseNpgsql(databaseConnectionString, npgsqlOptions =>
                     npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog))

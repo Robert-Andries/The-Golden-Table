@@ -86,4 +86,44 @@ public sealed class ModifyItems : OrderBaseTest
         sut.Should().BeEquivalentTo(original);
         sut.DomainEvents.Should().BeEmpty();
     }
+
+    [Theory]
+    [InlineData(OrderStatus.Confirmed)]
+    [InlineData(OrderStatus.Preparing)]
+    public void Should_ModifyItems_WhenOrderIsInProgress(OrderStatus status)
+    {
+        // Arrange
+        Order sut = MoveToStatus(OrderFaker.Generate(), status);
+        List<DishItem> newItems = [new(Guid.NewGuid(), null, 2)];
+        Money newTotalPrice = Money.Create(Faker.Random.Decimal(1M, 500M), Currency.Ron).Value;
+
+        // Act
+        Result result = sut.ModifyItems(newItems, newTotalPrice, SometimeUtc);
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+        sut.Items.Should().BeEquivalentTo(newItems);
+    }
+
+    [Theory]
+    [InlineData(OrderStatus.Sent)]
+    [InlineData(OrderStatus.Cancelled)]
+    [InlineData(OrderStatus.Rejected)]
+    public void Should_NotModifyItems_OrderIsFinished(OrderStatus status)
+    {
+        // Arrange
+        Order original = MoveToStatus(OrderFaker.Generate(), status);
+        Order sut = original.DeepClone();
+        List<DishItem> newItems = [new(Guid.NewGuid(), null, 2)];
+        Money newTotalPrice = Money.Create(Faker.Random.Decimal(1M, 500M), Currency.Ron).Value;
+
+        // Act
+        Result result = sut.ModifyItems(newItems, newTotalPrice, SometimeUtc);
+
+        // Assert
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(OrderErrors.CannotModifyItems);
+        sut.Should().BeEquivalentTo(original);
+        sut.DomainEvents.Should().BeEmpty();
+    }
 }

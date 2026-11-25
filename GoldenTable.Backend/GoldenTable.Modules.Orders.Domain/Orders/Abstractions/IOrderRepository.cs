@@ -25,6 +25,12 @@ public interface IOrderRepository
     Task<List<Order>> GetAllAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
+    ///     Gets the orders placed by a customer
+    /// </summary>
+    /// <param name="customerId">The customer who placed the orders</param>
+    Task<List<Order>> GetByCustomerAsync(Guid customerId, CancellationToken cancellationToken = default);
+
+    /// <summary>
     ///     Updates the order from the repository based on id.
     /// </summary>
     /// <param name="order">Order to update</param>

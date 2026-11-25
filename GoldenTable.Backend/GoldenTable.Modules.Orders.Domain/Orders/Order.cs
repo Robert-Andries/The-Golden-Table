@@ -36,6 +36,11 @@ public sealed class Order : Entity
     public bool CancelRequested { get; private set; }
 
     /// <summary>
+    ///     A sent, cancelled or rejected order can no longer be changed by the customer
+    /// </summary>
+    private bool IsFinished => Status is OrderStatus.Sent or OrderStatus.Cancelled or OrderStatus.Rejected;
+
+    /// <summary>
     ///     Factory method to create an order
     /// </summary>
     /// <param name="customerId">The customer id who placed the order</param>
@@ -83,7 +88,7 @@ public sealed class Order : Entity
     /// <returns>Result indicating success or failure</returns>
     public Result UpdateAddress(Address newAddress, DateTime nowUtc)
     {
-        if (Status is OrderStatus.Sent or OrderStatus.Cancelled or OrderStatus.Rejected)
+        if (IsFinished)
         {
             return Result.Failure(OrderErrors.CannotUpdateAddress);
         }
@@ -139,6 +144,11 @@ public sealed class Order : Entity
     /// <returns>Result indicating success</returns>
     public Result RequestCancel(DateTime nowUtc)
     {
+        if (IsFinished)
+        {
+            return Result.Failure(OrderErrors.CannotRequestCancel);
+        }
+
         if (CancelRequested)
         {
             return Result.Failure(OrderErrors.CancelAlreadyRequested);
@@ -159,6 +169,11 @@ public sealed class Order : Entity
     /// <returns>Result indicating success or failure</returns>
     public Result ModifyItems(List<DishItem> items, Money totalPrice, DateTime nowUtc)
     {
+        if (IsFinished)
+        {
+            return Result.Failure(OrderErrors.CannotModifyItems);
+        }
+
         if (items.Count == 0 || items.Any(dishItem => dishItem.Quantity <= 0))
         {
             return Result.Failure<Order>(OrderErrors.InvalidItems);

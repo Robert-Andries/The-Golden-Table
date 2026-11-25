@@ -18,8 +18,9 @@ internal sealed class ChangeStatusCommandHandler(
     {
         cancellationToken.ThrowIfCancellationRequested();
         
-        Order? order = await orderCacheService.GetAsync(request.OrderId, cancellationToken) ??
-                       await orderRepository.GetAsync(request.OrderId, cancellationToken);
+        // Changes start from the database, never the cache: a cached copy may be stale, and EF cannot
+        // save a detached order whose items it has never tracked
+        Order? order = await orderRepository.GetAsync(request.OrderId, cancellationToken);
 
         if (order is null)
         {

@@ -38,7 +38,7 @@ public abstract class OutboxBaseJob : IJob
     {
         OutboxLogs.BeginProcess(_logger, _moduleName);
 
-        int batchSize = _outboxOptions.Get(GetType().FullName!).BatchSize;
+        int batchSize = _outboxOptions.Get(GetType().FullName).BatchSize;
         IReadOnlyList<OutboxMessageResponse> outboxMessages =
             await GetOutboxMessagesAsync(batchSize, cancellationToken);
 

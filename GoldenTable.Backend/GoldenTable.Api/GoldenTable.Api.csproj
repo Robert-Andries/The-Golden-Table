@@ -33,6 +33,8 @@
         <ProjectReference Include="..\GoldenTable.Common.Presentation\GoldenTable.Common.Presentation.csproj"/>
         <ProjectReference Include="..\GoldenTable.Modules.Catalog.Application\GoldenTable.Modules.Catalog.Application.csproj"/>
         <ProjectReference Include="..\GoldenTable.Modules.Catalog.Infrastructure\GoldenTable.Modules.Catalog.Infrastructure.csproj"/>
+        <ProjectReference Include="..\GoldenTable.Modules.Orders.Application\GoldenTable.Modules.Orders.Application.csproj"/>
+        <ProjectReference Include="..\GoldenTable.Modules.Orders.Infrastructure\GoldenTable.Modules.Orders.Infrastructure.csproj"/>
     </ItemGroup>
     <ItemGroup>
         <Content Include="..\.dockerignore">

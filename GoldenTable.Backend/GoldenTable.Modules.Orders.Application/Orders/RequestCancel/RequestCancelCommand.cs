@@ -2,4 +2,4 @@
 
 namespace GoldenTable.Modules.Orders.Application.Orders.RequestCancel;
 
-public sealed record RequestCancelCommand(Guid OrderId) : ICommand;
+public sealed record RequestCancelCommand(Guid CustomerId, Guid OrderId) : ICommand;

@@ -78,4 +78,24 @@ public sealed class UpdateAddress : OrderBaseTest
         sut.Should().BeEquivalentTo(original);
         sut.DomainEvents.Should().BeEmpty();
     }
+
+    [Theory]
+    [InlineData(OrderStatus.Sent)]
+    [InlineData(OrderStatus.Cancelled)]
+    [InlineData(OrderStatus.Rejected)]
+    public void Should_NotUpdateAddress_OrderIsFinished(OrderStatus status)
+    {
+        // Arrange
+        Order original = MoveToStatus(OrderFaker.Generate(), status);
+        Order sut = original.DeepClone();
+
+        // Act
+        Result result = sut.UpdateAddress(CreateAddress(Faker), SometimeUtc);
+
+        // Assert
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(OrderErrors.CannotUpdateAddress);
+        sut.Should().BeEquivalentTo(original);
+        sut.DomainEvents.Should().BeEmpty();
+    }
 }

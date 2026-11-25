@@ -20,12 +20,20 @@ public static class OrderErrors
         new("OrderErrors.CancelAlreadyRequested", "A cancel request was already requested.", ErrorType.Validation);
 
     public static Error CannotUpdateAddress { get; } =
-        new("OrderErrors.CannotUpdateAddress", "You cannot update the address of an canceled or sent order.",
-            ErrorType.Validation);
+        new("OrderErrors.CannotUpdateAddress",
+            "You cannot update the address of a sent, cancelled or rejected order.", ErrorType.Validation);
+
+    public static Error CannotModifyItems { get; } =
+        new("OrderErrors.CannotModifyItems",
+            "You cannot change the items of a sent, cancelled or rejected order.", ErrorType.Validation);
+
+    public static Error CannotRequestCancel { get; } =
+        new("OrderErrors.CannotRequestCancel",
+            "You cannot request to cancel a sent, cancelled or rejected order.", ErrorType.Validation);
 
     public static Error InvalidQuantity { get; } =
         new("OrderErrors.InvalidQuantity", "The quantity should be greater then 0.", ErrorType.Validation);
     
     public static Error NotFound { get; } =
-        new("OrderErrors.NotFound", "The order with the specified id was not found.", ErrorType.Validation);
+        new("OrderErrors.NotFound", "The order with the specified id was not found.", ErrorType.NotFound);
 }
