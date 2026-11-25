@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GoldenTable.Common.Presentation\GoldenTable.Common.Presentation.csproj" />
+      <ProjectReference Include="..\GoldenTable.Modules.Order.Application\GoldenTable.Modules.Order.Application.csproj" />
+      <ProjectReference Include="..\GoldenTable.Modules.Order.Domain\GoldenTable.Modules.Order.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
