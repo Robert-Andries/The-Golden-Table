@@ -1,9 +1,9 @@
 name: Continuous Integration (CI) pipeline
 on:
   push:
-    branches: [ "main", "development", "release", "hot-fix" ]
+    branches: [ "**" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "development", "release", "hot-fix" ]
 
 permissions:
   contents: read
