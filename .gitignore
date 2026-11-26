@@ -6,6 +6,8 @@
 # Docker
 .container/
 *.container
+.containers/
+compose.generated.override.yml
 
 # User-specific files
 *.rsuser
