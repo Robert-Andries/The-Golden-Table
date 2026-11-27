@@ -26,7 +26,6 @@ export default function ImageModal({
   // Sync pre-selected IDs when the modal opens or the prop changes
   useEffect(() => {
     if (isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedIds(new Set(preSelectedImageIds));
     }
   }, [isOpen, preSelectedImageIds]);

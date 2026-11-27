@@ -1,10 +1,9 @@
 import baseUrl from "../common/baseUrl";
 import fetchError from "../common/fetchError";
-import apiFetch from "../common/apiFetch";
 
 export default async function fetchDeleteImage(id: string) {
   const uri = baseUrl + `/images/delete/${id}`;
-  const response = await apiFetch(uri, {
+  const response = await fetch(uri, {
     method: "DELETE",
   });
   if (!response.ok) {

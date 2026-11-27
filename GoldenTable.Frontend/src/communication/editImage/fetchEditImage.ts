@@ -1,12 +1,11 @@
 import baseUrl from "../common/baseUrl";
 import fetchError from "../common/fetchError";
-import apiFetch from "../common/apiFetch";
 import type { editImagePayload } from "./editImagePayload";
 
 export async function fetchEditImage(id: string, payload: editImagePayload) {
   const url = baseUrl + `/images/edit/${id}`;
 
-  const response = await apiFetch(url, {
+  const response = await fetch(url, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

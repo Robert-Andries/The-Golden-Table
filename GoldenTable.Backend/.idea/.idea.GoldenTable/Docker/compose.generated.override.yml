@@ -2,7 +2,7 @@
 services:
   goldentable.api:
     build:
-      context: "C:\\source\\The-Golden-Table\\GoldenTable.Backend"
+      context: "C:\\Proiecte\\The-Golden-Table\\GoldenTable.Backend"
       dockerfile: "GoldenTable.Api/Dockerfile"
       target: "base"
       args:
@@ -28,12 +28,12 @@ services:
     - "127.0.0.1:57200:57200"
     - "127.0.0.1:57400:57400"
     volumes:
-    - "C:\\source\\The-Golden-Table\\GoldenTable.Backend\\GoldenTable.Api:/app:rw"
-    - "C:\\source\\The-Golden-Table\\GoldenTable.Backend:/src:rw"
-    - "C:\\Users\\Claudiu\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Users\\Claudiu\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2026.2.3.1\\\
+    - "C:\\Proiecte\\The-Golden-Table\\GoldenTable.Backend\\GoldenTable.Api:/app:rw"
+    - "C:\\Proiecte\\The-Golden-Table\\GoldenTable.Backend:/src:rw"
+    - "C:\\Users\\andri\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\andri\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2025.3.3\\\
       Linux64:/opt/JetBrains/RiderDebuggerTools"
-    - "C:\\Program Files\\JetBrains\\JetBrains Rider 2026.2.3.1\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
-    - "C:\\Users\\Claudiu\\AppData\\Local\\JetBrains\\Rider2026.2\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2026_10_22_18_57_15:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    - "C:\\Program Files\\JetBrains\\JetBrains Rider 2025.2.1\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    - "C:\\Users\\andri\\AppData\\Local\\JetBrains\\Rider2025.3\\log\\DebuggerWorker\\\
+      JetBrains.Debugger.Worker.2026_9_04_20_27_01:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"

@@ -22,7 +22,6 @@ public class GetByTags : IEndpoint
 
             return ResultExtensions.Match(result, Results.Ok, ApiResults.Problem);
         })
-            .AllowAnonymous()
         .WithTags(Tags.Dish);
     }
 

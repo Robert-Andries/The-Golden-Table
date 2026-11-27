@@ -1,6 +1,5 @@
 import baseUrl from "../common/baseUrl";
 import FetchError from "../common/fetchError";
-import apiFetch from "../common/apiFetch";
 
 type requestBody = {
   value: string;
@@ -11,7 +10,7 @@ export default async function fetchCreateTag(name: string): Promise<void> {
   const body: requestBody = {
     value: name,
   };
-  const response = await apiFetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

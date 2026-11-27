@@ -2,7 +2,6 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.EditTag;
-using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +20,6 @@ internal sealed class EditTag : IEndpoint
 
             return result.Match(Results.NoContent, ApiResults.Problem);
         })
-        .RequirePermission(Permissions.EditTag)
         .WithTags(Tags.Dish);
     }
 

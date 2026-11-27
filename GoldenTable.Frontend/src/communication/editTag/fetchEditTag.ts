@@ -1,7 +1,6 @@
 import type { dishTag } from "../../types/dishTag";
 import baseUrl from "../common/baseUrl";
 import fetchError from "../common/fetchError";
-import apiFetch from "../common/apiFetch";
 
 type requestBody = {
   value: string;
@@ -13,7 +12,7 @@ export default async function fetchEditTag(id: string, tag: dishTag) {
     value: tag.value,
   };
 
-  const response = await apiFetch(url, {
+  const response = await fetch(url, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

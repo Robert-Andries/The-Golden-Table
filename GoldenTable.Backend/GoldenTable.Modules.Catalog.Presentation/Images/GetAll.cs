@@ -3,7 +3,6 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Images;
 using GoldenTable.Modules.Catalog.Application.Images.GetAll;
-using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +22,6 @@ internal sealed class GetAll : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .AllowAnonymous()
             .WithTags(Tags.Image);
     }
 }

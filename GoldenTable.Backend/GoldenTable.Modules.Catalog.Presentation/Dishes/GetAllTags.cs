@@ -21,7 +21,6 @@ internal sealed class GetAllTags : IEndpoint
 
             return result.Match(Results.Ok, ApiResults.Problem);
         })
-        .AllowAnonymous()
         .WithTags(Tags.Dish);
     }
 }
