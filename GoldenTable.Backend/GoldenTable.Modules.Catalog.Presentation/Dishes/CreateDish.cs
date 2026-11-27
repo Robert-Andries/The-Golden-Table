@@ -3,6 +3,7 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
+using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using GoldenTable.Modules.Catalog.Presentation.Dishes.Common.NutritionalInformation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +17,7 @@ internal sealed class CreateDish : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("dishes/create", async ( [FromBody] Request request, [FromServices] ISender sender) =>
+        app.MapPost("dishes/create", async ([FromBody] Request request, [FromServices] ISender sender) =>
             {
                 Result result = await sender.Send(new CreateDishCommand(
                     request.Name,
@@ -35,9 +36,9 @@ internal sealed class CreateDish : IEndpoint
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
             })
+            .RequirePermission(Permissions.CreateDish)
             .WithTags(Tags.Dish);
     }
-
     internal sealed class Request
     {
         public string Name { get; set; }

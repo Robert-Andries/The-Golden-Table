@@ -31,7 +31,7 @@ public sealed class Delete : ImageBaseTest
         result.IsSuccess.Should().BeTrue();
         context.Images.Count().Should().Be(10);
     }
-    
+
     [Fact]
     public async Task Should_NotDeleteImage_InvalidId()
     {

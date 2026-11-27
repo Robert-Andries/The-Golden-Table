@@ -2,13 +2,14 @@ import { useState, type ReactNode } from "react";
 import ImageItem from "./ImageItem";
 import ModifyImageModal from "./ModifyImageModal";
 import styles from "./ManageImages.module.css";
-import fetchDeleteImage from "../../../communication/deleteImage/fetchDeleteImage";
+import fetchDeleteImage from "../../../communication/dish/deleteImage/fetchDeleteImage";
 import queryClient from "../../../communication/common/queryClient";
-import useGetAllImages from "../../../communication/getAllImages/useGetAllImages";
+import useGetAllImages from "../../../communication/dish/getAllImages/useGetAllImages";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 import { ApplicationError } from "../../../common/ApplicationError";
 import useModal from "../../../components/useModal";
 import AddImageModal from "./AddImageModal";
+import { Can } from "../../../auth/Can";
 
 function ManageImages(): ReactNode {
   const { data: images, isPending, isError, error } = useGetAllImages();
@@ -76,9 +77,11 @@ function ManageImages(): ReactNode {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Manage Images</h1>
-        <button className={styles.addButton} onClick={openAddImageModal}>
-          Add image
-        </button>
+        <Can permission="dishes:create-image">
+          <button className={styles.addButton} onClick={openAddImageModal}>
+            Add image
+          </button>
+        </Can>
       </div>
       <div className={styles.list}>
         {images?.map((image) => (

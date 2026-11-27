@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import styles from "./EditDish.module.css";
 import AddDishForm from "./AddDishForm";
-import useGetAllTags from "../../../communication/getAllTags/useGetAllTags";
+import useGetAllTags from "../../../communication/dish/getAllTags/useGetAllTags";
 
 function AddDish(): ReactNode {
   const {

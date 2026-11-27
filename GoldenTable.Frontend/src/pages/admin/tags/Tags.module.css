@@ -81,6 +81,11 @@
 }
 
 /* Modal styles */
+.modalTitle {
+  margin: 0;
+  color: var(--color-primary-400, #60a5fa);
+}
+
 .form {
   display: flex;
   flex-direction: column;

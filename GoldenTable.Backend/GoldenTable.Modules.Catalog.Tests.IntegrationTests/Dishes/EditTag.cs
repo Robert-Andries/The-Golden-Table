@@ -9,7 +9,8 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes;
 public sealed class EditTag : TagsBaseTest
 {
     public EditTag(IntegrationTestWebAppFactory factory) : base(factory)
-    { }
+    {
+    }
 
     [Fact]
     public async Task Should_EditTag_Successfully()

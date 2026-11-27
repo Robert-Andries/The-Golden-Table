@@ -1,4 +1,5 @@
-using System.Text.Json.Serialization;
+using GoldenTable.Common.Infrastructure.Inbox;
+using GoldenTable.Common.Infrastructure.Outbox;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
@@ -8,7 +9,10 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
 using GoldenTable.Modules.Catalog.Infrastructure.Database;
 using GoldenTable.Modules.Catalog.Infrastructure.Dishes;
 using GoldenTable.Modules.Catalog.Infrastructure.Images;
+using GoldenTable.Modules.Catalog.Infrastructure.Inbox;
+using GoldenTable.Modules.Catalog.Infrastructure.Outbox;
 using GoldenTable.Modules.Catalog.Presentation;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -22,9 +26,24 @@ public static class CatalogModule
     {
         services.AddEndpoints(AssemblyReference.Assembly);
 
+        services.AddDomainEventHandlers(Application.AssemblyReference.Assembly);
+
+        services.AddIntegrationEventHandlers(AssemblyReference.Assembly);
+
         services.AddInfrastructure(configuration);
 
+        services.AddOutboxJob<ProcessOutboxJob>(configuration.GetSection("Catalog:Outbox"));
+
+        services.AddInboxJob<ProcessInboxJob>(configuration.GetSection("Catalog:Inbox"));
+
         return services;
+    }
+
+#pragma warning disable IDE0060
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+#pragma warning restore IDE0060
+    {
+        // No consumers for this module
     }
 
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -35,13 +54,11 @@ public static class CatalogModule
             throw new Exception("Database connection string is empty");
         }
 
-        services.ConfigureHttpJsonOptions(options =>
-        {
-            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
         services.AddDbContext<CatalogDbContext>((sp, options) =>
             options.UseNpgsql(databaseConnectionString, npgsqlOptions =>
-                npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog)));
+                    npgsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Catalog))
+                .AddInterceptors(sp.GetRequiredService<InsertOutboxMessagesInterceptor>()));
+
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<CatalogDbContext>());
 

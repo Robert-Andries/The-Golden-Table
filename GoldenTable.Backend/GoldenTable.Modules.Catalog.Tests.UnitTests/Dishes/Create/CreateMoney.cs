@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Common.Domain.Money;
+using GoldenTable.Common.Tests.UnitTests;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes.Create;
 
@@ -14,7 +15,7 @@ public class CreateMoney : BaseTest
     public CreateMoney()
     {
         _validCurrencyCode = "USD";
-        _validCurrency = Currency.USD;
+        _validCurrency = Currency.Usd;
         _validAmount = Faker.Random.Decimal(0M, 1000M);
     }
 

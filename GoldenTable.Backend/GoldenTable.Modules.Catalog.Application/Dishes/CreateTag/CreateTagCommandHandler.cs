@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateTag;
 
-public sealed class CreateTagCommandHandler(
+internal sealed class CreateTagCommandHandler(
     IDishTagRepository dishTagRepository,
     IUnitOfWork unitOfWork,
     ILogger<CreateTagCommandHandler> logger)

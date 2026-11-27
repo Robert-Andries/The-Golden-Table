@@ -2,7 +2,8 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
-public sealed record DishUpdatedTagsDomainEvent(Guid DishId, DateTime OccurredOnUtc) : IDomainEvent
+public sealed class DishUpdatedTagsDomainEvent(Guid dishId, IReadOnlyCollection<Guid> tagIds) : DomainEvent
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid DishId { get; } = dishId;
+    public IReadOnlyCollection<Guid> TagIds { get; } = tagIds;
 }

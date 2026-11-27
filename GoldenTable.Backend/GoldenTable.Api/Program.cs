@@ -3,8 +3,9 @@ using GoldenTable.Api.Middleware;
 using GoldenTable.Common.Application;
 using GoldenTable.Common.Infrastructure;
 using GoldenTable.Common.Presentation.Endpoints;
-using GoldenTable.Modules.Catalog.Application;
+using System.Text.Json.Serialization;
 using GoldenTable.Modules.Catalog.Infrastructure;
+using GoldenTable.Modules.Orders.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
@@ -18,15 +19,23 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opts =>
-{
-    opts.CustomSchemaIds(type => type.FullName?.Replace("+", "."));
-});
+builder.Services.AddSwaggerGenWithAuthSupport(builder.Configuration);
 
-builder.Services.AddApplication([AssemblyReference.Assembly]);
+// Enums travel as names ("Confirmed"), not numbers, for every module's endpoints
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+builder.Services.AddApplication([
+    GoldenTable.Modules.Catalog.Application.AssemblyReference.Assembly,
+    GoldenTable.Modules.Orders.Application.AssemblyReference.Assembly
+]);
 builder.Services.AddCatalogModule(builder.Configuration);
+builder.Services.AddOrdersModule(builder.Configuration);
 
-builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
+builder.Services.AddInfrastructure(
+    [CatalogModule.ConfigureConsumers, OrdersModule.ConfigureConsumers],
+    databaseConnectionString,
+    cacheConnectionString);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
@@ -34,7 +43,7 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowLocalFrontend", policy =>
     {
         policy.WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
@@ -48,7 +57,7 @@ WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors("AllowFrontend");
+    app.UseCors("AllowLocalFrontend");
     app.UseSwagger();
     app.UseSwaggerUI();
     app.ApplyMigrations();
@@ -65,6 +74,10 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapEndpoints();
 

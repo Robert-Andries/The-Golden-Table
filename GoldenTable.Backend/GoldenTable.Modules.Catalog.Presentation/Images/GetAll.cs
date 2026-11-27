@@ -22,6 +22,7 @@ internal sealed class GetAll : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
+            .AllowAnonymous()
             .WithTags(Tags.Image);
     }
 }

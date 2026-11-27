@@ -1,10 +1,9 @@
 using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain.Money;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
@@ -15,9 +14,9 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 
-public sealed class CreateDishCommandHandler(
+internal sealed class CreateDishCommandHandler(
     IUnitOfWork unitOfWork,
-    IDishDbSets  dishDbSets,
+    IDishDbSets dishDbSets,
     IDishRepository dishRepository,
     IDishTagRepository dishTagRepository,
     IDishCacheService dishCacheService,
@@ -39,7 +38,7 @@ public sealed class CreateDishCommandHandler(
         {
             return Result.Failure<Guid>(DishTagErrors.SomeTagsNotFound);
         }
-        
+
         Name name = new(request.Name);
         Description description = new(request.Description);
         Result<Money> basePriceResult = Money.Create(request.BasePriceAmount, request.BasePriceCurrency);
