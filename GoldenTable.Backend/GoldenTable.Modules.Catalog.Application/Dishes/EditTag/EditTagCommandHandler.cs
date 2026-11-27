@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.EditTag;
 
-internal sealed class EditTagCommandHandler(
+public sealed class EditTagCommandHandler(
     IDishTagRepository dishTagRepository,
     IDishDbSets dishDbSets,
     IDishCacheService dishCacheService,

@@ -2,7 +2,7 @@ import { useState, type ReactNode } from "react";
 
 import styles from "./Shop.module.css";
 import searchDish from "../../common/searchDish";
-import useGetAllDishes from "../../communication/dish/getAllDishes/useGetAllDishes";
+import useGetAllDishes from "../../communication/getAllDishes/useGetAllDishes";
 import ShopDishCard from "./ShopDishCard";
 import type { dish } from "../../types/dish";
 

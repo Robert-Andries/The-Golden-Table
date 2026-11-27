@@ -1,11 +1,10 @@
 ﻿using GoldenTable.Common.Domain;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
-public sealed class DishUpdatedPriceDomainEvent(Guid dishId, decimal amount, string currencyCode)
-    : DomainEvent
+public sealed record DishUpdatedBasePriceDomainEvent(Guid DishId, Money BasePrice, DateTime OccurredOnUtc)
+    : IDomainEvent
 {
-    public Guid DishId { get; init; } = dishId;
-    public decimal Amount { get; init; } = amount;
-    public string CurrencyCode { get; init; } = currencyCode;
+    public Guid Id { get; } = Guid.NewGuid();
 }

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Force.DeepCloner;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Domain.Money;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Moneys;
 
@@ -13,33 +13,30 @@ public class Subtract : MoneyBaseTest
         // Arrange
         Money original = MoneyFaker.Generate();
         Money sut = original.DeepClone();
-        Money sutCopy = sut.DeepClone();
 
         // Act
-        Result<Money> result = sut.Subtract(original);
+        Result result = sut.Subtract(original);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
-        result.Value.Currency.Should().Be(original.Currency);
-        result.Value.Amount.Should().Be(0);
-        result.Value.Should().NotBeSameAs(sut);
-        sut.Should().BeEquivalentTo(sutCopy);
+        sut.Should().BeEquivalentTo(original, options => options.Excluding(m => m.Amount));
+        sut.Amount.Should().Be(0);
     }
 
     [Fact]
-    public void Should_SubtractMoney_FromItself()
+    public void Should_NotSubtractMoney_SameInstance()
     {
         // Arrange
-        Money sut = MoneyFaker.Generate();
-        Money copy = sut.DeepClone();
+        Money original = MoneyFaker.Generate();
+        Money sut = original.DeepClone();
 
         // Act
-        Result<Money> result = sut.Subtract(sut);
+        Result result = sut.Subtract(sut);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Amount.Should().Be(0);
-        sut.Should().BeEquivalentTo(copy);
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(MoneyErrors.SameInstance);
+        sut.Should().BeEquivalentTo(original);
     }
 
     [Fact]
@@ -47,13 +44,13 @@ public class Subtract : MoneyBaseTest
     {
         // Arrange
         Money original = MoneyFaker.Generate();
-        Currency differentCurrency = new[] { Currency.Usd, Currency.Ron, Currency.Eur }.First(c => c != original.Currency);
+        Currency differentCurrency = Currency.All.First(c => c != original.Currency);
         decimal validAmount = original.Amount + 10m;
         Money sut = Money.Create(validAmount, differentCurrency).Value;
         Money copy = sut.DeepClone();
 
         // Act
-        Result<Money> result = sut.Subtract(original);
+        Result result = sut.Subtract(original);
 
         // Assert
         result.IsFailure.Should().BeTrue();
@@ -66,11 +63,12 @@ public class Subtract : MoneyBaseTest
     {
         // Arrange
         Money original = MoneyFaker.Generate();
+        Money copy = original.DeepClone();
         Money sut = original.DeepClone();
-        Money larger = Money.Create(original.Amount + 1m, original.Currency).Value;
+        copy.Add(original);
 
         // Act
-        Result<Money> result = sut.Subtract(larger);
+        Result result = sut.Subtract(copy);
 
         // Assert
         result.IsFailure.Should().BeTrue();

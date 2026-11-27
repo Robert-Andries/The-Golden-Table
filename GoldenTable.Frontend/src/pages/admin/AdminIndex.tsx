@@ -1,22 +1,19 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import placeholderImg from "../../assets/default-placeholder-food.png";
-import useGetAllDishes from "../../communication/dish/getAllDishes/useGetAllDishes";
-import { Can } from "../../auth/Can";
+import placeholderImg from "../../assets/default-placeholder-food.png"
+import useGetAllDishes from "../../communication/getAllDishes/useGetAllDishes";
 import styles from "./AdminIndex.module.css";
 
-export default function AdminIndex(): ReactNode {
+export default function AdminIndex() : ReactNode {
   const { data: dishes, isPending, isError, error } = useGetAllDishes();
   const location = useLocation();
   const locationState = location.state as { message?: string };
-  const [notification, setNotification] = useState<string | undefined>(
-    locationState?.message
-  );
+  const [notification, setNotification] = useState<string | undefined>(locationState?.message);
 
   useEffect(() => {
     if (notification) {
-      window.history.replaceState({}, "");
+      window.history.replaceState({}, '');
       const timer = setTimeout(() => {
         setNotification(undefined);
       }, 3000);
@@ -28,64 +25,46 @@ export default function AdminIndex(): ReactNode {
     return <div className={styles.loading}>Loading dishes, please wait...</div>;
   }
   if (isError) {
-    return (
-      <div className={styles.error}>{`An error occurred while getting dishes, ${error.message}`}</div>
-    );
+    return <div className={styles.error}>{`An error occured while getting dishes, ${error.message}`}</div>;
   }
+  if(dishes.length === 0){ 
+    return <div className={styles.emptyState}>No dishes found!</div>
+  }
+
   return (
     <div className={styles.container}>
       {notification && (
-        <div className={styles.notification}>
+        <div style={{ backgroundColor: '#4CAF50', color: 'white', padding: '1rem', textAlign: 'center', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, transition: 'opacity 0.3s ease-in-out' }}>
           {notification}
         </div>
       )}
       <div className={styles.header}>
         <h1 className={styles.title}>Admin Dashboard</h1>
-        <Can permission="orders:get-all">
-          <NavLink to="orders" className={styles.addButton}>
-            Manage Orders
-          </NavLink>
-        </Can>
-        <Can permission="dishes:create-image">
-          <NavLink to="images" className={styles.addButton}>
-            Manage Images
-          </NavLink>
-        </Can>
-        <Can permission="dishes:create-tag">
-          <NavLink to="tags" className={styles.addButton}>
-            Manage Tags
-          </NavLink>
-        </Can>
-        <Can permission="dishes:create">
-          <NavLink to="add" className={styles.addButton}>
-            Add a new dish
-          </NavLink>
-        </Can>
+        <NavLink to={`images`} className={styles.addButton}>
+          Manage Images
+        </NavLink>
+        <NavLink to={`tags`} className={styles.addButton}>
+          Manage Tags
+        </NavLink>
+        <NavLink to={`add`} className={styles.addButton}>
+          Add a new dish
+        </NavLink>
       </div>
-      {dishes.length === 0 && <div className={styles.emptyState}>No dishes found!</div>}
       <div className={styles.list}>
         {dishes.map((dish) => (
           <div key={dish.id} className={styles.row}>
-            <img
-              className={styles.image}
-              src={dish.imagesUris?.[0] || placeholderImg}
-              alt={dish.name}
-            />
+            <img className={styles.image} src={dish.imagesUris?.[0] || placeholderImg} alt={dish.name} />
             <div className={styles.details}>
               <h2 className={styles.name}>{dish.name}</h2>
               <div className={styles.tags}>
                 {dish.tags?.map((tag) => (
-                  <h4 key={tag} className={styles.tag}>
-                    {tag}
-                  </h4>
+                  <h4 key={tag} className={styles.tag}>{tag}</h4>
                 ))}
               </div>
             </div>
-            <Can permission="dishes:edit">
-              <NavLink to={`edit/${dish.id}`} className={styles.editButton}>
-                Edit
-              </NavLink>
-            </Can>
+            <NavLink to={`edit/${dish.id}`} className={styles.editButton}>
+              Edit
+            </NavLink>
           </div>
         ))}
       </div>

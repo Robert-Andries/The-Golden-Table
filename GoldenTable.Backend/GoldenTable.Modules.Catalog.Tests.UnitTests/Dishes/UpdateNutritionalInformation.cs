@@ -31,7 +31,7 @@ public sealed class UpdateNutritionalInformation : DishBaseTest
         });
         sut.NutritionalInformation.Should().Be(validNutritionalValues);
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
-        AssertDomainEventWasPublished<DishUpdatedNutritionalInformationDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedNutritionalInformation>(sut);
     }
 
     [Fact]

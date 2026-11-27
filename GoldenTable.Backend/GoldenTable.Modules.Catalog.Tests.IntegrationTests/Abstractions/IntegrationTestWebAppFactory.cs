@@ -34,7 +34,5 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
         Environment.SetEnvironmentVariable("ConnectionStrings:Database", _dbContainer.GetConnectionString());
         Environment.SetEnvironmentVariable("ConnectionStrings:Cache", _cacheContainer.GetConnectionString());
-        Environment.SetEnvironmentVariable("Catalog:Outbox:IntervalInSeconds", "1");
-        Environment.SetEnvironmentVariable("Catalog:Inbox:IntervalInSeconds", "1");
     }
 }

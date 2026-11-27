@@ -1,7 +1,7 @@
 import { hasMinLenght, isValidUri } from "../../../common/validators";
 import queryClient from "../../../communication/common/queryClient";
-import type { editImagePayload } from "../../../communication/dish/editImage/editImagePayload";
-import { fetchEditImage } from "../../../communication/dish/editImage/fetchEditImage";
+import type { editImagePayload } from "../../../communication/editImage/editImagePayload";
+import { fetchEditImage } from "../../../communication/editImage/fetchEditImage";
 
 
 type actionType = {

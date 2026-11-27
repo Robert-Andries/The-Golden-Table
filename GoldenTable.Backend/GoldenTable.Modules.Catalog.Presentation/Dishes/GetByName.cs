@@ -3,6 +3,7 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes;
 using GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByName;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -11,19 +12,18 @@ using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
 
-internal sealed class GetByName : IEndpoint
+public class GetByName : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("dishes/name/{name}", async ([FromRoute] string name, [FromServices] ISender sender) =>
-            {
-                Name finalName = new(name);
+        app.MapGet("dishes/name/{name}", async ( [FromRoute] string name, [FromServices] ISender sender) =>
+        {
+            Name finalName = new(name);
 
-                Result<List<DishResponse>> result = await sender.Send(new GetDishesByNameQuery(finalName));
+            Result<List<DishResponse>> result = await sender.Send(new GetDishesByNameQuery(finalName));
 
-                return result.Match(Results.Ok, ApiResults.Problem);
-            })
-            .AllowAnonymous()
-            .WithTags(Tags.Dish);
+            return result.Match(Results.Ok, ApiResults.Problem);
+        })
+        .WithTags(Tags.Dish);
     }
 }

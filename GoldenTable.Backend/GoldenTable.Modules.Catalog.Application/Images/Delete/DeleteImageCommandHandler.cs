@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.Delete;
 
-internal sealed class DeleteImageCommandHandler(
+public sealed class DeleteImageCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,

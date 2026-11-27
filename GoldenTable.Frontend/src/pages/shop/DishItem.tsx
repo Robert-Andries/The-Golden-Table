@@ -3,10 +3,9 @@ import { useParams } from "react-router-dom";
 
 import { ApplicationError } from "../../common/ApplicationError";
 
-import useGetDish from "../../communication/dish/getDish/useGetDish";
+import useGetDish from "../../communication/getDish/useGetDish";
 import placeholderImg from "../../assets/default-placeholder-food.png";
 import NutritionalInformation from "../../components/NutritionalInformation";
-import AddToCart from "./AddToCart";
 import styles from "./DishItem.module.css";
 import type { dish } from "../../types/dish";
 
@@ -66,7 +65,6 @@ function DisplayDishItem({ dish }: props): ReactNode {
             {dish.basePriceAmount} {dish.basePriceCurrency}
           </h3>
         </div>
-        <AddToCart dish={dish} />
         <NutritionalInformation nutritional={dish.nutritionalInformation} />
       </div>
     </div>

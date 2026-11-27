@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.DeleteTag;
 
-internal sealed class DeleteTagCommandHandler(
+public sealed class DeleteTagCommandHandler(
     IDishTagRepository dishTagRepository,
     IDishDbSets dishDbSets,
     IDishCacheService dishCacheService,

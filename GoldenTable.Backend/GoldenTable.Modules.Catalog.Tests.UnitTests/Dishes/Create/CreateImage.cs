@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Tests.UnitTests;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Events;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes.Create;
 

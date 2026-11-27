@@ -1,4 +1,4 @@
-using GoldenTable.Common.Domain.Money;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using Microsoft.EntityFrameworkCore;

@@ -4,9 +4,10 @@ using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetAllDishes;
 
-internal sealed class GetAllDishesQueryHandler(
+public sealed class GetAllDishesQueryHandler(
     IDishDbSets dishDbSets)
     : IQueryHandler<GetAllDishesQuery, List<DishResponse>>
 {

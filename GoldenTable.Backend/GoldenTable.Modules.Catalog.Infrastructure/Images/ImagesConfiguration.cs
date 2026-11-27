@@ -1,5 +1,5 @@
-﻿using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.Image;
+﻿using GoldenTable.Modules.Catalog.Domain.Common.Image;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

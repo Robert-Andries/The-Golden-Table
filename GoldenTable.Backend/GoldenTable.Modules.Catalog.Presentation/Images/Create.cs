@@ -2,7 +2,6 @@
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Images.Create;
-using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -15,17 +14,15 @@ internal sealed class Create : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("images/create", async ([FromBody] Request request, [FromServices] ISender sender) =>
-            {
-                CreateImageCommand command = new(request.Uri, request.Name, request.Description);
-                Result<Guid> result = await sender.Send(command);
+        app.MapPost("images/create", async ( [FromBody] Request request, [FromServices] ISender sender) =>
+        {
+            CreateImageCommand command = new(request.Uri, request.Name, request.Description);
+            Result<Guid> result = await sender.Send(command);
 
-                return result.Match(Results.Ok, ApiResults.Problem);
-            })
-            .RequirePermission(Permissions.CreateImage)
-            .WithTags(Tags.Image);
+            return result.Match(Results.Ok, ApiResults.Problem);
+        })
+        .WithTags(Tags.Image);
     }
-
     public sealed class Request
     {
         public Uri Uri { get; set; }

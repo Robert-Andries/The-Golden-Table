@@ -1,11 +1,12 @@
 using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Application.Messaging;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Domain.Money;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Dataset;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Abstractions;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Abstractions;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
@@ -16,7 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.EditDish;
 
-internal sealed class EditDishCommandHandler(
+public sealed class EditDishCommandHandler(
     IUnitOfWork unitOfWork,
     IDishDbSets dishDbSets,
     IDishRepository dishRepository,
@@ -48,26 +49,26 @@ internal sealed class EditDishCommandHandler(
 
         Name name = new(request.Name);
         Result renameResult = dish.Rename(name, now);
-        if (renameResult.IsFailure && renameResult.Error != DishErrors.SameName)
+        if (renameResult.IsFailure && renameResult.Error != DishErrors.SameName) 
         {
             return renameResult;
         }
 
         Description description = new(request.Description);
         Result descResult = dish.UpdateDescription(description, now);
-        if (descResult.IsFailure && descResult.Error != DishErrors.SameDescription)
+        if (descResult.IsFailure && descResult.Error != DishErrors.SameDescription) 
         {
             return descResult;
         }
 
         Result<Money> basePriceResult = Money.Create(request.BasePriceAmount, request.BasePriceCurrency);
-        if (basePriceResult.IsFailure)
+        if (basePriceResult.IsFailure) 
         {
             return basePriceResult;
         }
 
         Result priceResult = dish.UpdateBasePrice(basePriceResult.Value, now);
-        if (priceResult.IsFailure && priceResult.Error != DishErrors.SamePrice)
+        if (priceResult.IsFailure && priceResult.Error != DishErrors.SamePrice) 
         {
             return priceResult;
         }
@@ -79,61 +80,108 @@ internal sealed class EditDishCommandHandler(
             request.GramsOfSugar,
             request.GramsOfProtein,
             request.GramsOfSalt);
-        if (nutritionalInformationResult.IsFailure)
+        if (nutritionalInformationResult.IsFailure) 
         {
             return nutritionalInformationResult;
         }
 
         Result nutResult = dish.UpdateNutritionalInformation(nutritionalInformationResult.Value, now);
-        if (nutResult.IsFailure && nutResult.Error != DishErrors.NutritionalInformationIsTheSame)
+        if (nutResult.IsFailure && nutResult.Error != DishErrors.NutritionalInformationIsTheSame) 
         {
             return nutResult;
         }
 
         Result<DishCategory> dishCategoryResult = DishCategory.Create(request.DishCategory);
-        if (dishCategoryResult.IsFailure)
+        if (dishCategoryResult.IsFailure) 
         {
             return dishCategoryResult;
         }
 
         Result catResult = dish.UpdateDishCategory(dishCategoryResult.Value, now);
-        if (catResult.IsFailure && catResult.Error != DishErrors.SameCategory)
+        if (catResult.IsFailure && catResult.Error != DishErrors.SameCategory) 
         {
             return catResult;
         }
 
-        Result sizesResult = dish.UpdateSizes(request.Sizes, now);
-        if (sizesResult.IsFailure)
+        // Update Sizes
+        var newSizesDict = request.Sizes.ToDictionary(s => s.Name);
+        var sizesToRemove = dish.Sizes.Where(s => !newSizesDict.ContainsKey(s.Name) || newSizesDict[s.Name] != s).ToList();
+        foreach (DishSize s in sizesToRemove)
         {
-            return sizesResult;
+            Result removeSizeResult = dish.RemoveSize(s.Name, now);
+            if (removeSizeResult.IsFailure) 
+            {
+                return removeSizeResult;
+            }
+        }
+        var sizesToAdd = request.Sizes.Where(s => !dish.Sizes.Any(ds => ds.Name == s.Name)).ToList();
+        foreach (DishSize s in sizesToAdd)
+        {
+            Result addSizeResult = dish.AddSize(s, now);
+            if (addSizeResult.IsFailure) 
+            {
+                return addSizeResult;
+            }
         }
 
-        List<DishTag> tags = await dishTagRepository.GetByIdsAsync(request.TagIds, cancellationToken);
-        Result tagsResult = dish.UpdateTags(tags, now);
-        if (tagsResult.IsFailure)
+        // Update Tags
+        var currentTagIds = dish.Tags.Select(t => t.Id).ToHashSet();
+        var newTagIds = request.TagIds.ToHashSet();
+
+        var tagsToRemove = dish.Tags.Where(t => !newTagIds.Contains(t.Id)).ToList();
+        if (tagsToRemove.Any())
         {
-            return tagsResult;
+            Result removeTagsResult = dish.RemoveTags(tagsToRemove, now);
+            if (removeTagsResult.IsFailure) 
+            {
+                return removeTagsResult;
+            }
+        }
+
+        var tagIdsToAdd = newTagIds.Except(currentTagIds).ToList();
+        if (tagIdsToAdd.Any())
+        {
+            List<DishTag> tagsToAdd = await dishTagRepository.GetByIdsAsync(tagIdsToAdd, cancellationToken);
+            if (tagsToAdd.Count != tagIdsToAdd.Count) 
+            {
+                return Result.Failure(DishTagErrors.SomeTagsNotFound);
+            }
+            
+            Result addTagsResult = dish.AddTags(tagsToAdd, now);
+            if (addTagsResult.IsFailure) 
+            {
+                return addTagsResult;
+            }
         }
 
         // Update Images
-        List<Image> images = [];
-        foreach (Guid id in request.ImageIds)
-        {
-            Image? image = await imageCacheService.GetAsync(id, cancellationToken) ??
-                           await imageRepository.GetAsync(id, cancellationToken);
+        var currentImageIds = dish.Images.Select(i => i.Id).ToHashSet();
+        var newImageIds = request.ImageIds.ToHashSet();
 
-            if (image is null)
+        var imageIdsToRemove = currentImageIds.Except(newImageIds).ToList();
+        foreach (Guid id in imageIdsToRemove)
+        {
+            Result removeImageResult = dish.RemoveImage(id, now);
+            if (removeImageResult.IsFailure) 
+            {
+                return removeImageResult;
+            }
+        }
+
+        var imageIdsToAdd = newImageIds.Except(currentImageIds).ToList();
+        foreach (Guid id in imageIdsToAdd)
+        {
+            Image? image = await imageCacheService.GetAsync(id, cancellationToken) ?? await imageRepository.GetAsync(id, cancellationToken);
+            if (image is null) 
             {
                 return Result.Failure(ImageErrors.NotFound);
             }
-
-            images.Add(image);
-        }
-
-        Result imageResult = dish.UpdateImages(images, now);
-        if (imageResult.IsFailure)
-        {
-            return imageResult;
+            
+            Result addImageResult = dish.AddImage(image, now);
+            if (addImageResult.IsFailure) 
+            {
+                return addImageResult;
+            }
         }
 
         await unitOfWork.SaveChangesAsync(cancellationToken);

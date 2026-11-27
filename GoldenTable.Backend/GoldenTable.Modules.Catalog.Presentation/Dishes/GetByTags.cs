@@ -11,24 +11,23 @@ using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
 
-internal sealed class GetByTags : IEndpoint
+public class GetByTags : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("dishes/get-dish-by-tags/",
-                async ([AsParameters] Request request, [FromServices] ISender sender) =>
-                {
-                    Result<List<DishResponse>> result =
-                        await sender.Send(new GetDishesByTagsQuery(request.TagIds.ToList()));
+        EndpointRouteBuilderExtensions.MapGet(app, "dishes/get-dish-by-tags/", 
+            async ( [AsParameters] Request request, [FromServices] ISender sender) =>
+        {
+            Result<List<DishResponse>> result = await sender.Send(new GetDishesByTagsQuery(request.TagIds.ToList()));
 
-                    return result.Match(Results.Ok, ApiResults.Problem);
-                })
-            .AllowAnonymous()
-            .WithTags(Tags.Dish);
+            return ResultExtensions.Match(result, Results.Ok, ApiResults.Problem);
+        })
+        .WithTags(Tags.Dish);
     }
 
     internal sealed class Request
     {
-        [FromQuery] public Guid[] TagIds { get; set; } = [];
+        [FromQuery] 
+        public Guid[] TagIds { get; set; } = [];
     }
 }

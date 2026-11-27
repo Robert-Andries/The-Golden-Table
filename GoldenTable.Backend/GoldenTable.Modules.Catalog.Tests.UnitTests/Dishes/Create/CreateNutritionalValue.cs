@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Tests.UnitTests;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes.Create;

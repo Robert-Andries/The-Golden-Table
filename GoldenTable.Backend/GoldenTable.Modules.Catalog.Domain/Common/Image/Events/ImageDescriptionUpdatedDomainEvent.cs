@@ -1,8 +1,9 @@
 ﻿using GoldenTable.Common.Domain;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Domain.Common.Image.Events;
 
-public sealed record ImageDescriptionUpdatedDomainEvent(
+public record ImageDescriptionUpdatedDomainEvent(
     Guid Id,
     Guid ImageId,
     Description? NewDescription,

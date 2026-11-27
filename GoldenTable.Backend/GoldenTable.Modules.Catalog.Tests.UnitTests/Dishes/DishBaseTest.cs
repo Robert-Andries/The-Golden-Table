@@ -1,13 +1,13 @@
 using Bogus;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Domain.Money;
-using GoldenTable.Common.Tests.UnitTests;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
-using Name = GoldenTable.Common.Domain.Name;
+using Name = GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Name;
 
 namespace GoldenTable.Modules.Catalog.Tests.UnitTests.Dishes;
 
@@ -70,8 +70,8 @@ public abstract class DishBaseTest : BaseTest
         for (int i = 0; i < count; i++)
         {
             string name = faker.Name.FirstName();
-            decimal priceAdded = faker.Random.Decimal(-100, 100);
-            decimal weight = faker.Random.Decimal(1, 200);
+            float priceAdded = faker.Random.Float(-100f, 100f);
+            float weight = faker.Random.Float(1f, 200f);
             sizes.Add(new DishSize(name, priceAdded, weight));
         }
 

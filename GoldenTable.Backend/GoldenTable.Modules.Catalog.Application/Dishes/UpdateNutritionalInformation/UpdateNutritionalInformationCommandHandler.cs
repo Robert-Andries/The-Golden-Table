@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.UpdateNutritionalInformation;
 
-internal sealed class UpdateNutritionalInformationCommandHandler(
+public sealed class UpdateNutritionalInformationCommandHandler(
     ILogger<UpdateNutritionalInformationCommandHandler> logger,
     IDishRepository dishRepository,
     IUnitOfWork unitOfWork,

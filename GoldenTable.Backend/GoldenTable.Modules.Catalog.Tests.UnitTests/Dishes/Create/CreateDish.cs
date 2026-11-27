@@ -1,7 +1,7 @@
 using FluentAssertions;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Domain.Money;
-using GoldenTable.Common.Tests.UnitTests;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
@@ -27,7 +27,7 @@ public sealed class CreateDish : BaseTest
         _validName = new Name(Faker.Name.FullName());
         _validDescription = new Description(Faker.Hacker.Phrase());
         _validBasePrice = Money.Create(Faker.Random.Decimal(0M, 100M), "RON").Value;
-        _validSizes = [new DishSize("Small", 100, 200), new DishSize("Medium", 200, 300)];
+        _validSizes = [new DishSize("Small", 100f, 200), new DishSize("Medium", 200f, 300f)];
         _validNutritionalValues = NutritionalValues.Create(200, 200, 200, 200, 200, 200).Value;
         _validCategory = DishCategory.Create(Faker.Name.LastName()).Value;
         _validTags = [DishTag.Create("Vegan").Value];

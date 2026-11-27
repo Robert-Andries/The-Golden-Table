@@ -1,10 +1,8 @@
-using System.Reflection;
 using System.Text;
 using GoldenTable.Common.Application.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace GoldenTable.Common.Infrastructure.Caching;
 
@@ -17,6 +15,39 @@ internal sealed class CacheService(IDistributedCache cache, ILogger<CacheService
         ContractResolver = new PrivateSetterContractResolver()
     };
 
+    private sealed class PrivateSetterContractResolver : Newtonsoft.Json.Serialization.DefaultContractResolver
+    {
+        protected override Newtonsoft.Json.Serialization.JsonProperty CreateProperty(
+            System.Reflection.MemberInfo member, 
+            MemberSerialization memberSerialization)
+        {
+            Newtonsoft.Json.Serialization.JsonProperty prop = base.CreateProperty(member, memberSerialization);
+            if (!prop.Writable)
+            {
+                var property = member as System.Reflection.PropertyInfo;
+                if (property != null)
+                {
+                    bool hasPrivateSetter = property.GetSetMethod(true) != null;
+                    prop.Writable = hasPrivateSetter;
+
+                    if (!prop.Writable && prop.PropertyName != null)
+                    {
+                        string fieldName = $"_{char.ToLowerInvariant(prop.PropertyName[0])}{prop.PropertyName.Substring(1)}";
+#pragma warning disable S3011
+                        System.Reflection.FieldInfo? field = member.DeclaringType?.GetField(fieldName, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+#pragma warning restore S3011
+                        if (field != null)
+                        {
+                            prop.ValueProvider = new Newtonsoft.Json.Serialization.ReflectionValueProvider(field);
+                            prop.Writable = true;
+                        }
+                    }
+                }
+            }
+            return prop;
+        }
+    }
+
 
     public async Task<T?> GetAsync<T>(string key, CancellationToken cancellationToken = default)
     {
@@ -28,9 +59,7 @@ internal sealed class CacheService(IDistributedCache cache, ILogger<CacheService
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex,
-                "Failed to get cache key '{CacheKey}', error message: '{Exception}'. Treating as cache miss.", key,
-                ex.Message);
+            logger.LogWarning(ex, "Failed to get cache key '{CacheKey}', error message: '{Exception}'. Treating as cache miss.", key, ex.Message);
             return default;
         }
     }
@@ -75,41 +104,5 @@ internal sealed class CacheService(IDistributedCache cache, ILogger<CacheService
     {
         string json = JsonConvert.SerializeObject(value, Settings);
         return Encoding.UTF8.GetBytes(json);
-    }
-
-    private sealed class PrivateSetterContractResolver : DefaultContractResolver
-    {
-        protected override JsonProperty CreateProperty(
-            MemberInfo member,
-            MemberSerialization memberSerialization)
-        {
-            JsonProperty prop = base.CreateProperty(member, memberSerialization);
-            if (!prop.Writable)
-            {
-                var property = member as PropertyInfo;
-                if (property != null)
-                {
-                    bool hasPrivateSetter = property.GetSetMethod(true) != null;
-                    prop.Writable = hasPrivateSetter;
-
-                    if (!prop.Writable && prop.PropertyName != null)
-                    {
-                        string fieldName =
-                            $"_{char.ToLowerInvariant(prop.PropertyName[0])}{prop.PropertyName.Substring(1)}";
-#pragma warning disable S3011
-                        FieldInfo? field = member.DeclaringType?.GetField(fieldName,
-                            BindingFlags.Instance | BindingFlags.NonPublic);
-#pragma warning restore S3011
-                        if (field != null)
-                        {
-                            prop.ValueProvider = new ReflectionValueProvider(field);
-                            prop.Writable = true;
-                        }
-                    }
-                }
-            }
-
-            return prop;
-        }
     }
 }

@@ -2,8 +2,7 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
-public sealed class DishUpdatedImagesDomainEvent(Guid dishId, IReadOnlyCollection<Guid> imageIds) : DomainEvent
+public sealed record DishUpdatedImagesDomainEvent(Guid DishId, DateTime OccurredOnUtc) : IDomainEvent
 {
-    public Guid DishId { get; } = dishId;
-    public IReadOnlyCollection<Guid> ImageIds { get; } = imageIds;
+    public Guid Id { get; } = Guid.NewGuid();
 }

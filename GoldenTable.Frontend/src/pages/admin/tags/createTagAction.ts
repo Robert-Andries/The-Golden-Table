@@ -1,7 +1,7 @@
 import { ApplicationError } from "../../../common/ApplicationError";
 import { hasMinLenght } from "../../../common/validators";
 import queryClient from "../../../communication/common/queryClient";
-import fetchCreateTag from "../../../communication/dish/createTag/fetchCreateTag";
+import fetchCreateTag from "../../../communication/createTag/fetchCreateTag";
 
 type actionType = {
   errors: string[],

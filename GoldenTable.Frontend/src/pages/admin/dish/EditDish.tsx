@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import styles from "./EditDish.module.css";
 import EditDishForm from "./EditDishForm";
 import { ApplicationError } from "../../../common/ApplicationError";
-import useGetAllTags from "../../../communication/dish/getAllTags/useGetAllTags";
-import useGetDish from "../../../communication/dish/getDish/useGetDish";
+import useGetAllTags from "../../../communication/getAllTags/useGetAllTags";
+import useGetDish from "../../../communication/getDish/useGetDish";
 
 function EditDish(): ReactNode {
   const { id } = useParams<{ id: string }>();

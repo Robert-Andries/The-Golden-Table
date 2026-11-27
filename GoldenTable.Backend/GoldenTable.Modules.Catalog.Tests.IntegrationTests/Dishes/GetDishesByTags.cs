@@ -11,8 +11,7 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Dishes;
 public sealed class GetDishesByTags : DishesBaseTest
 {
     public GetDishesByTags(IntegrationTestWebAppFactory factory) : base(factory)
-    {
-    }
+    { }
 
     [Fact]
     public async Task Should_GetDishesByOneTag_Successfully()
@@ -26,7 +25,7 @@ public sealed class GetDishesByTags : DishesBaseTest
         {
             Dish dish = DishBuilder.WithTags([commonTag]).Build();
             await PutDishInDb(dish);
-            expectedResponse.Add(new DishResponse(dish));
+            expectedResponse.Add(new(dish));
         }
 
         // Act
@@ -37,7 +36,7 @@ public sealed class GetDishesByTags : DishesBaseTest
         result.Value.Should().HaveCount(expectedResponse.Count);
         result.Value.Should().BeEquivalentTo(expectedResponse);
     }
-
+    
     [Fact]
     public async Task Should_GetDishesByTags_Successfully()
     {
@@ -50,19 +49,18 @@ public sealed class GetDishesByTags : DishesBaseTest
         {
             Dish dish = DishBuilder.WithTags(commonTags).Build();
             await PutDishInDb(dish);
-            expectedResponse.Add(new DishResponse(dish));
+            expectedResponse.Add(new(dish));
         }
 
         // Act
-        Result<List<DishResponse>> result =
-            await Sender.Send(new GetDishesByTagsQuery(commonTags.Select(t => t.Id).ToList()));
+        Result<List<DishResponse>> result = await Sender.Send(new GetDishesByTagsQuery(commonTags.Select(t => t.Id).ToList()));
 
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().HaveCount(expectedResponse.Count);
         result.Value.Should().BeEquivalentTo(expectedResponse);
     }
-
+    
     [Fact]
     public async Task Should_GetNoDishesBySomeUniqueTag_Successfully()
     {

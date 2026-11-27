@@ -9,8 +9,7 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Images;
 public sealed class Create : ImageBaseTest
 {
     public Create(IntegrationTestWebAppFactory factory) : base(factory)
-    {
-    }
+    { }
 
     [Fact]
     public async Task Should_CreateImage_Successfully()
@@ -28,7 +27,7 @@ public sealed class Create : ImageBaseTest
         result.Value.Should().NotBe(Guid.Empty);
         context.Images.Count().Should().Be(1);
     }
-
+    
     [Fact]
     public async Task Should_NotCreateImage_NameAlreadyExists()
     {
@@ -39,13 +38,13 @@ public sealed class Create : ImageBaseTest
 
         // Act
         Result<Guid> result = await Sender.Send(
-            new CreateImageCommand(new Uri(Faker.Internet.Url()), image.Name.Value, image.Description?.Value));
+            new CreateImageCommand(new(Faker.Internet.Url()), image.Name.Value, image.Description?.Value));
 
         // Assert
         result.Error.Should().Be(ImageErrors.NameAlreadyExists);
         context.Images.Count().Should().Be(1);
     }
-
+    
     [Fact]
     public async Task Should_NotCreateImage_UriAlreadyExists()
     {
@@ -62,7 +61,7 @@ public sealed class Create : ImageBaseTest
         result.Error.Should().Be(ImageErrors.UriAlreadyExists);
         context.Images.Count().Should().Be(1);
     }
-
+    
     [Fact]
     public async Task Should_NotCreateImage_DomainError()
     {

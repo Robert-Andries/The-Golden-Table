@@ -1,4 +1,4 @@
-import { fetchCreateDish } from "../../../communication/dish/createDish/fetchCreateDish";
+import { fetchCreateDish } from "../../../communication/createDish/fetchCreateDish";
 import {
   hasMinLenght,
   isGreaterThen0,

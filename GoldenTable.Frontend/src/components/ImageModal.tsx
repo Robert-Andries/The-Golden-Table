@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
-import useGetAllImages from "../communication/dish/getAllImages/useGetAllImages";
+import useGetAllImages from "../communication/getAllImages/useGetAllImages";
 import styles from "./ImageModal.module.css";
 import type { image } from "../types/image";
 
@@ -26,7 +26,6 @@ export default function ImageModal({
   // Sync pre-selected IDs when the modal opens or the prop changes
   useEffect(() => {
     if (isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedIds(new Set(preSelectedImageIds));
     }
   }, [isOpen, preSelectedImageIds]);

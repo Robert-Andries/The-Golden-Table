@@ -5,7 +5,7 @@ using GoldenTable.Modules.Catalog.Domain.Dishes.Tag.Abstractions;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetAllTags;
 
-internal sealed class GetAllTagsQueryHandler(
+public sealed class GetAllTagsQueryHandler(
     IDishTagRepository dishTagRepository)
     : IQueryHandler<GetAllTagsQuery, List<TagResponse>>
 {
@@ -15,7 +15,7 @@ internal sealed class GetAllTagsQueryHandler(
 
         List<DishTag> tags = await dishTagRepository.GetAllAsync(cancellationToken);
         var output = tags.Select(tag => new TagResponse(tag)).ToList();
-
+        
         return Result.Success(output);
     }
 }

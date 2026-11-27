@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishesByName;
 
-internal sealed class GetDishesByNameQueryHandler(IDishDbSets dishDbSets)
+public sealed class GetDishesByNameQueryHandler(IDishDbSets dishDbSets)
     : IQueryHandler<GetDishesByNameQuery, List<DishResponse>>
 {
     public async Task<Result<List<DishResponse>>> Handle(GetDishesByNameQuery request,
@@ -20,9 +20,10 @@ internal sealed class GetDishesByNameQueryHandler(IDishDbSets dishDbSets)
             .Include(d => d.Images)
             .Where(d => d.Name.Value.Contains(request.Name.Value))
             .ToListAsync(cancellationToken);
+            
+           
 
-
-        var output = dishes.Select(d => new DishResponse(d)).ToList();
+            var output = dishes.Select(d => new DishResponse(d)).ToList();
 
         return Result.Success(output);
     }

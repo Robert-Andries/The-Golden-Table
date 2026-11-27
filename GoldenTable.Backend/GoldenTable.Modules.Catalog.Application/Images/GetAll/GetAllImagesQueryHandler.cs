@@ -5,7 +5,7 @@ using GoldenTable.Modules.Catalog.Domain.Common.Image.Abstractions;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.GetAll;
 
-internal sealed class GetAllImagesQueryHandler(IImageRepository imageRepository)
+public sealed class GetAllImagesQueryHandler(IImageRepository imageRepository)
     : IQueryHandler<GetAllImagesQuery, List<ImageResponse>>
 {
     public async Task<Result<List<ImageResponse>>> Handle(GetAllImagesQuery request,

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Force.DeepCloner;
 using GoldenTable.Common.Domain;
-using GoldenTable.Common.Domain.Money;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
@@ -16,7 +16,7 @@ public sealed class UpdateBasePrice : DishBaseTest
         Dish original = DishFaker.Generate();
         Dish sut = original.DeepClone();
         decimal validAmount = Faker.Random.Decimal(1M, 100M);
-        Money money = Money.Create(validAmount, Currency.Ron).Value;
+        Money money = Money.Create(validAmount, Currency.RON).Value;
 
         // Act
         Result result = sut.UpdateBasePrice(money, SometimeUtc);
@@ -31,7 +31,7 @@ public sealed class UpdateBasePrice : DishBaseTest
         });
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
         sut.BasePrice.Should().Be(money);
-        AssertDomainEventWasPublished<DishUpdatedPriceDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedBasePriceDomainEvent>(sut);
     }
 
     [Fact]

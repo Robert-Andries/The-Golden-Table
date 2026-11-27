@@ -1,9 +1,10 @@
 ﻿using GoldenTable.Common.Domain;
+using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
-public sealed class DishUpdatedDescriptionDomainEvent(Guid dishId, Description newDescription) : DomainEvent
+public sealed record DishUpdatedDescriptionDomainEvent(Guid DishId, Description NewDescription, DateTime OccurredOnUtc)
+    : IDomainEvent
 {
-    public Guid DishId { get; } = dishId;
-    public Description NewDescription { get; } = newDescription;
+    public Guid Id { get; } = Guid.NewGuid();
 }
