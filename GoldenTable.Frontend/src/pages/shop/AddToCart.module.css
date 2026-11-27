@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--color-gray-800);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 8rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-gray-200);
+}
+
+.control {
+  background-color: var(--color-gray-900);
+  border: 1px solid var(--color-gray-600);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  color: var(--color-gray-100);
+  font-size: 1rem;
+}
+
+.control:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary-600);
+}
+
+.addButton {
+  background-color: var(--color-primary-600);
+  color: var(--color-gray-900);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: var(--color-primary-500);
+  transform: translateY(-2px);
+}
+
+.addButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.added {
+  margin: 0;
+  color: #86efac;
+}
+
+.added a {
+  color: var(--color-primary-400);
+  font-weight: 600;
+}

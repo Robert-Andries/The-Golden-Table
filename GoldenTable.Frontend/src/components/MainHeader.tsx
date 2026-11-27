@@ -1,11 +1,16 @@
 import type { ReactNode } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
+import { useCart } from "../cart/useCart";
 import style from "./MainHeader.module.css";
 
 function MainHeader(): ReactNode {
   const { authenticated, user, hasRole, login, logout } = useAuth();
   const isAdmin = hasRole("admin");
+  const { count: cartCount } = useCart();
+  // Guests can fill a cart and connect at checkout
+  const canOrder = !authenticated || hasRole("orders:create");
+  const canViewOwnOrders = authenticated && hasRole("orders:view-own-orders");
 
   const displayName =
     user?.fullName || user?.username || user?.email || "Utilizator";
@@ -42,6 +47,30 @@ function MainHeader(): ReactNode {
                   Shop
                 </NavLink>
               </li>
+              {canViewOwnOrders && (
+                <li>
+                  <NavLink
+                    to="/orders"
+                    className={({ isActive }) =>
+                      isActive ? style.active : undefined
+                    }
+                  >
+                    My orders
+                  </NavLink>
+                </li>
+              )}
+              {canOrder && (
+                <li>
+                  <NavLink
+                    to="/cart"
+                    className={({ isActive }) =>
+                      isActive ? style.active : undefined
+                    }
+                  >
+                    {cartCount > 0 ? `Cart (${cartCount})` : "Cart"}
+                  </NavLink>
+                </li>
+              )}
               {isAdmin && (
                 <li>
                   <NavLink

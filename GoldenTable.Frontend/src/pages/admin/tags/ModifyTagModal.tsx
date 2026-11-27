@@ -3,7 +3,7 @@ import Modal from "../../../components/Modal";
 import Input from "../../../components/Input";
 import useModal from "../../../components/useModal";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
-import fetchDeleteTag from "../../../communication/deleteTag/fetchDeleteTag";
+import fetchDeleteTag from "../../../communication/dish/deleteTag/fetchDeleteTag";
 import modifyTagAction from "./modifyTagAction";
 import styles from "./Tags.module.css";
 import queryClient from "../../../communication/common/queryClient";

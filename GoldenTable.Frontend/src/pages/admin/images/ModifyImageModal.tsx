@@ -1,7 +1,7 @@
 import { useActionState, type ReactNode } from "react";
 import editImageAction from "./editImageAction";
 import styles from "./ModifyImageModal.module.css";
-import useGetImageById from "../../../communication/getImageById/useGetImageById";
+import useGetImageById from "../../../communication/dish/getImageById/useGetImageById";
 import Input from "../../../components/Input";
 import Modal from "../../../components/Modal";
 import type { image } from "../../../types/image";
