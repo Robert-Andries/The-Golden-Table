@@ -1,4 +1,5 @@
 ﻿using GoldenTable.Modules.Catalog.Infrastructure.Database;
+using GoldenTable.Modules.Orders.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldenTable.Api.Extensions;
@@ -9,6 +10,7 @@ internal static class MigrationExtensions
     {
         using IServiceScope scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
         ApplyMigration<CatalogDbContext>(scope);
+        ApplyMigration<OrdersDbContext>(scope);
     }
 
     private static void ApplyMigration<TDbContext>(IServiceScope scope)

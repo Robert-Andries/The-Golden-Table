@@ -27,7 +27,7 @@
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
   "sslRequired": "external",
-  "registrationAllowed": false,
+  "registrationAllowed": true,
   "registrationEmailAsUsername": false,
   "rememberMe": false,
   "verifyEmail": false,
@@ -80,6 +80,9 @@
             "account": [
               "view-profile",
               "manage-account"
+            ],
+            "goldentable-confidential-client": [
+              "customer"
             ]
           }
         },
@@ -436,7 +439,10 @@
                 "dishes:update-nutritional-information",
                 "dishes:delete-tag",
                 "dishes:edit-image",
-                "dishes:create-tag"
+                "dishes:create-tag",
+                "orders:get-by-id",
+                "orders:get-all",
+                "orders:change-status"
               ]
             }
           },
@@ -449,6 +455,98 @@
           "name": "dishes:create-tag",
           "description": "",
           "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "95c485de-489d-4b00-871d-b8ad62333022",
+          "name": "orders:create",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "4a3a5bdb-caef-45bd-88bb-da69415050b7",
+          "name": "orders:view-own-orders",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "7ea4cd0e-909e-4264-8e4e-50307e121a8f",
+          "name": "orders:modify-items",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "f93a5eb7-cdbd-4d2e-b806-6d9159f0f199",
+          "name": "orders:request-cancel",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "5d333dc9-8254-445a-9575-32994c67a923",
+          "name": "orders:update-address",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "1f37a61b-e304-4a95-9948-beb807eac490",
+          "name": "orders:get-by-id",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "8720bf49-3bef-43e7-8704-d527874979b5",
+          "name": "orders:get-all",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "c9223cbd-248e-485a-bc48-d1370f12a682",
+          "name": "orders:change-status",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
+          "attributes": {}
+        },
+        {
+          "id": "49ec658f-7f1b-4872-a611-459b9ace7d8e",
+          "name": "customer",
+          "description": "Everything a customer can do; assigned to every new user",
+          "composite": true,
+          "composites": {
+            "client": {
+              "goldentable-confidential-client": [
+                "orders:create",
+                "orders:view-own-orders",
+                "orders:modify-items",
+                "orders:request-cancel",
+                "orders:update-address"
+              ]
+            }
+          },
           "clientRole": true,
           "containerId": "31fc4045-e5a9-4bc4-919c-d86a8f3bbd5a",
           "attributes": {}

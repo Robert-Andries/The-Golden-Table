@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import useGetAllTags from "../../../communication/getAllTags/useGetAllTags";
+import useGetAllTags from "../../../communication/dish/getAllTags/useGetAllTags";
 import CreateTagModal from "./CreateTagModal";
 import ModifyTagModal from "./ModifyTagModal";
 import useModal from "../../../components/useModal";

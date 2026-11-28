@@ -11,17 +11,17 @@ using Microsoft.AspNetCore.Routing;
 
 namespace GoldenTable.Modules.Catalog.Presentation.Dishes;
 
-public class GetById : IEndpoint
+internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("dishes/id/{id}", async ( [FromRoute] Guid id, [FromServices] ISender sender) =>
-        {
-            Result<DishResponse> result = await sender.Send(new GetDishByIdQuery(id));
+        app.MapGet("dishes/id/{id}", async ([FromRoute] Guid id, [FromServices] ISender sender) =>
+            {
+                Result<DishResponse> result = await sender.Send(new GetDishByIdQuery(id));
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .AllowAnonymous()
-        .WithTags(Tags.Dish);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .AllowAnonymous()
+            .WithTags(Tags.Dish);
     }
 }

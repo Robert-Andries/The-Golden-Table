@@ -1,7 +1,7 @@
 import { ApplicationError } from "../../../common/ApplicationError";
 import { hasMinLenght } from "../../../common/validators";
 import queryClient from "../../../communication/common/queryClient";
-import fetchEditTag from "../../../communication/editTag/fetchEditTag";
+import fetchEditTag from "../../../communication/dish/editTag/fetchEditTag";
 import type { dishTag } from "../../../types/dishTag";
 
 type actionType = {

@@ -19,7 +19,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Catalog")
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -37,6 +37,90 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.HasIndex("TagsId");
 
                     b.ToTable("DishDishTag", "Catalog");
+                });
+
+            modelBuilder.Entity("GoldenTable.Common.Infrastructure.Inbox.InboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InboxMessages", "Catalog");
+                });
+
+            modelBuilder.Entity("GoldenTable.Common.Infrastructure.Inbox.InboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("InboxMessageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("InboxMessageId", "Name");
+
+                    b.ToTable("InboxMessageConsumers", "Catalog");
+                });
+
+            modelBuilder.Entity("GoldenTable.Common.Infrastructure.Outbox.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutboxMessages", "Catalog");
+                });
+
+            modelBuilder.Entity("GoldenTable.Common.Infrastructure.Outbox.OutboxMessageConsumer", b =>
+                {
+                    b.Property<Guid>("OutboxMessageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("OutboxMessageId", "Name");
+
+                    b.ToTable("OutboxMessageConsumers", "Catalog");
                 });
 
             modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Common.Image.Image", b =>
@@ -224,11 +308,11 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<float>("PriceAdded")
-                                .HasColumnType("real");
+                            b1.Property<decimal>("PriceAdded")
+                                .HasColumnType("numeric");
 
-                            b1.Property<float>("Weight")
-                                .HasColumnType("real");
+                            b1.Property<decimal>("Weight")
+                                .HasColumnType("numeric");
 
                             b1.HasKey("DishId", "Id");
 

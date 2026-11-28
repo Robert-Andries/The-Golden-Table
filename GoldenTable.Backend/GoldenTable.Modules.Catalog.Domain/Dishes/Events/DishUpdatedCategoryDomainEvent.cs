@@ -2,7 +2,8 @@
 
 namespace GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
-public sealed record DishUpdatedCategoryDomainEvent(Guid DishId, DateTime OccurredOnUtc) : IDomainEvent
+public sealed class DishUpdatedCategoryDomainEvent(Guid dishId, string newCategory) : DomainEvent
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid DishId { get; } = dishId;
+    public string NewCategory { get; } = newCategory;
 }

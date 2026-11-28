@@ -6,4 +6,4 @@
 /// <param name="Name">The name of the dish size. E.g. small</param>
 /// <param name="PriceAdded">The price difference that needs to be added in the BasePrice for that particular size</param>
 /// <param name="Weight">Total grams of the dish</param>
-public sealed record DishSize(string Name, float PriceAdded, float Weight);
+public sealed record DishSize(string Name, decimal PriceAdded, decimal Weight);

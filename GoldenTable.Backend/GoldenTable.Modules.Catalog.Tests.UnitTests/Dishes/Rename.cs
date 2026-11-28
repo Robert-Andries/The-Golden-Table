@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Force.DeepCloner;
 using GoldenTable.Common.Domain;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Events;
 
@@ -31,7 +30,7 @@ public class Rename : DishBaseTest
         sut.Name.Should().Be(validName);
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
         sut.ModifiedOnUtc.Should().NotBe(sut.CreatedOnUtc);
-        AssertDomainEventWasPublished<DishRenamedDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedNameDomainEvent>(sut);
     }
 
     [Fact]

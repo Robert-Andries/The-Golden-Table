@@ -33,7 +33,8 @@ internal sealed class KeycloakClaimsTransformation(IConfiguration configuration)
                 using var doc = JsonDocument.Parse(resourceAccessJson);
                 foreach (JsonProperty client in doc.RootElement.EnumerateObject())
                 {
-                    if (clientId is not null && !string.Equals(client.Name, clientId, StringComparison.OrdinalIgnoreCase))
+                    if (clientId is not null &&
+                        !string.Equals(client.Name, clientId, StringComparison.OrdinalIgnoreCase))
                     {
                         continue;
                     }

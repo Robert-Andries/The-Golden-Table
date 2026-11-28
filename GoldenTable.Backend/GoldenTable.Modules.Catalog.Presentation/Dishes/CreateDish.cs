@@ -17,7 +17,7 @@ internal sealed class CreateDish : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("dishes/create", async ( [FromBody] Request request, [FromServices] ISender sender) =>
+        app.MapPost("dishes/create", async ([FromBody] Request request, [FromServices] ISender sender) =>
             {
                 Result result = await sender.Send(new CreateDishCommand(
                     request.Name,
@@ -39,7 +39,6 @@ internal sealed class CreateDish : IEndpoint
             .RequirePermission(Permissions.CreateDish)
             .WithTags(Tags.Dish);
     }
-
     internal sealed class Request
     {
         public string Name { get; set; }

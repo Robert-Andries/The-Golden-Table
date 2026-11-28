@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.GetImageById;
 
-public sealed class GetImageByIdQueryHandler(
+internal sealed class GetImageByIdQueryHandler(
     IImageRepository imageRepository,
     IImageCacheService imageCacheService,
     ILogger<GetImageByIdQueryHandler> logger)

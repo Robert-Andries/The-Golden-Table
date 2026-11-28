@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Bogus;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes.Money;
+using GoldenTable.Common.Domain;
+using GoldenTable.Common.Domain.Money;
 using GoldenTable.Modules.Catalog.Domain.Dishes;
 using GoldenTable.Modules.Catalog.Domain.Dishes.Tag;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
@@ -121,19 +121,27 @@ public sealed class DishBuilder(Faker faker, DateTime nowUtc)
             faker.Random.Float(1F, 100F),
             faker.Random.Float(1F, 100F)).Value;
 
-        _sizes ??= new List<DishSize>();
-        int random = faker.Random.Int(5, 10);
-        while (random-- > 0)
+        // Random sizes and tags only when the test didn't provide its own
+        if (_sizes is null)
         {
-            _sizes.Add(
-                new DishSize(faker.Name.FirstName(), faker.Random.Float(-10F, 10F), faker.Random.Float(1F, 500F)));
+            _sizes = new List<DishSize>();
+            int random = faker.Random.Int(5, 10);
+            while (random-- > 0)
+            {
+                // The counter keeps the names unique; a dish can't have two sizes with the same name
+                _sizes.Add(new DishSize($"{faker.Name.FirstName()} {random}", faker.Random.Decimal(-10, 10),
+                    faker.Random.Decimal(1, 500)));
+            }
         }
 
-        _tags ??= new List<DishTag>();
-        int numberOfTags = faker.Random.Int(5, 10);
-        while (numberOfTags-- > 0)
+        if (_tags is null)
         {
-            _tags.Add(DishTag.Create(faker.Name.LastName() + Guid.NewGuid().ToString("N")).Value);
+            _tags = new List<DishTag>();
+            int numberOfTags = faker.Random.Int(5, 10);
+            while (numberOfTags-- > 0)
+            {
+                _tags.Add(DishTag.Create(faker.Name.LastName() + Guid.NewGuid().ToString("N")).Value);
+            }
         }
     }
 }

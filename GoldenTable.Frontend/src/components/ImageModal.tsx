@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
-import useGetAllImages from "../communication/getAllImages/useGetAllImages";
+import useGetAllImages from "../communication/dish/getAllImages/useGetAllImages";
 import styles from "./ImageModal.module.css";
 import type { image } from "../types/image";
 
