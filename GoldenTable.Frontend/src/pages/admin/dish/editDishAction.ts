@@ -1,4 +1,4 @@
-import { fetchEditDish } from "../../../communication/editDish/fetchEditDish";
+import { fetchEditDish } from "../../../communication/dish/editDish/fetchEditDish";
 import {
   hasMinLenght,
   isGreaterThen0,

@@ -7,7 +7,7 @@ namespace GoldenTable.Common.Infrastructure.Authentication;
 internal sealed class JwtBearerConfigureOptions(IConfiguration configuration) : IConfigureNamedOptions<JwtBearerOptions>
 {
     private const string ConfigurationSectionName = "Authentication";
-    
+
     public void Configure(JwtBearerOptions options)
     {
         configuration.GetSection(ConfigurationSectionName).Bind(options);

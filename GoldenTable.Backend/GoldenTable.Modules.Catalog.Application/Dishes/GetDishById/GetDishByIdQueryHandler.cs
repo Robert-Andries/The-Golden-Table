@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Dishes.GetDishById;
 
-public sealed class GetDishByIdQueryHandler(
+internal sealed class GetDishByIdQueryHandler(
     IDishDbSets dishDbSets,
     IDishCacheService dishCacheService,
     ILogger<GetDishByIdQueryHandler> logger)

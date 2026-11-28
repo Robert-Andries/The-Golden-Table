@@ -35,7 +35,7 @@ public sealed class AddSize : DishBaseTest
             sut.Sizes.Should().Contain(originalSize);
         }
 
-        AssertDomainEventWasPublished<DishUpdatedSizeDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedSizesDomainEvent>(sut);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public sealed class AddSize : DishBaseTest
         result.IsFailure.Should().BeTrue();
         result.Error.Should().Be(DishErrors.InvalidSize);
         sut.Should().BeEquivalentTo(original);
-        sut.DomainEvents.Any(de => de is DishUpdatedSizeDomainEvent).Should().BeFalse();
+        sut.DomainEvents.Any(de => de is DishUpdatedSizesDomainEvent).Should().BeFalse();
     }
 
     [Fact]
@@ -71,6 +71,6 @@ public sealed class AddSize : DishBaseTest
         result.IsFailure.Should().BeTrue();
         result.Error.Should().Be(DishErrors.InvalidSize);
         sut.Should().BeEquivalentTo(original);
-        sut.DomainEvents.Any(de => de is DishUpdatedSizeDomainEvent).Should().BeFalse();
+        sut.DomainEvents.Any(de => de is DishUpdatedSizesDomainEvent).Should().BeFalse();
     }
 }

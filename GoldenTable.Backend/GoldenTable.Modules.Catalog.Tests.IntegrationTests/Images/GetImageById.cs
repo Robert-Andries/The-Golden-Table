@@ -10,8 +10,9 @@ namespace GoldenTable.Modules.Catalog.Tests.IntegrationTests.Images;
 public sealed class GetImageById : ImageBaseTest
 {
     public GetImageById(IntegrationTestWebAppFactory factory) : base(factory)
-    { }
-    
+    {
+    }
+
     [Fact]
     public async Task Should_GetImage_Successfully()
     {
@@ -28,7 +29,7 @@ public sealed class GetImageById : ImageBaseTest
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().BeEquivalentTo(expected);
     }
-    
+
     [Fact]
     public async Task Should_GetImage_IdNotFound()
     {

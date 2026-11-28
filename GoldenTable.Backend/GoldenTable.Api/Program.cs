@@ -3,10 +3,10 @@ using GoldenTable.Api.Middleware;
 using GoldenTable.Common.Application;
 using GoldenTable.Common.Infrastructure;
 using GoldenTable.Common.Presentation.Endpoints;
-using GoldenTable.Modules.Catalog.Application;
+using System.Text.Json.Serialization;
 using GoldenTable.Modules.Catalog.Infrastructure;
+using GoldenTable.Modules.Orders.Infrastructure;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
@@ -21,12 +21,21 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuthSupport(builder.Configuration);
 
+// Enums travel as names ("Confirmed"), not numbers, for every module's endpoints
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-
-builder.Services.AddApplication([AssemblyReference.Assembly]);
+builder.Services.AddApplication([
+    GoldenTable.Modules.Catalog.Application.AssemblyReference.Assembly,
+    GoldenTable.Modules.Orders.Application.AssemblyReference.Assembly
+]);
 builder.Services.AddCatalogModule(builder.Configuration);
+builder.Services.AddOrdersModule(builder.Configuration);
 
-builder.Services.AddInfrastructure(databaseConnectionString, cacheConnectionString);
+builder.Services.AddInfrastructure(
+    [CatalogModule.ConfigureConsumers, OrdersModule.ConfigureConsumers],
+    databaseConnectionString,
+    cacheConnectionString);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)

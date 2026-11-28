@@ -5,6 +5,7 @@ public static class Permissions
     public static readonly string CreateDish = "dishes:create";
     public static readonly string CreateImage = "dishes:create-image";
     public static readonly string CreateTag = "dishes:create-tag";
+    public static readonly string DeleteDish = "dishes:delete";
     public static readonly string DeleteImage = "dishes:delete-image";
     public static readonly string DeleteTag = "dishes:delete-tag";
     public static readonly string EditDish = "dishes:edit";

@@ -15,14 +15,15 @@ internal sealed class EditTag : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("dishes/tags/edit/{id}", async (Guid id, [FromBody] Request request, [FromServices] ISender sender) =>
-        {
-            Result result = await sender.Send(new EditTagCommand(id, request.Value));
+        app.MapPut("dishes/tags/edit/{id}",
+                async (Guid id, [FromBody] Request request, [FromServices] ISender sender) =>
+                {
+                    Result result = await sender.Send(new EditTagCommand(id, request.Value));
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        })
-        .RequirePermission(Permissions.EditTag)
-        .WithTags(Tags.Dish);
+                    return result.Match(Results.NoContent, ApiResults.Problem);
+                })
+            .RequirePermission(Permissions.EditTag)
+            .WithTags(Tags.Dish);
     }
 
     internal sealed class Request

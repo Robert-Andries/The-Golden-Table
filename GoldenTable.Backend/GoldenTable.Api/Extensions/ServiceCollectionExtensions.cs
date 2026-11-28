@@ -13,21 +13,21 @@ internal static class ServiceCollectionExtensions
             opts.AddSecurityDefinition("Keycloak", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.OAuth2,
-                Flows = new OpenApiOAuthFlows()
+                Flows = new OpenApiOAuthFlows
                 {
-                    AuthorizationCode =  new OpenApiOAuthFlow()
+                    AuthorizationCode = new OpenApiOAuthFlow
                     {
                         AuthorizationUrl = new Uri(configuration["Keycloak:AuthorizationUrl"]!),
-                        TokenUrl =  new Uri(configuration["Keycloak:TokenUrl"]!),
-                        Scopes = new Dictionary<string, string>()
+                        TokenUrl = new Uri(configuration["Keycloak:TokenUrl"]!),
+                        Scopes = new Dictionary<string, string>
                         {
-                            {"openid", "openid"},
-                            {"profile", "profile"}
+                            { "openid", "openid" },
+                            { "profile", "profile" }
                         }
                     }
                 }
             });
-            
+
             opts.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
             {
                 {
@@ -36,7 +36,7 @@ internal static class ServiceCollectionExtensions
                 }
             });
         });
-        
+
         return services;
     }
 }

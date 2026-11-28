@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import placeholderImg from "../../assets/default-placeholder-food.png";
-import useGetAllDishes from "../../communication/getAllDishes/useGetAllDishes";
+import useGetAllDishes from "../../communication/dish/getAllDishes/useGetAllDishes";
 import { Can } from "../../auth/Can";
 import styles from "./AdminIndex.module.css";
 
@@ -32,10 +32,6 @@ export default function AdminIndex(): ReactNode {
       <div className={styles.error}>{`An error occurred while getting dishes, ${error.message}`}</div>
     );
   }
-  if (!dishes || dishes.length === 0) {
-    return <div className={styles.emptyState}>No dishes found!</div>;
-  }
-
   return (
     <div className={styles.container}>
       {notification && (
@@ -45,6 +41,11 @@ export default function AdminIndex(): ReactNode {
       )}
       <div className={styles.header}>
         <h1 className={styles.title}>Admin Dashboard</h1>
+        <Can permission="orders:get-all">
+          <NavLink to="orders" className={styles.addButton}>
+            Manage Orders
+          </NavLink>
+        </Can>
         <Can permission="dishes:create-image">
           <NavLink to="images" className={styles.addButton}>
             Manage Images
@@ -61,6 +62,7 @@ export default function AdminIndex(): ReactNode {
           </NavLink>
         </Can>
       </div>
+      {dishes.length === 0 && <div className={styles.emptyState}>No dishes found!</div>}
       <div className={styles.list}>
         {dishes.map((dish) => (
           <div key={dish.id} className={styles.row}>

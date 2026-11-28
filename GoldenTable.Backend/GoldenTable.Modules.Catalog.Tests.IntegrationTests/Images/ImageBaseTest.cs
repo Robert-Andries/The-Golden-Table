@@ -12,15 +12,15 @@ public class ImageBaseTest : BaseIntegrationTest
         DateTime pastUtc = DateTime.UtcNow.Subtract(TimeSpan.FromDays(2));
         ImageBuilder = new ImageBuilder(Faker, pastUtc);
     }
-    
+
     protected ImageBuilder ImageBuilder { get; init; }
-    
+
     protected static async Task PutImageInDb(Image image)
     {
         await context.Images.AddAsync(image);
         await context.SaveChangesAsync();
     }
-    
+
     protected static async Task<Image> GetImageFromDb(Guid imageId)
     {
         return await context.Images.AsNoTracking().FirstAsync(i => i.Id == imageId);

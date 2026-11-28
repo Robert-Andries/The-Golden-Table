@@ -34,4 +34,9 @@ internal sealed class DishRepository(CatalogDbContext context) : IDishRepository
         context.Dishes.Update(dish);
         return Task.CompletedTask;
     }
+
+    public void Remove(Dish dish)
+    {
+        context.Dishes.Remove(dish);
+    }
 }

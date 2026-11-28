@@ -15,14 +15,14 @@ internal sealed class Delete : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapDelete("images/delete/{id:guid}", async ( [FromRoute] Guid id, [FromServices] ISender sender) =>
-        {
-            DeleteImageCommand command = new(id);
-            Result result = await sender.Send(command);
+        app.MapDelete("images/delete/{id:guid}", async ([FromRoute] Guid id, [FromServices] ISender sender) =>
+            {
+                DeleteImageCommand command = new(id);
+                Result result = await sender.Send(command);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        })
-        .RequirePermission(Permissions.DeleteImage)
-        .WithTags(Tags.Image);
+                return result.Match(Results.NoContent, ApiResults.Problem);
+            })
+            .RequirePermission(Permissions.DeleteImage)
+            .WithTags(Tags.Image);
     }
 }

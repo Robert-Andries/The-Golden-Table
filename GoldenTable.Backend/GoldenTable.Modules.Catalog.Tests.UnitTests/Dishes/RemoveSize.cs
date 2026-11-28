@@ -40,7 +40,7 @@ public sealed class RemoveSize : DishBaseTest
         }
 
         sut.ModifiedOnUtc.Should().Be(SometimeUtc);
-        AssertDomainEventWasPublished<DishUpdatedSizeDomainEvent>(sut);
+        AssertDomainEventWasPublished<DishUpdatedSizesDomainEvent>(sut);
     }
 
     [Fact]

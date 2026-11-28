@@ -4,12 +4,11 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Modules.Catalog.Application.Abstractions.Data;
 using GoldenTable.Modules.Catalog.Domain.Common.Image;
 using GoldenTable.Modules.Catalog.Domain.Common.Image.Abstractions;
-using GoldenTable.Modules.Catalog.Domain.Common.ValueTypes;
 using Microsoft.Extensions.Logging;
 
 namespace GoldenTable.Modules.Catalog.Application.Images.EditImage;
 
-public sealed class EditImageCommandHandler(
+internal sealed class EditImageCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IImageCacheService imageCacheService,
@@ -45,7 +44,7 @@ public sealed class EditImageCommandHandler(
             ImagesLogs.EditImageError(logger, request.ImageId, descriptionResult.Error);
             return Result.Failure(descriptionResult.Error);
         }
-        
+
         Result uriResult = image.UpdateUri(request.Uri, now);
         if (descriptionResult.IsFailure)
         {
