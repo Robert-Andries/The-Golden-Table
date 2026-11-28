@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20260302212341_Initial")]
+    [Migration("20261031193742_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Catalog")
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -40,6 +40,34 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.HasIndex("TagsId");
 
                     b.ToTable("DishDishTag", "Catalog");
+                });
+
+            modelBuilder.Entity("GoldenTable.Common.Infrastructure.Outbox.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutboxMessages", "Catalog");
                 });
 
             modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Common.Image.Image", b =>
@@ -153,7 +181,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                     b.ToTable("Dishes", "Catalog");
                 });
 
-            modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.DishTag", b =>
+            modelBuilder.Entity("GoldenTable.Modules.Catalog.Domain.Dishes.Tag.DishTag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,6 +192,9 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Value")
+                        .IsUnique();
 
                     b.ToTable("DishTag", "Catalog");
                 });
@@ -176,7 +207,7 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.DishTag", null)
+                    b.HasOne("GoldenTable.Modules.Catalog.Domain.Dishes.Tag.DishTag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -224,11 +255,11 @@ namespace GoldenTable.Modules.Catalog.Infrastructure.Database.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<float>("PriceAdded")
-                                .HasColumnType("real");
+                            b1.Property<decimal>("PriceAdded")
+                                .HasColumnType("numeric");
 
-                            b1.Property<float>("Weight")
-                                .HasColumnType("real");
+                            b1.Property<decimal>("Weight")
+                                .HasColumnType("numeric");
 
                             b1.HasKey("DishId", "Id");
 
