@@ -1,6 +1,7 @@
 ﻿using GoldenTable.Common.Application.Caching;
 using GoldenTable.Common.Application.Clock;
 using GoldenTable.Common.Application.Data;
+using GoldenTable.Common.Infrastructure.Authentication;
 using GoldenTable.Common.Infrastructure.Caching;
 using GoldenTable.Common.Infrastructure.Clock;
 using GoldenTable.Common.Infrastructure.Data;
@@ -18,6 +19,8 @@ public static class InfrastructureConfiguration
         string databaseConnectionString,
         string redisConnectionString)
     {
+        services.AddAuthenticationInternal();
+        
         NpgsqlDataSource npgsqlDataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
         services.TryAddSingleton(npgsqlDataSource);
 

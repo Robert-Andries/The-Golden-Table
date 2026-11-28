@@ -9,6 +9,7 @@ import ConfirmationDialog from "../../../components/ConfirmationDialog";
 import { ApplicationError } from "../../../common/ApplicationError";
 import useModal from "../../../components/useModal";
 import AddImageModal from "./AddImageModal";
+import { Can } from "../../../auth/Can";
 
 function ManageImages(): ReactNode {
   const { data: images, isPending, isError, error } = useGetAllImages();
@@ -76,9 +77,11 @@ function ManageImages(): ReactNode {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Manage Images</h1>
-        <button className={styles.addButton} onClick={openAddImageModal}>
-          Add image
-        </button>
+        <Can permission="dishes:create-image">
+          <button className={styles.addButton} onClick={openAddImageModal}>
+            Add image
+          </button>
+        </Can>
       </div>
       <div className={styles.list}>
         {images?.map((image) => (

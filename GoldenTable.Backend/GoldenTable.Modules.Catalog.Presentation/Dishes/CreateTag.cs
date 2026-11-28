@@ -2,6 +2,7 @@ using GoldenTable.Common.Domain;
 using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.CreateTag;
+using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,7 @@ internal sealed class CreateTag : IEndpoint
 
             return result.Match(Results.Ok, ApiResults.Problem);
         })
+        .RequirePermission(Permissions.CreateTag)
         .WithTags(Tags.Dish);
     }
 

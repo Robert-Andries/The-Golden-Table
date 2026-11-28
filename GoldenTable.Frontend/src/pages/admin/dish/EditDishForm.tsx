@@ -130,7 +130,7 @@ export default function EditDishForm({ data, tagData }: Props): ReactNode {
       </div>
       <div>
         {formState.errors?.map((error: string) => (
-          <h3 key={error}>{error}</h3>
+          <h3 key={error} className={styles.formError}>{error}</h3>
         ))}
       </div>
       <input 

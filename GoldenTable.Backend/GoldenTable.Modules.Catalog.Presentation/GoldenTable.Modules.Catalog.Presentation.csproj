@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <ProjectReference Include="..\GoldenTable.Common.Infrastructure\GoldenTable.Common.Infrastructure.csproj" />
         <ProjectReference Include="..\GoldenTable.Common.Presentation\GoldenTable.Common.Presentation.csproj"/>
         <ProjectReference Include="..\GoldenTable.Modules.Catalog.Application\GoldenTable.Modules.Catalog.Application.csproj"/>
         <ProjectReference Include="..\GoldenTable.Modules.Catalog.Domain\GoldenTable.Modules.Catalog.Domain.csproj"/>
@@ -9,5 +10,6 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
     </ItemGroup>
 </Project>

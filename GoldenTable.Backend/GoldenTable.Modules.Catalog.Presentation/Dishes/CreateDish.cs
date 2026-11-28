@@ -3,6 +3,7 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.CreateDish;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject;
+using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using GoldenTable.Modules.Catalog.Presentation.Dishes.Common.NutritionalInformation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ internal sealed class CreateDish : IEndpoint
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
             })
+            .RequirePermission(Permissions.CreateDish)
             .WithTags(Tags.Dish);
     }
 

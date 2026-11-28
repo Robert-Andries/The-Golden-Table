@@ -20,12 +20,12 @@ export function isValidCurrency(currency: string | null): boolean {
   return validCurrencies.includes(currency);
 }
 
-export function isStringArray(obj: any): obj is string[] {
+export function isStringArray(obj: unknown): obj is string[] {
   return Array.isArray(obj) && obj.every((item) => typeof item === "string");
 }
 
-export function isValidUri(uri : string | null | undefined) {
-  if(uri === undefined || uri === null) return false;
+export function isValidUri(uri: string | null | undefined): boolean {
+  if (uri === undefined || uri === null) return false;
   try {
     new URL(uri);
     return true;

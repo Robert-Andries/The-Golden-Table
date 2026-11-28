@@ -1,11 +1,12 @@
 import baseUrl from "../common/baseUrl";
 import FetchError from "../common/fetchError";
+import apiFetch from "../common/apiFetch";
 import type { createImagePayload } from "./createImagePayload";
 
 export async function fetchCreateImage(payload: createImagePayload) {
   const url = baseUrl + `/images/create`;
 
-  const response = await fetch(url, {
+  const response = await apiFetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

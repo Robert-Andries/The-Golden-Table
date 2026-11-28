@@ -3,6 +3,7 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Common.Presentation.Results;
 using GoldenTable.Modules.Catalog.Application.Dishes.UpdateNutritionalInformation;
 using GoldenTable.Modules.Catalog.Domain.Dishes.ValueObject.NutritionalValues;
+using GoldenTable.Modules.Catalog.Presentation.Authentication;
 using GoldenTable.Modules.Catalog.Presentation.Dishes.Common.NutritionalInformation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,7 @@ public abstract class UpdateNutritionalInformation : IEndpoint
 
             return result.Match(Results.NoContent, ApiResults.Problem);
         })
+        .RequirePermission(Permissions.UpdateNutritionalInformation)
         .WithTags(Tags.Dish);
     }
 
