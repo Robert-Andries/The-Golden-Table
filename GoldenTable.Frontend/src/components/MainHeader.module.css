@@ -10,10 +10,12 @@
 .container {
   max-width: 60rem;
   margin: auto;
-  padding: 1rem 2rem;
+  padding: 0.75rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .brand {
@@ -29,9 +31,15 @@
   opacity: 0.8;
 }
 
+.navSection {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .list {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
@@ -70,4 +78,93 @@
 .list a.active::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+.authSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-gray-800);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 20px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  color: var(--color-gray-200);
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary-500);
+  color: var(--color-gray-900);
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.userName {
+  font-weight: 600;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.roleTag {
+  background-color: rgba(246, 173, 27, 0.2);
+  color: var(--color-primary-400);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loginBtn {
+  background-color: var(--color-primary-500);
+  color: var(--color-gray-900);
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.loginBtn:hover {
+  background-color: var(--color-primary-600);
+}
+
+.loginBtn:active {
+  transform: scale(0.98);
+}
+
+.logoutBtn {
+  background: transparent;
+  color: var(--color-gray-300);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 6px;
+  padding: 0.45rem 0.85rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+  background-color: var(--color-gray-800);
+  color: #fff;
+  border-color: var(--color-gray-600);
 }

@@ -129,6 +129,12 @@
   color: #ff6b6b;
 }
 
+.formError {
+  color: var(--color-red-500, #ef4444);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
 .submitButton {
   background-color: var(--color-primary-600);
   color: var(--color-gray-900);

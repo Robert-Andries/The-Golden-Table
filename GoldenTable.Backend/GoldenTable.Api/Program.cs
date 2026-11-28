@@ -6,6 +6,7 @@ using GoldenTable.Common.Presentation.Endpoints;
 using GoldenTable.Modules.Catalog.Application;
 using GoldenTable.Modules.Catalog.Infrastructure;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
@@ -18,10 +19,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opts =>
-{
-    opts.CustomSchemaIds(type => type.FullName?.Replace("+", "."));
-});
+builder.Services.AddSwaggerGenWithAuthSupport(builder.Configuration);
+
+
 
 builder.Services.AddApplication([AssemblyReference.Assembly]);
 builder.Services.AddCatalogModule(builder.Configuration);
@@ -34,7 +34,7 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowLocalFrontend", policy =>
     {
         policy.WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
@@ -48,7 +48,7 @@ WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors("AllowFrontend");
+    app.UseCors("AllowLocalFrontend");
     app.UseSwagger();
     app.UseSwaggerUI();
     app.ApplyMigrations();
@@ -65,6 +65,10 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapEndpoints();
 
